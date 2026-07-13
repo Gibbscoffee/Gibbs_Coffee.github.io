@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GIBBS — a luxury coffee and farm brand from Kavutiri, Kenya. Product catalogue first, built to sell." />
+  <title>GIBBS — Luxury Coffee Catalogue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#efe8dc;
+      --bg-2:#f7f3eb;
+      --panel:rgba(255,255,255,.78);
+      --panel-strong:rgba(255,255,255,.92);
+      --ink:#171412;
+      --ink-soft:#403833;
+      --muted:#76695d;
+      --line:rgba(23,20,18,.10);
+      --line-strong:rgba(23,20,18,.16);
+      --forest:#2d5a44;
+      --forest-2:#3b6b53;
+      --coffee:#6b4a33;
+      --copper:#9b6c43;
+      --olive:#8a956d;
+      --sand:#dfd2bf;
+      --gold:#b78852;
+      --shadow:0 24px 60px rgba(25,20,16,.12);
+      --shadow-soft:0 12px 30px rgba(25,20,16,.08);
+      --radius:30px;
+      --radius-sm:20px;
+      --max:1220px;
+      --serif:"Cormorant Garamond", Georgia, serif;
+      --sans:"Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --sans-2:"Manrope", "Inter", system-ui, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at top left, rgba(183,136,82,.10), transparent 18%),
+        radial-gradient(circle at top right, rgba(45,90,68,.12), transparent 20%),
+        linear-gradient(180deg, #f5efe6 0%, #ece3d4 100%);
+      color:var(--ink);
+      font-family:var(--sans);
+      line-height:1.7;
+      overflow-x:hidden;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:var(--max); margin:0 auto; padding:0 24px}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      font-size:.72rem;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      color:var(--forest);
+      margin-bottom:14px;
+      font-weight:800;
+      font-family:var(--sans-2);
+    }
+    .eyebrow::before{content:""; width:34px; height:1px; background:linear-gradient(90deg, var(--forest), transparent)}
+    h1,h2,h3{
+      font-family:var(--serif);
+      line-height:.95;
+      margin:0;
+      letter-spacing:-.03em;
+      font-weight:700;
+    }
+    h1{font-size:clamp(3.2rem, 7vw, 6.9rem)}
+    h2{font-size:clamp(2.15rem, 4.5vw, 4rem)}
+    h3{font-size:clamp(1.35rem, 2.1vw, 2rem)}
+    p{margin:0}
+    .lead{font-size:clamp(1.02rem, 1.8vw, 1.18rem); color:var(--muted); max-width:74ch}
+    .section{padding:94px 0}
+    .card{
+      background:var(--panel);
+      backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,.55);
+      border-top-color:rgba(255,255,255,.85);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+    }
+    .btns{display:flex; gap:14px; flex-wrap:wrap; margin-top:28px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:14px 20px; border-radius:999px; border:1px solid transparent;
+      font-weight:800; letter-spacing:.01em; transition:.22s ease; cursor:pointer;
+      font-family:var(--sans-2);
+    }
+    .btn-primary{background:linear-gradient(135deg, var(--forest), #1f4331); color:#fff; box-shadow:0 16px 34px rgba(37,79,53,.22)}
+    .btn-primary:hover{transform:translateY(-2px); filter:saturate(1.04)}
+    .btn-secondary{background:transparent; color:var(--forest); border-color:rgba(37,79,53,.22)}
+    .btn-secondary:hover{transform:translateY(-2px); background:rgba(37,79,53,.05)}
+
+    .topbar{
+      position:sticky; top:0; z-index:1000;
+      background:rgba(245,239,229,.72);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(23,20,18,.08);
+    }
+    .topbar-inner{
+      max-width:var(--max); margin:0 auto; padding:14px 24px;
+      display:flex; align-items:center; justify-content:space-between; gap:18px;
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand strong{
+      font-size:1rem; letter-spacing:.28em; text-transform:uppercase; color:var(--forest);
+      font-family:var(--sans-2);
+    }
+    .brand span{font-size:.72rem; color:var(--muted); letter-spacing:.12em; text-transform:uppercase}
+    nav ul{list-style:none; display:flex; gap:22px; padding:0; margin:0; flex-wrap:wrap; justify-content:flex-end}
+    nav a{font-size:.76rem; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); font-weight:700; font-family:var(--sans-2)}
+    nav a:hover{color:var(--forest)}
+
+    .hero{padding:34px 0 24px}
+    .hero-grid{display:grid; grid-template-columns:1.08fr .92fr; gap:24px; align-items:stretch}
+    .hero-copy{
+      padding:48px;
+      min-height:560px;
+      display:flex; flex-direction:column; justify-content:space-between;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.86), rgba(255,255,255,.62)),
+        radial-gradient(circle at 82% 16%, rgba(183,136,82,.16), transparent 22%),
+        radial-gradient(circle at 14% 84%, rgba(45,90,68,.14), transparent 20%);
+      border:1px solid rgba(255,255,255,.72);
+    }
+    .hero-copy .top{max-width:68ch}
+    .hero-copy h1{max-width:10ch}
+    .hero-copy .lede{margin-top:20px; font-size:clamp(1.03rem, 1.5vw, 1.1rem); color:var(--muted); max-width:62ch}
+    .hero-metrics{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px}
+    .metric{padding:16px; border:1px solid var(--line); border-radius:18px; background:rgba(255,255,255,.72); box-shadow:0 1px 0 rgba(255,255,255,.65) inset}
+    .metric strong{display:block; font-size:1.25rem; color:var(--forest); font-family:var(--serif)}
+    .metric span{font-size:.82rem; color:var(--muted)}
+    .hero-art{
+      padding:24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.08)),
+        linear-gradient(135deg, #2b241d, #46362b 56%, #d6c5ad);
+      position:relative;
+      overflow:hidden;
+      display:flex; flex-direction:column; justify-content:flex-end;
+      min-height:560px;
+      color:#fff;
+    }
+    .hero-art::before{
+      content:""; position:absolute; inset:18px;
+      border:1px solid rgba(255,255,255,.12); border-radius:24px;
+      background:
+        radial-gradient(circle at 35% 28%, rgba(255,255,255,.16), transparent 16%),
+        radial-gradient(circle at 65% 46%, rgba(183,136,82,.22), transparent 18%),
+        radial-gradient(circle at 75% 62%, rgba(45,90,68,.24), transparent 20%),
+        radial-gradient(circle at 42% 70%, rgba(255,255,255,.08), transparent 20%),
+        linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+    }
+    .hero-art::after{
+      content:"";
+      position:absolute;
+      inset:auto 10% 12% 10%;
+      height:34%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0)),
+        linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+      border-radius:50% 50% 24% 24% / 58% 58% 18% 18%;
+      transform:perspective(800px) rotateX(60deg);
+      opacity:.55;
+    }
+    .hero-art .badge{
+      position:relative; z-index:1;
+      align-self:flex-start;
+      background:rgba(255,255,255,.16);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:999px; padding:10px 14px; font-size:.76rem; font-weight:800;
+      text-transform:uppercase; letter-spacing:.14em;
+      backdrop-filter:blur(8px);
+    }
+    .hero-art .note{
+      position:relative; z-index:1;
+      margin-top:auto; padding-top:18px; color:#fff; max-width:30ch;
+      font-family:var(--sans-2);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.8rem;
+    }
+    .hero-art .note strong{
+      display:block; font-family:var(--serif); font-size:2.9rem; line-height:.92; margin-top:10px;
+      text-transform:none; letter-spacing:-.03em;
+    }
+
+    .catalogue{padding-top:18px}
+    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:24px}
+    .catalogue-grid{display:grid; grid-template-columns:repeat(12, 1fr); gap:18px}
+    .product-card{
+      grid-column:span 4;
+      padding:20px;
+      border-radius:24px;
+      border:1px solid rgba(23,20,18,.08);
+      background:rgba(255,255,255,.82);
+      box-shadow:var(--shadow-soft);
+      transition:.24s ease;
+      display:flex; flex-direction:column; gap:14px;
+      min-height:100%;
+    }
+    .product-card:hover{transform:translateY(-4px); box-shadow:var(--shadow)}
+    .product-media{
+      aspect-ratio:4/3;
+      border-radius:20px;
+      overflow:hidden;
+      background:
+        linear-gradient(135deg, rgba(45,90,68,.16), rgba(107,74,51,.10)),
+        linear-gradient(45deg, #eadfcf, #fbf8f2);
+      border:1px solid rgba(23,20,18,.06);
+      position:relative;
+    }
+    .product-media .emoji{
+      position:absolute; inset:0; display:grid; place-items:center;
+      font-size:clamp(3rem, 5vw, 5rem);
+      filter:saturate(.9);
+    }
+    .tag{
+      position:absolute; top:14px; left:14px;
+      background:rgba(255,255,255,.88);
+      padding:8px 11px; border-radius:999px; font-size:.7rem; font-weight:800; color:var(--forest);
+      border:1px solid rgba(23,20,18,.08);
+      text-transform:uppercase; letter-spacing:.12em;
+    }
+    .product-meta{display:flex; align-items:flex-start; justify-content:space-between; gap:16px}
+    .product-title{font-size:1.75rem}
+    .product-price{font-weight:900; color:var(--coffee); font-size:1.05rem; white-space:nowrap; font-family:var(--sans-2)}
+    .product-desc{color:var(--muted); font-size:.96rem}
+    .product-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:auto}
+    .mini{padding:11px 14px; font-size:.8rem}
+    .catalogue-grid .wide{grid-column:span 6}
+    .catalogue-grid .tall{grid-column:span 6}
+
+    .strip{display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-top:18px}
+    .strip .item{padding:18px; border-radius:22px; background:rgba(255,255,255,.72); border:1px solid rgba(23,20,18,.08)}
+    .strip .item strong{display:block; color:var(--forest); font-size:1.15rem; font-family:var(--serif)}
+    .strip .item span{display:block; color:var(--muted); font-size:.88rem}
+
+    .experience-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+    .experience-card{padding:24px; border-radius:24px; border:1px solid rgba(23,20,18,.08); background:rgba(255,255,255,.76); box-shadow:var(--shadow-soft)}
+    .experience-card .icon{font-size:2rem; margin-bottom:10px}
+    .experience-card p{color:var(--muted); margin-top:10px}
+
+    .two-col{display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start}
+    .panel{padding:30px; border-radius:28px; border:1px solid rgba(23,20,18,.08); background:rgba(255,255,255,.78); box-shadow:var(--shadow-soft)}
+    .panel p{color:var(--muted); margin-top:12px}
+    .bullets{display:grid; gap:12px; margin-top:18px}
+    .bullet{padding:14px 16px; border-radius:18px; background:rgba(45,90,68,.05); border:1px solid rgba(45,90,68,.10)}
+    .bullet strong{color:var(--forest)}
+
+    .contact-card{
+      padding:36px;
+      background:linear-gradient(135deg, #183728, #5b3f2c);
+      color:#fff;
+      border-radius:34px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .contact-card::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(255,255,255,.08), transparent 18%),
+        radial-gradient(circle at 82% 10%, rgba(255,255,255,.06), transparent 16%),
+        radial-gradient(circle at 64% 76%, rgba(183,136,82,.16), transparent 20%);
+      pointer-events:none;
+    }
+    .contact-card > *{position:relative; z-index:1}
+    .contact-card .lead{color:rgba(255,255,255,.82)}
+    .contact-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:18px; margin-top:24px}
+    .contact-box{padding:18px; border-radius:20px; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.12)}
+    .contact-box a{display:block; margin-top:8px; color:#fff; font-weight:800}
+    .footer{padding:34px 0 44px; color:var(--muted); text-align:center}
+
+    .floating-whatsapp{
+      position:fixed; right:18px; bottom:18px; z-index:1200;
+      display:inline-flex; align-items:center; gap:10px;
+      background:#1faa59; color:#fff; padding:14px 18px; border-radius:999px;
+      box-shadow:0 16px 36px rgba(31,31,31,.22); font-weight:800;
+    }
+
+    @media (max-width:1080px){
+      .hero-grid,.two-col,.contact-grid,.experience-grid{grid-template-columns:1fr}
+      .product-card,.catalogue-grid .wide,.catalogue-grid .tall{grid-column:span 6}
+      nav ul{display:none}
+      .hero-copy,.hero-art{min-height:unset}
+    }
+    @media (max-width:768px){
+      .section{padding:66px 0}
+      .topbar-inner{flex-direction:column; align-items:flex-start}
+      .hero-copy{padding:28px}
+      .hero-metrics,.strip{grid-template-columns:1fr}
+      .product-card,.catalogue-grid .wide,.catalogue-grid .tall{grid-column:span 12}
+      .section-head{flex-direction:column; align-items:flex-start}
+      .contact-card{padding:26px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="GIBBS home">
+        <strong>GIBBS</strong>
+        <span>Luxury coffee catalogue</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#catalogue">Catalogue</a></li>
+          <li><a href="#bundles">Bundles</a></li>
+          <li><a href="#experiences">Experiences</a></li>
+          <li><a href="#story">Story</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-copy card">
+          <div class="top">
+            <div class="eyebrow">Kavutiri, Kenya</div>
+            <h1>Boutique coffee, directly from Kavutiri.</h1>
+            <p class="lede">A curated catalogue of coffee, equipment, produce, and experiences — designed to feel premium, convert quickly, and still carry the GIBBS story beneath the surface.</p>
+            <div class="btns">
+              <a class="btn btn-primary" href="#catalogue">Shop Catalogue</a>
+              <a class="btn btn-secondary" href="#contact">Order / Enquire</a>
+            </div>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric"><strong>24/7</strong><span>Catalogue access</span></div>
+            <div class="metric"><strong>Direct</strong><span>Farm-to-customer</span></div>
+            <div class="metric"><strong>Premium</strong><span>Packaging & story</span></div>
+          </div>
+        </div>
+        <div class="hero-art card" aria-label="Premium product showcase">
+          <div class="badge">Best seller this season</div>
+          <div class="note">Single Origin Coffee<strong>KES 2,500</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section catalogue" id="catalogue">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Product catalogue</div>
+            <h2>Lead with the products that sell.</h2>
+          </div>
+          <p class="lead">Clean product cards, visible pricing, and immediate actions. That is the fastest path to sales.</p>
+        </div>
+
+        <div class="catalogue-grid">
+          <article class="product-card wide">
+            <div class="product-media"><span class="tag">Best seller</span><div class="emoji">☕</div></div>
+            <div class="product-meta"><h3 class="product-title">Single Origin Coffee</h3><div class="product-price">KES 2,500</div></div>
+            <p class="product-desc">Freshly roasted, Kavutiri-grown, premium profile for export and local customers.</p>
+            <div class="product-actions">
+              <a class="btn btn-primary mini" href="mailto:groupnomad@outlook.com?subject=Order%20Single%20Origin%20Coffee">Order now</a>
+              <a class="btn btn-secondary mini" href="#contact">Ask a question</a>
+            </div>
+          </article>
+
+          <article class="product-card wide">
+            <div class="product-media"><span class="tag">Popular</span><div class="emoji">☕</div></div>
+            <div class="product-meta"><h3 class="product-title">Medium Roast</h3><div class="product-price">KES 2,200</div></div>
+            <p class="product-desc">Balanced, smooth, and versatile — ideal for everyday drinking and retail shelves.</p>
+            <div class="product-actions">
+              <a class="btn btn-primary mini" href="mailto:groupnomad@outlook.com?subject=Order%20Medium%20Roast">Order now</a>
+              <a class="btn btn-secondary mini" href="#contact">Bulk order</a>
+            </div>
+          </article>
+
+          <article class="product-card tall">
+            <div class="product-media"><span class="tag">Tea</span><div class="emoji">🍂</div></div>
+            <div class="product-meta"><h3 class="product-title">Cascara</h3><div class="product-price">KES 800</div></div>
+            <p class="product-desc">A floral, fruity coffee cherry tea with a clean, elegant finish.</p>
+            <div class="product-actions">
+              <a class="btn btn-primary mini" href="mailto:groupnomad@outlook.com?subject=Order%20Cascara">Buy cascara</a>
+            </div>
+          </article>
+
+          <article class="product-card tall">
+            <div class="product-media"><span class="tag">Gift set</span><div class="emoji">🎁</div></div>
+            <div class="product-meta"><h3 class="product-title">Coffee Gift Box</h3><div class="product-price">KES 6,500</div></div>
+            <p class="product-desc">Coffee plus moka pot, ideal for gifting, hospitality, and premium buyers.</p>
+            <div class="product-actions">
+              <a class="btn btn-primary mini" href="mailto:groupnomad@outlook.com?subject=Order%20Gift%20Box">Order gift box</a>
+            </div>
+          </article>
+
+          <article class="product-card tall">
+            <div class="product-media"><span class="tag">Equipment</span><div class="emoji">🫖</div></div>
+            <div class="product-meta"><h3 class="product-title">Moka Pot 3 Cup</h3><div class="product-price">KES 4,000</div></div>
+            <p class="product-desc">Classic entry point for home brewers, café customers, and gift bundles.</p>
+            <div class="product-actions">
+              <a class="btn btn-primary mini" href="mailto:groupnomad@outlook.com?subject=Order%20Moka%20Pot%203%20Cup">Buy equipment</a>
+            </div>
+          </article>
+
+          <article class="product-card tall">
+            <div class="product-media"><span class="tag">Fresh produce</span><div class="emoji">🥑</div></div>
+            <div class="product-meta"><h3 class="product-title">Farm Produce Box</h3><div class="product-price">From KES 1,500</div></div>
+            <p class="product-desc">Seasonal avocado, bananas, tree tomato, sweet potato, and more.</p>
+            <div class="product-actions">
+              <a class="btn btn-primary mini" href="mailto:groupnomad@outlook.com?subject=Farm%20Produce%20Box">Request basket</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="bundles">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Revenue bundles</div>
+            <h2>Make the basket bigger.</h2>
+          </div>
+          <p class="lead">Bundles lift order value and make the brand easier to buy for first-time visitors.</p>
+        </div>
+        <div class="strip">
+          <div class="item"><strong>Starter Brew Kit</strong><span>Coffee + 3 cup moka pot + guide</span></div>
+          <div class="item"><strong>Household Pack</strong><span>2 coffees + cascara + mug</span></div>
+          <div class="item"><strong>Gift Pack</strong><span>Coffee + equipment + note card</span></div>
+          <div class="item"><strong>Wholesale Box</strong><span>For cafés, hotels, and shops</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experiences">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Experiences</div>
+            <h2>Sell the visit, not only the product.</h2>
+          </div>
+          <p class="lead">Farm experiences turn curiosity into bookings and strengthen trust in the products.</p>
+        </div>
+        <div class="experience-grid">
+          <div class="experience-card"><div class="icon">🌿</div><h3>Farm Tour</h3><p>Walk through coffee, macadamia, and fruit systems with a guided story of the land.</p></div>
+          <div class="experience-card"><div class="icon">☕</div><h3>Coffee Tasting</h3><p>Book tastings for guests, buyers, students, and hospitality partners.</p></div>
+          <div class="experience-card"><div class="icon">📸</div><h3>Harvest Experience</h3><p>Seasonal participation for visitors who want an immersive rural experience.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="story">
+      <div class="container two-col">
+        <div class="panel">
+          <div class="eyebrow">Brand story</div>
+          <h2>Now tell the story.</h2>
+          <p>Once the catalogue has done its job, the site can slow down and explain the land, the lineage, the methods, and the philosophy behind GIBBS.</p>
+          <div class="bullets">
+            <div class="bullet"><strong>Origin:</strong> Kavutiri, Embu County, Kenya.</div>
+            <div class="bullet"><strong>Positioning:</strong> premium farm brand with digital commerce.</div>
+            <div class="bullet"><strong>Promise:</strong> honest products, visible pricing, direct contact.</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="eyebrow">What to highlight</div>
+          <h2>Trust signals that help sales.</h2>
+          <p>Use this area for certifications, processing methods, freshness notes, harvest dates, testimonials, and shipping details.</p>
+          <div class="bullets">
+            <div class="bullet"><strong>Quality:</strong> roasting date, origin, and batch notes.</div>
+            <div class="bullet"><strong>Fulfilment:</strong> pickup, local delivery, and dispatch options.</div>
+            <div class="bullet"><strong>Partnerships:</strong> cafés, hotels, gift buyers, and exporters.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="research">
+      <div class="container two-col">
+        <div class="panel">
+          <div class="eyebrow">Research</div>
+          <h2>Keep the serious layer, but place it below commerce.</h2>
+          <p>Research should support trust and authority, not delay the sale. Keep it clean and concise.</p>
+        </div>
+        <div class="panel">
+          <div class="bullets" style="margin-top:0">
+            <div class="bullet"><strong>GIS & maps:</strong> land use, water, biodiversity.</div>
+            <div class="bullet"><strong>Datasets:</strong> yields, soil, climate, trials.</div>
+            <div class="bullet"><strong>Publications:</strong> reports, papers, and field notes.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-card">
+          <div class="eyebrow" style="color:#fff">Contact</div>
+          <h2>Make the next step easy.</h2>
+          <p class="lead">Simple contact paths improve conversions: phone, email, WhatsApp, and direct order links.</p>
+          <div class="contact-grid">
+            <div class="contact-box">
+              <strong>Call / WhatsApp</strong>
+              <a href="tel:+254722704997">+254 722 704 997</a>
+              <a href="tel:+254727149757">+254 727 149 757</a>
+            </div>
+            <div class="contact-box">
+              <strong>Email</strong>
+              <a href="mailto:groupnomad@outlook.com">groupnomad@outlook.com</a>
+              <div style="margin-top:10px; color:rgba(255,255,255,.80)">Kavutiri • Embu County • Kenya</div>
+            </div>
+          </div>
+          <div class="btns" style="margin-top:22px">
+            <a class="btn btn-primary" href="mailto:groupnomad@outlook.com?subject=New%20Order%20Inquiry">Place an order</a>
+            <a class="btn btn-secondary" href="#catalogue" style="border-color:rgba(255,255,255,.26); color:#fff">Back to catalogue</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <a class="floating-whatsapp" href="https://wa.me/254722704997" target="_blank" rel="noreferrer">WhatsApp</a>
+
+  <footer class="footer">
+    <div class="container">
+      GIBBS — Growing Knowledge Across Generations • Kavutiri, Kenya
+    </div>
+  </footer>
+</body>
+</html>
