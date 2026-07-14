@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop Inventory — Rustic Garden Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;900&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #241C12; --soil: #1E1710; --parchment: #F2EAD8; --parchment-2: #E8DCCA; --parchment-3: #DDD0B8;
+    --cherry: #9C3B2E; --cherry-dark: #7C2E23; --moss: #435841; --gold: #C99A3E; --line: rgba(36,28,18,.13); --r: 2px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: var(--parchment-2); color: var(--ink); font-family: 'Work Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+  .site-header { background: var(--soil); color: var(--parchment); border-bottom: 1px solid rgba(241,233,216,.18); }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 13px 28px; max-width: 1160px; margin: 0 auto; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; text-decoration: none; color: var(--parchment); }
+  .brand-mark { width: 32px; height: 32px; border-radius: 50%; background: var(--cherry); display: flex; align-items: center; justify-content: center; }
+  .nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; font-size: 13.5px; }
+  .nav-links a { text-decoration: none; color: rgba(241,233,216,.78); }
+  
+  .catalog-header { padding: 60px 0 30px; text-align: center; }
+  .catalog-header h1 { font-family: 'Fraunces', serif; font-size: 42px; margin: 0 0 12px; }
+  .eyebrow { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); }
+  
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding-bottom: 80px; }
+  .card { background: var(--parchment); border: 1px solid var(--line); padding: 24px; border-radius: var(--r); display: flex; flex-direction: column; }
+  .ph { background: var(--parchment-3); aspect-ratio: 1/1; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-size: 11px; color: rgba(36,28,18,.4); }
+  .tag { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--moss); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; }
+  .card h3 { font-family: 'Fraunces', serif; font-size: 22px; margin: 0 0 10px; }
+  .desc { font-size: 14px; color: rgba(36,28,18,.7); flex-grow: 1; margin: 0 0 20px; line-height: 1.5; }
+  .foot { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 16px; }
+  .price { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 16px; }
+  .buy-btn { background: var(--cherry); color: white; border: none; padding: 8px 16px; font-family: 'Work Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; border-radius: var(--r); text-decoration: none; }
+  .buy-btn:hover { background: var(--cherry-dark); }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html">
+      <div class="brand-mark"><svg viewBox="0 0 18 18" fill="none" width="16"><circle cx="9" cy="9" r="7" stroke="#F2EAD8" stroke-width="1.5"/><path d="M9 4 C6 7 6 11 9 14 C12 11 12 7 9 4Z" fill="#F2EAD8"/></svg></div>
+      Rustic Garden
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html" style="color:var(--gold);">Shop Inventory</a></li>
+      <li><a href="contact.html">Contact &amp; Inquiries</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="wrap">
+  <header class="catalog-header">
+    <span class="eyebrow">Sustainable Harvest Distribution</span>
+    <h1>Available Micro-Lots &amp; Farm Goods</h1>
+  </header>
+
+  <div class="grid">
+    <!-- Item 1 -->
+    <div class="card">
+      <div class="ph">[ Product View: Honey Roasted 1kg ]</div>
+      <span class="tag">SL28 Variety &bull; Honey Processed[cite: 2]</span>
+      <h3>Charlie's Coffee (Roasted)</h3>
+      <p class="desc">Hand-sorted, altitude-grown Arabica roasted in balanced cycles to highlight native bright citrus and rich chocolate notes[cite: 2].</p>
+      <div class="foot">
+        <span class="price">1,850 KES</span>
+        <button class="buy-btn" onclick="checkout('Charlie\'s Coffee (Roasted)', 1850)">Select Options</button>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="card">
+      <div class="ph">[ Product View: Green Beans 1kg ]</div>
+      <span class="tag">Raw Arabica &bull; Sun Dried[cite: 2]</span>
+      <h3>Charlie's Coffee (Green)</h3>
+      <p class="desc">Raw single-origin green coffee beans processed on raised african beds, prepared for home roasters and custom profiles[cite: 2].</p>
+      <div class="foot">
+        <span class="price">1,400 KES</span>
+        <button class="buy-btn" onclick="checkout('Charlie\'s Coffee (Green)', 1400)">Select Options</button>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="card">
+      <div class="ph">[ Product View: Macadamia Pack ]</div>
+      <span class="tag">Intercropped Nut Canopy[cite: 1]</span>
+      <h3>Polyculture Macadamia</h3>
+      <p class="desc">Grown directly within our coffee orchards to preserve natural canopy levels and support holistic orchard biodiversity[cite: 1].</p>
+      <div class="foot">
+        <span class="price">950 KES</span>
+        <button class="buy-btn" onclick="checkout('Polyculture Macadamia', 950)">Select Options</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  function checkout(name, price) {
+    // Encodes choice parameters securely into URL strings to manage dynamic data transformations for free static configurations
+    window.location.href = `payment.html?item=${encodeURIComponent(name)}&price=${price}`;
+  }
+</script>
+</body>
+</html>
