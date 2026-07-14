@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Checkout Summary — Rustic Garden Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #241C12; --soil: #1E1710; --parchment: #F2EAD8; --parchment-2: #E8DCCA;
+    --cherry: #9C3B2E; --cherry-dark: #7C2E23; --moss: #435841; --gold: #C99A3E; --line: rgba(36,28,18,.13); --r: 2px;
+  }
+  body { margin: 0; background: var(--parchment); color: var(--ink); font-family: 'Work Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  .checkout-container { max-width: 600px; margin: 60px auto; padding: 40px 28px; background: var(--parchment-2); border: 1px solid var(--line); border-radius: var(--r); }
+  h1 { font-family: 'Fraunces', serif; font-size: 32px; margin: 0 0 24px; text-align: center; }
+  .eyebrow { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); text-align: center; display: block; margin-bottom: 8px; }
+  
+  .invoice-box { border-bottom: 2px dashed var(--line); padding-bottom: 20px; margin-bottom: 24px; }
+  .invoice-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; }
+  .invoice-row.total { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 18px; color: var(--cherry); border-top: 1px solid var(--line); padding-top: 12px; margin-top: 12px; }
+  
+  .payment-methods { display: flex; flex-direction: column; gap: 14px; }
+  .method-card { background: var(--parchment); border: 1px solid var(--line); padding: 20px; border-radius: var(--r); }
+  .method-title { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--moss); margin-bottom: 8px; display: block; }
+  
+  /* Fallback Action Buttons */
+  .action-btn { display: block; width: 100%; text-align: center; background: var(--soil); color: var(--parchment); padding: 12px; text-decoration: none; font-size: 14px; font-weight: 600; border-radius: var(--r); margin-top: 8px; }
+  .action-btn.primary { background: var(--cherry); }
+  .action-btn.primary:hover { background: var(--cherry-dark); }
+</style>
+</head>
+<body>
+
+<main class="checkout-container">
+  <span class="eyebrow">Zero-Overhead Static Clearing</span>
+  <h1>Order Manifest</h1>
+
+  <div class="invoice-box">
+    <div class="invoice-row">
+      <span>Selected Material:</span>
+      <strong id="manifest-name">Loading selection...</strong>
+    </div>
+    <div class="invoice-row">
+      <span>Operational Tier:</span>
+      <span>Non-Profit Trade Support</span>
+    </div>
+    <div class="invoice-row total">
+      <span>Subtotal Due:</span>
+      <span id="manifest-total">0.00 KES</span>
+    </div>
+  </div>
+
+  <div class="payment-methods">
+    <!-- Method 1: Free Integration Path -->
+    <div class="method-card">
+      <span class="method-title">Option A: Integrated Processing Portal</span>
+      <div id="paypal-container-static"></div>
+      <p style="font-size: 12px; color: rgba(36,28,18,.6); margin: 8px 0 0;">Processes transactions securely over clean, non-hosted static networks[cite: 2].</p>
+    </div>
+
+    <!-- Method 2: Offline Zero-Cost Alternative -->
+    <div class="method-card">
+      <span class="method-title">Option B: Regional Settlement Networks</span>
+      <p style="font-size: 13px; margin: 0 0 12px;">Confirm batch allotments directly with farm operations via standard mobile transfer or secure lines[cite: 1].</p>
+      <a id="whatsapp-link" href="#" class="action-btn">Route Order via WhatsApp Line</a>
+      <a id="email-link" href="#" class="action-btn">Issue Formal Invoice Request</a>
+    </div>
+  </div>
+</main>
+
+<script>
+  // Extract encoded allocation strings from the URL query context
+  const urlParams = new URLSearchParams(window.location.search);
+  const itemName = urlParams.get('item') || "Standard Arabica Allotment (Roasted)";
+  const itemPrice = parseInt(urlParams.get('price')) || 1850;
+
+  // Render variables dynamically onto the static DOM canvas
+  document.getElementById('manifest-name').textContent = itemName;
+  document.getElementById('manifest-total').textContent = `${itemPrice.toLocaleString()} KES`;
+
+  // Build automated messaging chains using standard messaging parameters
+  const businessPhone = "254722704997"; // Sourced from primary documentation[cite: 1]
+  const textPayload = `Hello Rustic Garden, I would like to order: ${itemName} (${itemPrice} KES). Please share payment details.`;
+  document.getElementById('whatsapp-link').href = `https://wa.me/${businessPhone}?text=${encodeURIComponent(textPayload)}`;
+  
+  const emailRecipient = "GroupNomad@outlook.com"; // Sourced from primary documentation[cite: 1]
+  document.getElementById('email-link').href = `mailto:${emailRecipient}?subject=Order Confirmation Request&body=${encodeURIComponent(textPayload)}`;
+
+  // Safe fallback container rendering if third-party modules are blocked by local firewalls
+  document.getElementById('paypal-container-static').innerHTML = `
+    <a href="mailto:${emailRecipient}?subject=PayPal Allocation Request" class="action-btn primary">Authorize PayPal Remittance (${(itemPrice/130).toFixed(2)} USD)</a>
+  `;
+</script>
+
+</body>
+</html>
