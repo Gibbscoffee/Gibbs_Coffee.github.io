@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order confirmed — Gibbs Coffee</title>
+  <link rel="stylesheet" href="assets/gibbs.css">
+  <style>
+    .success-wrap {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-2xl) var(--space-xl);
+    }
+    .success-card {
+      max-width: 560px;
+      width: 100%;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      border: 1px solid var(--parchment-dk);
+      text-align: center;
+    }
+    .success-icon {
+      font-size: 3.5rem;
+      margin-bottom: var(--space-lg);
+      display: block;
+    }
+    .success-card h1 {
+      font-size: var(--text-3xl);
+      margin-bottom: var(--space-md);
+    }
+    .success-card p {
+      color: var(--mist);
+      margin-bottom: var(--space-lg);
+    }
+    .ref-box {
+      background: var(--parchment);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+      font-family: monospace;
+      font-size: var(--text-sm);
+      color: var(--forest);
+      letter-spacing: 0.06em;
+      margin: var(--space-lg) 0;
+    }
+    .ref-box span { color: var(--mist); font-size: var(--text-xs); display: block; margin-bottom: 4px; }
+    .success-actions { display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; margin-top: var(--space-xl); }
+    .timeline { text-align: left; margin-top: var(--space-xl); }
+    .timeline-item {
+      display: flex;
+      gap: var(--space-lg);
+      padding: var(--space-md) 0;
+      border-bottom: 1px solid var(--parchment-dk);
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cherry);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .timeline-item.future .timeline-dot { background: var(--parchment-dk); }
+    .timeline-text { font-size: var(--text-sm); }
+    .timeline-text strong { color: var(--forest); display: block; }
+    .timeline-text span { color: var(--mist); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">Gibbs<span>Coffee</span></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Cascara</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="success-wrap">
+  <div class="success-card">
+    <span class="success-icon">✅</span>
+    <h1>Order confirmed</h1>
+    <p>Thank you — your Kavutiri Cascara is on its way to being packed. A confirmation email is heading to your inbox.</p>
+
+    <div class="ref-box">
+      <span>Order reference</span>
+      <span id="order-ref">—</span>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-text">
+          <strong>Payment received</strong>
+          <span>Today — processed by PayPal</span>
+        </div>
+      </div>
+      <div class="timeline-item future">
+        <div class="timeline-dot"></div>
+        <div class="timeline-text">
+          <strong>Packed at Kavutiri</strong>
+          <span>Within 1–2 business days</span>
+        </div>
+      </div>
+      <div class="timeline-item future">
+        <div class="timeline-dot"></div>
+        <div class="timeline-text">
+          <strong>Shipped from Kenya</strong>
+          <span>DHL Express international</span>
+        </div>
+      </div>
+      <div class="timeline-item future">
+        <div class="timeline-dot"></div>
+        <div class="timeline-text">
+          <strong>Delivered to you</strong>
+          <span>3–5 business days after dispatch</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="success-actions">
+      <a href="index.html" class="btn btn--outline">Back to home</a>
+      <a href="product.html" class="btn btn--primary">Order again</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer__grid">
+    <div>
+      <div class="footer__brand">GibbsCoffee</div>
+      <p class="footer__tagline">Kavutiri cascara — sun-dried on the slopes of Mt. Kenya.</p>
+    </div>
+    <div>
+      <div class="footer__heading">Help</div>
+      <ul class="footer__links">
+        <li><a href="mailto:orders@gibbscoffeeedu.eu.org">Contact us</a></li>
+        <li><a href="terms.html">Terms of sale</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer__heading">Legal</div>
+      <ul class="footer__links">
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 Gibbs Coffee</span>
+    <span>gibbscoffeeedu.eu.org</span>
+  </div>
+</footer>
+
+<script>
+  const ref = new URLSearchParams(location.search).get('ref');
+  if (ref) document.getElementById('order-ref').textContent = ref;
+</script>
+</body>
+</html>

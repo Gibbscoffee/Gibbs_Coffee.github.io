@@ -1,0 +1,519 @@
+
+<style>
+  :root {
+    --mg: #2d6a2d;
+    --mg-light: #e8f5e8;
+    --mg-mid: #4a9e4a;
+    --mg-pale: #f0faf0;
+    --gold: #b8860b;
+    --gold-light: #fff8dc;
+    --parchment: #fdf8ef;
+    --ink: #1a1a0e;
+    --ink-soft: #3d3d2a;
+    --border-soft: rgba(45,106,45,0.18);
+    --step-active: #2d6a2d;
+  }
+
+  .sr-only { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .wrap {
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    padding: 0 0 2rem;
+    max-width: 680px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a3d1a 0%, #2d6a2d 55%, #4a9e4a 100%);
+    border-radius: 16px;
+    padding: 2rem 2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "🌿";
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-size: 64px;
+    opacity: 0.18;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .hero-title {
+    font-family: var(--font-voice);
+    font-size: 26px;
+    font-weight: 400;
+    color: #fff;
+    margin: 0 0 0.25rem;
+    line-height: 1.2;
+  }
+  .hero-subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin: 0 0 1.2rem;
+  }
+  .hero-address {
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+    font-style: italic;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 0.8rem;
+  }
+  .hero-date {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 0.2rem;
+  }
+
+  .nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .nav-btn {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .nav-btn:hover { background: var(--surface-1); color: var(--text-primary); }
+  .nav-btn.active {
+    background: #2d6a2d;
+    color: #fff;
+    border-color: #2d6a2d;
+  }
+
+  .section { display: none; }
+  .section.visible { display: block; }
+
+  .card {
+    background: var(--surface-2);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .card-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #2d6a2d;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .card h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 0 0.6rem;
+    color: var(--text-primary);
+  }
+  .card p, .card li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0 0 0.5rem;
+  }
+  .card ul { padding-left: 1.2rem; margin: 0; }
+
+  .highlight {
+    background: #e8f5e8;
+    border-left: 3px solid #2d6a2d;
+    border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 14px;
+    color: #1a3d1a;
+    font-style: italic;
+  }
+
+  .dialogue {
+    background: var(--surface-1);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 0.75rem 0;
+    border: 0.5px solid var(--border);
+  }
+  .dialogue-who {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+  .dialogue-who.fred { color: #185fa5; }
+  .dialogue-who.heine { color: #993c1d; }
+  .dialogue-who.rev { color: #2d6a2d; }
+  .dialogue-text { font-size: 14px; line-height: 1.6; color: var(--text-primary); margin: 0; }
+
+  .epist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 1rem 0;
+  }
+  .epist-cell {
+    background: var(--surface-2);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .epist-cell:hover { border-color: #2d6a2d; background: #f0faf0; }
+  .epist-cell.open { border-color: #2d6a2d; background: #e8f5e8; }
+  .epist-cell-icon { font-size: 18px; margin-bottom: 4px; }
+  .epist-cell-title { font-size: 12px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px; }
+  .epist-cell-sub { font-size: 11px; color: var(--text-secondary); }
+  .epist-detail {
+    display: none;
+    background: #f0faf0;
+    border: 0.5px solid #2d6a2d;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #1a3d1a;
+  }
+  .epist-detail.visible { display: block; }
+
+  .nutrient-bar-row { margin-bottom: 10px; }
+  .nutrient-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 3px; display: flex; justify-content: space-between; }
+  .nutrient-track { height: 8px; background: var(--surface-1); border-radius: 4px; overflow: hidden; }
+  .nutrient-fill { height: 100%; border-radius: 4px; background: #2d6a2d; transition: width 0.6s ease; }
+
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 1px; background: var(--border-strong); }
+  .tl-item { position: relative; margin-bottom: 1rem; }
+  .tl-dot { position: absolute; left: -20px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #2d6a2d; border: 2px solid var(--surface-2); }
+  .tl-year { font-size: 11px; font-weight: 500; color: #2d6a2d; margin-bottom: 2px; }
+  .tl-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  .ref-list { list-style: none; padding: 0; margin: 0; }
+  .ref-item { font-size: 12px; color: var(--text-secondary); padding: 6px 0; border-bottom: 0.5px solid var(--border); line-height: 1.5; }
+  .ref-item:last-child { border: none; }
+  .ref-item em { color: var(--text-primary); font-style: normal; font-weight: 500; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+  .badge-green { background: #e8f5e8; color: #1a3d1a; }
+  .badge-gold { background: #fff8dc; color: #6b5000; }
+  .badge-blue { background: var(--bg-accent); color: var(--text-accent); }
+
+  .seal {
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px dashed #2d6a2d;
+    border-radius: 12px;
+    margin-top: 1rem;
+    background: #fdf8ef;
+  }
+  .seal-title { font-family: var(--font-voice); font-size: 16px; color: #1a3d1a; margin-bottom: 0.4rem; }
+  .seal-text { font-size: 12px; color: #4a6a4a; line-height: 1.6; }
+</style>
+
+<div class="wrap">
+  <h2 class="sr-only">Moringa Sunday school learning repository for Fred and Heine — Anglican Church in Hesse</h2>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Anglican Church in Hesse · Sunday school</div>
+    <div class="hero-title">The Moringa Book<br>for Fred & Heine</div>
+    <div class="hero-subtitle">A living repository — begun today, kept for your children</div>
+    <div class="hero-address">Dear Fred and Heine, you are 10 years old today. By the time you read this to your own children, you will be the experts. Keep it. Add to it. Pass it on.</div>
+    <div class="hero-date">Hesse, Germany · July 2026 · Started by your Sunday school minister</div>
+  </div>
+
+  <div class="nav">
+    <button class="nav-btn active" onclick="show('observe')">👁 What we see</button>
+    <button class="nav-btn" onclick="show('know')">📖 What we know</button>
+    <button class="nav-btn" onclick="show('think')">🔬 How we think</button>
+    <button class="nav-btn" onclick="show('nourish')">🌿 What it does</button>
+    <button class="nav-btn" onclick="show('history')">🕰 Its story</button>
+    <button class="nav-btn" onclick="show('refs')">📚 Our sources</button>
+  </div>
+
+  <div id="observe" class="section visible">
+    <div class="card">
+      <div class="card-label">Phenomenon — first, we just look</div>
+      <h3>Fred, Heine — close your eyes. Imagine a tree in Kenya.</h3>
+      <p>It is slim and not very tall — maybe as tall as your father. Its leaves are small and feathery, like tiny green coins arranged in rows along a stalk. When you rub a leaf between your fingers, it smells a little like horseradish or a radish from the market in Frankfurt. If you snap a young branch, the wood is soft and pale, not hard like oak. The seeds inside the pods look like small nuts with three paper wings. This is Moringa oleifera.</p>
+    </div>
+
+    <div class="dialogue">
+      <div class="dialogue-who fred">Fred asks:</div>
+      <div class="dialogue-text">"But how do we know what it really is? Maybe it's just a weed?"</div>
+    </div>
+    <div class="dialogue">
+      <div class="dialogue-who rev">Your minister answers:</div>
+      <div class="dialogue-text">Good question. That is exactly the right first question. Detection comes before knowledge. We look. We describe. We separate what we see from what we already believe.</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Detection — naming what we notice</div>
+      <h3>What our five senses tell us</h3>
+      <ul>
+        <li><strong>Sight:</strong> Feathery, pinnate leaves. Long seed pods, like a green drumstick. Pale, cream-white flowers.</li>
+        <li><strong>Touch:</strong> Leaves are soft. Seeds are smooth with papery wings. Trunk bark is pale grey and corky.</li>
+        <li><strong>Smell:</strong> Leaves smell sharp, peppery. Roots smell like horseradish.</li>
+        <li><strong>Taste:</strong> Leaves are slightly bitter and peppery. Young pods taste like green beans.</li>
+        <li><strong>Sound:</strong> In the wind, the feathery leaves make a soft rustling, like a whisper.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Description — the formal record</div>
+      <h3>Its name and family</h3>
+      <p>Scientists call it <em>Moringa oleifera Lam.</em> — the word <em>oleifera</em> means "oil-bearing" in Latin. It belongs to the family Moringaceae. Its common names include the Drumstick Tree, the Horseradish Tree, and in Swahili, <em>Mlonge</em>. In Kenya, where our Kavutiri Farm sits, it grows well in the red soils of Kirinyaga County.</p>
+      <div>
+        <span class="badge badge-green">Kingdom: Plantae</span>
+        <span class="badge badge-green">Order: Brassicales</span>
+        <span class="badge badge-green">Family: Moringaceae</span>
+        <span class="badge badge-gold">Genus: Moringa</span>
+        <span class="badge badge-gold">Species: oleifera</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="know" class="section">
+    <div class="card">
+      <div class="card-label">Known states — things we can say with confidence</div>
+      <h3>What the scientists have shown us</h3>
+      <ul>
+        <li>Moringa leaves contain more protein per gram than many meats — including compounds called amino acids that our bodies use to build muscles.</li>
+        <li>The leaves contain beta-carotene, which our body turns into Vitamin A — good for eyes and skin.</li>
+        <li>Scientists have found calcium, potassium, iron, and zinc in the leaves — minerals our bones and blood need.</li>
+        <li>Laboratory studies show strong antioxidant properties — meaning the plant contains chemicals that help protect our body's cells.</li>
+        <li>The tree grows in dry conditions. It survives drought. This makes it important for Africa.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Nutritional comparison — moringa vs. common foods</div>
+      <h3>How much of each nutrient per 100g of dried leaf</h3>
+      <div id="nutrients"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Unknown states — things we are still learning</div>
+      <h3>What we do not yet fully know</h3>
+      <ul>
+        <li>The exact dose for children has not been established in large clinical trials.</li>
+        <li>Some compounds in the root and bark may be harmful in large amounts — which is why we only use the leaves.</li>
+        <li>Whether moringa grown in Hesse soil would have the same properties as moringa grown in Kirinyaga is not fully tested.</li>
+        <li>Long-term effects of daily moringa use across a lifetime — not fully documented.</li>
+        <li>Interaction with some medicines — being studied.</li>
+      </ul>
+      <div class="highlight">Fred, Heine — notice this: science does not hide what it doesn't know. Admitting the unknown is not weakness. It is the beginning of discovery.</div>
+    </div>
+  </div>
+
+  <div id="think" class="section">
+    <div class="card">
+      <div class="card-label">How we think — the epistemological path</div>
+      <h3>From wonder to wisdom: the steps your minister follows</h3>
+      <p>Every time we look at a plant, an idea, or a problem in God's creation, we can follow a path. Tap each step to learn what it means for moringa.</p>
+    </div>
+
+    <div class="epist-grid" id="epist-grid"></div>
+    <div id="epist-detail-box" class="epist-detail"></div>
+
+    <div class="card" style="margin-top:1rem">
+      <div class="card-label">The Anglican rhetorical tradition</div>
+      <h3>Scripture, Reason, Tradition — the three-legged stool</h3>
+      <div class="dialogue">
+        <div class="dialogue-who heine">Heine asks:</div>
+        <div class="dialogue-text">"Why is a minister talking about a plant? Is that not for scientists?"</div>
+      </div>
+      <div class="dialogue">
+        <div class="dialogue-who rev">Your minister answers:</div>
+        <div class="dialogue-text">Richard Hooker, a great Anglican thinker from the 1500s, taught us that God gave us three gifts for understanding truth: the words of Scripture, the voice of human Reason, and the wisdom of Tradition — of what people have learned and passed down. Moringa has been used by communities in Africa and Asia for thousands of years. That is tradition. Scientists have now tested it. That is reason. And caring for our bodies, especially the bodies of children, is a responsibility Scripture gives us. All three legs of the stool stand together.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Gestalt principles — seeing the whole, not just the parts</div>
+      <h3>Why we look at the whole tree, not just one leaf</h3>
+      <p>The psychologists who study how we see things discovered something important: our minds want to see the whole picture, not just the pieces. This is called Gestalt — a German word meaning "whole form" or "shape." For Moringa, this means:</p>
+      <ul>
+        <li><strong>The whole plant matters:</strong> leaves, seeds, pods, roots, bark — all have different properties.</li>
+        <li><strong>The whole person matters:</strong> nutrition, culture, community, faith — not only the chemical compound.</li>
+        <li><strong>The whole community matters:</strong> one child taking moringa tells us little; many children over many years tells us much.</li>
+        <li><strong>Context matters:</strong> moringa in Kirinyaga soil, in Kirinyaga sun, may be different from moringa in a bottle.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="nourish" class="section">
+    <div class="card">
+      <div class="card-label">What moringa does for you</div>
+      <h3>The evidence from peer-reviewed science</h3>
+      <ul>
+        <li><strong>Nutrition:</strong> Dried leaves contain 27% protein — more than eggs. They carry all essential amino acids. (Fahey, 2005; Anwar et al., 2007)</li>
+        <li><strong>Vitamins:</strong> Rich in Vitamin A, Vitamin C, Vitamin E, and B-vitamins including folate. (Coppin, 2013; Leone et al., 2015)</li>
+        <li><strong>Minerals:</strong> Contains calcium comparable to milk, more potassium than bananas, iron, zinc, magnesium. (Pakade et al., 2013; Yaméogo et al.)</li>
+        <li><strong>Antioxidants:</strong> High levels of polyphenols and flavonoids that protect cells. (Sreelatha & Padma, 2009)</li>
+        <li><strong>Anti-inflammatory:</strong> Studies suggest compounds that reduce inflammation in the body. (Gopalakrishnan et al., 2016)</li>
+        <li><strong>Blood sugar:</strong> Early research shows promise for supporting healthy glucose levels. (Mbikay, 2012)</li>
+        <li><strong>Skin:</strong> Seed oil used in creams and sunscreens for its nourishing and protective properties. (Yanuarti et al.; Gyawali et al.)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Developmental strategy — why this matters for you, right now</div>
+      <h3>Fred, Heine — you are 10. Your body is building itself.</h3>
+      <p>Between age 8 and 14, your brain forms its fastest new connections since you were a baby. Your bones are laying down calcium that you will use for the rest of your life. Your immune system is learning to recognise the world. This window — right now — is when good nutrition leaves the deepest mark.</p>
+      <div class="highlight">A small amount of moringa powder, added to food you already enjoy, can quietly support this building work. It is not medicine. It is food — very dense, very old food, eaten by people in Kenya for centuries.</div>
+      <p>Your parents will know what to add to what you eat. Your minister is working with them. You are not experimental subjects — you are children being cared for, and you deserve to understand why.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Verification and memory — how we will check and remember</div>
+      <h3>What we track over time</h3>
+      <ul>
+        <li>We note how you feel each week — energy, concentration in school, any changes.</li>
+        <li>We keep this book. You read it. You add to it as you learn more.</li>
+        <li>We do not hide results. If something does not work, we write that down too.</li>
+        <li>In 30 years, when you have children, you will have real data — not just memory, but a written record.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="history" class="section">
+    <div class="card">
+      <div class="card-label">Transmission — the story passed down</div>
+      <h3>How moringa travelled through time</h3>
+    </div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Ancient India, ~2000 BCE</div><div class="tl-text">Ayurvedic medicine begins using moringa to treat over 300 conditions. Ancient texts describe its leaves, seeds, and roots.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Ancient Egypt and Rome</div><div class="tl-text">Romans and Egyptians extract oil from moringa seeds for perfume, skin care, and cooking. It is traded across the ancient world.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">East Africa — centuries of use</div><div class="tl-text">In Kenya, Tanzania, and Uganda, communities plant moringa near homes. Mothers feed the leaves to nursing babies. Elders use the roots for flavour and medicine.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">1998–2005 — scientific surge</div><div class="tl-text">International researchers begin systematic studies. Fahey's landmark 2005 review gathers all available evidence. The plant enters global nutritional science.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2007–2016 — peer review era</div><div class="tl-text">Anwar, Leone, Gopalakrishnan, Mbikay and others publish detailed nutritional and pharmacological analyses. The evidence base grows solid.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">Today — Kavutiri Farm, Kirinyaga</div><div class="tl-text">On our Gibbs Coffee farm in Kirinyaga County, moringa grows alongside coffee. Its leaves feed people. Its story continues. You are part of it now.</div></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">~2056 — your turn</div><div class="tl-text">Fred. Heine. You are 40. You open this book for your child. You add what you have learned. The story continues through you.</div></div>
+    </div>
+  </div>
+
+  <div id="refs" class="section">
+    <div class="card">
+      <div class="card-label">Our sources — the scholars we stand on</div>
+      <h3>Peer-reviewed literature consulted</h3>
+      <ul class="ref-list">
+        <li class="ref-item"><em>Anwar, Latif, Ashraf & Gilani (2007)</em> — Moringa oleifera: A food plant with multiple medicinal uses. Phytotherapy Research.</li>
+        <li class="ref-item"><em>Fahey, J.W. (2005)</em> — Moringa oleifera: A review of the medical evidence. Tree for Life Journal.</li>
+        <li class="ref-item"><em>Coppin, J.P. (2013)</em> — Nutritional and medicinal values of moringa leaves from Sub-Saharan Africa. African Journal of Food Science.</li>
+        <li class="ref-item"><em>Leone et al. (2015)</em> — Cultivation, genetic, ethnopharmacology and pharmacology of moringa leaves. Int. Journal of Molecular Sciences.</li>
+        <li class="ref-item"><em>Gopalakrishnan, Doriya & Kumar (2016)</em> — Moringa oleifera: Nutritive importance and medicinal application. Food Science and Human Wellness.</li>
+        <li class="ref-item"><em>Mbikay, M. (2012)</em> — Therapeutic potential in chronic hyperglycemia and dyslipidemia. Frontiers in Pharmacology.</li>
+        <li class="ref-item"><em>Mahmood, Mugal & Haq (2010)</em> — Moringa oleifera: A natural gift. Journal of Pharmaceutical Sciences and Research.</li>
+        <li class="ref-item"><em>Padayachee & Baijnath (2012)</em> — Overview of the medicinal importance of Moringaceae. Journal of Medicinal Plants Research.</li>
+        <li class="ref-item"><em>Sreelatha & Padma (2009)</em> — Antioxidant activity of moringa leaves. Plant Foods for Human Nutrition.</li>
+        <li class="ref-item"><em>Pakade, Cukrowska & Chimuka (2013)</em> — Metal and flavonol contents of moringa grown in South Africa. South African Journal of Science.</li>
+        <li class="ref-item"><em>Moyo, Masika, Hugo & Muchenje</em> — Nutritional characterization of moringa leaves.</li>
+        <li class="ref-item"><em>Abdull Razis, Ibrahim & Kntayya</em> — Health benefits of moringa. Mini-review.</li>
+        <li class="ref-item"><em>Saini, Sivanesan & Keum</em> — Phytochemicals of moringa: Nutritional and therapeutic significance.</li>
+        <li class="ref-item"><em>Yaméogo et al.</em> — Chemical composition and nutritional values of moringa leaves.</li>
+        <li class="ref-item"><em>Palada & Chang (2003)</em> — Suggested cultural practices for moringa. AVRDC.</li>
+        <li class="ref-item"><em>Mishra, Singh, Verma et al.</em> — Traditional uses, phytochemistry and pharmacological properties.</li>
+        <li class="ref-item"><em>Dubey, Dora, Kumar & Gulsan</em> — A multipurpose tree: Moringa oleifera.</li>
+        <li class="ref-item"><em>Biswas, Chowdhury, Das et al.</em> — Pharmacological potentials of Moringa oleifera.</li>
+        <li class="ref-item"><em>Kumar, Mishra, Ghosh & Panda</em> — Medicinal uses and pharmacological properties of moringa.</li>
+        <li class="ref-item"><em>Pandey et al.</em> — Moringa oleifera: A plethora of diverse therapeutic benefits.</li>
+      </ul>
+    </div>
+
+    <div class="seal">
+      <div class="seal-title">A note to Fred and Heine, for 2056</div>
+      <div class="seal-text">The sources above were the best available evidence in July 2026. Science continues. New studies will add to, and sometimes correct, what is written here. Do not treat this book as final truth. Treat it as a good beginning — made with care, made in faith, made for you. Add your own references here when your time comes.<br><br><em>— Your minister, Hesse, Germany</em></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const sections = ['observe','know','think','nourish','history','refs'];
+function show(id) {
+  sections.forEach(s => {
+    document.getElementById(s).classList.toggle('visible', s === id);
+  });
+  document.querySelectorAll('.nav-btn').forEach((b,i) => {
+    b.classList.toggle('active', sections[i] === id);
+  });
+}
+
+const nutrients = [
+  { name: 'Protein', pct: 85, label: '27g / 100g dried leaf' },
+  { name: 'Vitamin A (beta-carotene)', pct: 90, label: 'Very high' },
+  { name: 'Calcium', pct: 78, label: '2003mg / 100g' },
+  { name: 'Iron', pct: 70, label: '28mg / 100g' },
+  { name: 'Vitamin C', pct: 60, label: '220mg / 100g' },
+  { name: 'Potassium', pct: 72, label: '1324mg / 100g' },
+  { name: 'Antioxidant phenolics', pct: 80, label: 'High total content' },
+];
+const nb = document.getElementById('nutrients');
+nutrients.forEach(n => {
+  nb.innerHTML += `<div class="nutrient-bar-row">
+    <div class="nutrient-label"><span>${n.name}</span><span style="color:var(--text-muted);font-size:11px">${n.label}</span></div>
+    <div class="nutrient-track"><div class="nutrient-fill" style="width:${n.pct}%"></div></div>
+  </div>`;
+});
+
+const steps = [
+  { icon: '👁', title: 'Phenomenon', sub: 'We notice something', detail: 'We see a plant the children in Kenya eat. We notice parents here do not know it. That gap is the phenomenon — something worth investigating.' },
+  { icon: '🔍', title: 'Detection', sub: 'We identify it', detail: 'We identify the plant correctly as Moringa oleifera — not another species, not a cousin. Detection means being precise about what we are actually looking at.' },
+  { icon: '📝', title: 'Description', sub: 'We write it down', detail: 'We describe the leaves, the smell, the taste, the shape. This book is part of the description. Future scientists — perhaps you — will need it.' },
+  { icon: '✅', title: 'Known states', sub: 'What we can confirm', detail: 'Protein content, vitamin levels, antioxidant properties — these are confirmed in multiple peer-reviewed studies. We can state them with confidence.' },
+  { icon: '❓', title: 'Unknown states', sub: 'What we still wonder', detail: 'Precise dosage for children, long-term effects, interaction with specific medicines — these are honest uncertainties. We mark them clearly.' },
+  { icon: '💭', title: 'Assumptions', sub: 'What we take for granted', detail: 'We assume that what works in Kenya will work in Hesse. We assume dried leaf powder keeps its properties. These assumptions need watching.' },
+  { icon: '🔮', title: 'Hypothesis', sub: 'Our testable idea', detail: 'Hypothesis: children in our Sunday school who take a small amount of moringa leaf powder daily for six months will report better energy and concentration than before. This is a proper hypothesis — it can be tested.' },
+  { icon: '🧪', title: 'Tests', sub: 'How we check', detail: 'We keep a simple journal. Parents note energy levels, school performance, appetite. We do not use medicines or interventions. We observe honestly.' },
+  { icon: '📊', title: 'Evidence', sub: 'What the data shows', detail: 'Evidence is not the same as proof. Evidence accumulates over time. This book is our evidence log. We add to it every season.' },
+  { icon: '🩺', title: 'Diagnosis', sub: 'What it means', detail: 'After evidence, we interpret. Not "moringa cured everything" — but "we observed X, Y, Z changes over this period, in these conditions." Honest diagnosis.' },
+  { icon: '✔️', title: 'Verification', sub: 'Does it hold up?', detail: 'We compare our findings with published literature. Do our observations match what Fahey, Anwar, Leone and others found? Agreement builds confidence. Disagreement opens new questions.' },
+  { icon: '🧠', title: 'Memory', sub: 'We keep the record', detail: 'This book is memory. Not just yours — the community\'s. Every note, every observation, every reference stays here. Memory without writing fades in one generation.' },
+  { icon: '🌍', title: 'Transmission', sub: 'We pass it on', detail: 'You are 10 now. In 30 years you will give this to your children. They will give it to theirs. That is transmission — how knowledge survives longer than any one person.' },
+];
+
+const grid = document.getElementById('epist-grid');
+const detail = document.getElementById('epist-detail-box');
+let openIdx = null;
+steps.forEach((s, i) => {
+  const cell = document.createElement('div');
+  cell.className = 'epist-cell';
+  cell.innerHTML = `<div class="epist-cell-icon">${s.icon}</div><div class="epist-cell-title">${s.title}</div><div class="epist-cell-sub">${s.sub}</div>`;
+  cell.onclick = () => {
+    if (openIdx === i) {
+      detail.classList.remove('visible');
+      detail.textContent = '';
+      cell.classList.remove('open');
+      openIdx = null;
+    } else {
+      document.querySelectorAll('.epist-cell').forEach(c => c.classList.remove('open'));
+      cell.classList.add('open');
+      detail.innerHTML = `<strong style="color:#1a3d1a">${s.icon} ${s.title}</strong><br><br>${s.detail}`;
+      detail.classList.add('visible');
+      openIdx = i;
+    }
+  };
+  grid.appendChild(cell);
+});
+</script>

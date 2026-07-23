@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order — Gibbs Coffee Cascara</title>
+  <link rel="stylesheet" href="assets/gibbs.css">
+  <!-- PayPal JS SDK — replace YOUR_CLIENT_ID before going live -->
+  <!-- Sandbox: use client ID from PayPal Developer Dashboard > sandbox app -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR&intent=capture"></script>
+  <style>
+    .checkout-layout {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-xl);
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+
+    /* ── Order form ── */
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      color: var(--forest);
+      margin-bottom: var(--space-xl);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+    .form-row--3 { grid-template-columns: 1fr 1fr 1fr; }
+    .form-row--full { grid-template-columns: 1fr; }
+
+    /* ── Order summary card ── */
+    .order-summary {
+      position: sticky;
+      top: 100px;
+    }
+    .summary-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--parchment-dk);
+      overflow: hidden;
+    }
+    .summary-card__head {
+      background: var(--forest);
+      color: var(--parchment);
+      padding: var(--space-lg);
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+    }
+    .summary-card__body { padding: var(--space-lg); }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      font-size: var(--text-sm);
+      border-bottom: 1px solid var(--parchment-dk);
+    }
+    .summary-item:last-of-type { border-bottom: none; }
+    .summary-item__name { color: var(--soil); }
+    .summary-item__price { font-weight: 600; color: var(--forest); }
+    .summary-subtotals { margin-top: var(--space-lg); }
+    .subtotal-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--text-sm);
+      padding: var(--space-xs) 0;
+      color: var(--mist);
+    }
+    .subtotal-row--total {
+      border-top: 1.5px solid var(--parchment-dk);
+      margin-top: var(--space-sm);
+      padding-top: var(--space-md);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--forest);
+    }
+
+    /* ── PayPal button container ── */
+    .payment-section {
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--parchment-dk);
+    }
+    .payment-label {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: var(--space-md);
+      text-align: center;
+    }
+    #paypal-button-container { min-height: 45px; }
+
+    /* Loading / error states */
+    #paypal-loading {
+      text-align: center;
+      color: var(--mist);
+      font-size: var(--text-sm);
+      padding: var(--space-md) 0;
+    }
+    #paypal-error {
+      display: none;
+    }
+
+    /* Divider with text */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin: var(--space-md) 0;
+      color: var(--mist);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .or-divider::before, .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--parchment-dk);
+    }
+
+    /* Secure badge */
+    .secure-note {
+      text-align: center;
+      font-size: var(--text-xs);
+      color: var(--mist);
+      margin-top: var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+    }
+    .secure-note::before { content: '🔒'; font-size: 0.7rem; }
+
+    @media (max-width: 768px) {
+      .checkout-layout { grid-template-columns: 1fr; }
+      .order-summary { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row--3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">Gibbs<span>Coffee</span></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="product.html">Cascara</a></li>
+      <li><a href="checkout.html" class="active">Order</a></li>
+      <li><a href="about.html">Our Farm</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="checkout-layout">
+
+  <!-- ── Left: delivery details form ── -->
+  <div class="checkout-form">
+    <h2 class="section-heading">Delivery details</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="first-name">First name</label>
+        <input class="form-input" type="text" id="first-name" name="first_name" autocomplete="given-name" placeholder="Maria" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="last-name">Last name</label>
+        <input class="form-input" type="text" id="last-name" name="last_name" autocomplete="family-name" placeholder="Müller" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="email">Email</label>
+      <input class="form-input" type="email" id="email" name="email" autocomplete="email" placeholder="maria@example.de" required>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="address">Street address</label>
+      <input class="form-input" type="text" id="address" name="address" autocomplete="street-address" placeholder="Musterstraße 12" required>
+    </div>
+
+    <div class="form-row form-row--3">
+      <div class="form-group">
+        <label class="form-label" for="postcode">Postcode</label>
+        <input class="form-input" type="text" id="postcode" name="postcode" autocomplete="postal-code" placeholder="60311" required>
+      </div>
+      <div class="form-group" style="grid-column: span 2">
+        <label class="form-label" for="city">City</label>
+        <input class="form-input" type="text" id="city" name="city" autocomplete="address-level2" placeholder="Frankfurt am Main" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="country">Country</label>
+      <select class="form-input" id="country" name="country" autocomplete="country">
+        <option value="DE" selected>Germany</option>
+        <option value="AT">Austria</option>
+        <option value="CH">Switzerland</option>
+        <option value="NL">Netherlands</option>
+        <option value="BE">Belgium</option>
+        <option value="KE">Kenya</option>
+        <option value="GB">United Kingdom</option>
+        <option value="OTHER">Other (contact us)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="notes">Order notes <span style="color:var(--mist);font-weight:400">(optional)</span></label>
+      <input class="form-input" type="text" id="notes" name="notes" placeholder="Gift wrapping, delivery instructions…">
+    </div>
+
+    <!-- Product selection row (pre-filled from product page or manual) -->
+    <h2 class="section-heading mt-xl">Your order</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="product-select">Product</label>
+        <select class="form-input" id="product-select" onchange="recalc()">
+          <option value="100" data-price="14.50">Kavutiri Cascara 100 g — €14.50</option>
+          <option value="200" data-price="26.00">Kavutiri Cascara 200 g — €26.00</option>
+          <option value="400" data-price="48.00">Kavutiri Cascara 400 g — €48.00</option>
+          <option value="starter" data-price="34.00">Cascara Starter Kit — €34.00</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="qty-checkout">Quantity</label>
+        <div class="qty-ctrl" style="margin-top:0.25rem">
+          <button onclick="checkoutQty(-1)" type="button" aria-label="Decrease">−</button>
+          <span class="qty-ctrl__num" id="qty-checkout">1</span>
+          <button onclick="checkoutQty(1)" type="button" aria-label="Increase">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right: order summary + PayPal ── -->
+  <aside class="order-summary">
+    <div class="summary-card">
+      <div class="summary-card__head">Order summary</div>
+      <div class="summary-card__body">
+
+        <div class="summary-item">
+          <span class="summary-item__name" id="sum-name">Kavutiri Cascara 100 g × 1</span>
+          <span class="summary-item__price" id="sum-line">€14.50</span>
+        </div>
+
+        <div class="summary-subtotals">
+          <div class="subtotal-row"><span>Subtotal</span><span id="sum-subtotal">€14.50</span></div>
+          <div class="subtotal-row"><span>Shipping</span><span id="sum-shipping">€4.90</span></div>
+          <div class="subtotal-row"><span>VAT (19%)</span><span id="sum-vat">€3.68</span></div>
+          <div class="subtotal-row subtotal-row--total"><span>Total</span><span id="sum-total">€23.08</span></div>
+        </div>
+
+        <div class="payment-section">
+          <p class="payment-label">Secure payment</p>
+          <div id="paypal-loading">Loading PayPal…</div>
+          <div id="paypal-button-container"></div>
+          <div class="alert alert--error mt-md" id="paypal-error">
+            PayPal could not be loaded. Please refresh the page or contact us directly.
+          </div>
+          <div class="or-divider mt-md">or</div>
+          <a href="mailto:orders@gibbscoffeeedu.eu.org?subject=Cascara order" class="btn btn--outline btn--full">
+            Order via email
+          </a>
+          <p class="secure-note">Payments processed by PayPal · SSL encrypted</p>
+        </div>
+
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<footer class="footer">
+  <div class="footer__grid">
+    <div>
+      <div class="footer__brand">GibbsCoffee</div>
+      <p class="footer__tagline">Kavutiri cascara — sun-dried on the slopes of Mt. Kenya.</p>
+    </div>
+    <div>
+      <div class="footer__heading">Navigate</div>
+      <ul class="footer__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="product.html">Cascara</a></li>
+        <li><a href="about.html">Our farm</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer__heading">Legal</div>
+      <ul class="footer__links">
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="terms.html">Terms of sale</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 Gibbs Coffee</span>
+    <span>gibbscoffeeedu.eu.org</span>
+  </div>
+</footer>
+
+<script>
+  // ── State ──
+  let unitPrice = 14.50;
+  let qtyVal = 1;
+  const SHIPPING = 4.90;
+  const VAT_RATE = 0.19;
+
+  // Pre-fill from product page session
+  (function() {
+    try {
+      const cart = JSON.parse(sessionStorage.getItem('cart') || '{}');
+      if (cart.unitPrice) {
+        unitPrice = parseFloat(cart.unitPrice);
+        qtyVal = parseInt(cart.qty) || 1;
+        document.getElementById('qty-checkout').textContent = qtyVal;
+        // Match select to saved weight
+        const opts = document.getElementById('product-select').options;
+        for (let i = 0; i < opts.length; i++) {
+          if (Math.abs(parseFloat(opts[i].dataset.price) - unitPrice) < 0.01) {
+            document.getElementById('product-select').selectedIndex = i;
+            break;
+          }
+        }
+        updateSummary();
+      }
+    } catch(e) {}
+  })();
+
+  function checkoutQty(delta) {
+    qtyVal = Math.max(1, qtyVal + delta);
+    document.getElementById('qty-checkout').textContent = qtyVal;
+    updateSummary();
+  }
+
+  function recalc() {
+    const sel = document.getElementById('product-select');
+    unitPrice = parseFloat(sel.options[sel.selectedIndex].dataset.price);
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const sel = document.getElementById('product-select');
+    const label = sel.options[sel.selectedIndex].text.split('—')[0].trim();
+    const sub = unitPrice * qtyVal;
+    const shipping = sub >= 25 ? 0 : SHIPPING;
+    const vat = (sub + shipping) * VAT_RATE;
+    const total = sub + shipping + vat;
+
+    document.getElementById('sum-name').textContent = label + ' × ' + qtyVal;
+    document.getElementById('sum-line').textContent = '€' + (unitPrice * qtyVal).toFixed(2);
+    document.getElementById('sum-subtotal').textContent = '€' + sub.toFixed(2);
+    document.getElementById('sum-shipping').textContent = shipping === 0 ? 'Free' : '€' + shipping.toFixed(2);
+    document.getElementById('sum-vat').textContent = '€' + vat.toFixed(2);
+    document.getElementById('sum-total').textContent = '€' + total.toFixed(2);
+  }
+
+  function getOrderTotal() {
+    const sel = document.getElementById('product-select');
+    const sub = unitPrice * qtyVal;
+    const shipping = sub >= 25 ? 0 : SHIPPING;
+    const vat = (sub + shipping) * VAT_RATE;
+    return (sub + shipping + vat).toFixed(2);
+  }
+
+  function collectDelivery() {
+    return {
+      first_name:  document.getElementById('first-name').value.trim(),
+      last_name:   document.getElementById('last-name').value.trim(),
+      email:       document.getElementById('email').value.trim(),
+      address:     document.getElementById('address').value.trim(),
+      postcode:    document.getElementById('postcode').value.trim(),
+      city:        document.getElementById('city').value.trim(),
+      country:     document.getElementById('country').value,
+      notes:       document.getElementById('notes').value.trim(),
+    };
+  }
+
+  function validateForm() {
+    const d = collectDelivery();
+    const required = ['first_name','last_name','email','address','postcode','city'];
+    return required.every(k => d[k].length > 0);
+  }
+
+  // ── PayPal integration ──
+  // Wires to your Java servlet endpoints:
+  //   POST /api/orders/create   → returns { id: "ORDER_ID" }
+  //   POST /api/orders/capture  → returns captured order details
+
+  window.addEventListener('load', function() {
+    if (typeof paypal === 'undefined') {
+      document.getElementById('paypal-loading').style.display = 'none';
+      document.getElementById('paypal-error').style.display = 'flex';
+      return;
+    }
+    document.getElementById('paypal-loading').style.display = 'none';
+
+    paypal.Buttons({
+      style: {
+        layout: 'vertical',
+        color:  'gold',
+        shape:  'rect',
+        label:  'pay'
+      },
+
+      // Called when buyer clicks the PayPal button
+      createOrder: async function() {
+        if (!validateForm()) {
+          alert('Please fill in all delivery details before paying.');
+          document.getElementById('first-name').focus();
+          return Promise.reject('Delivery form incomplete');
+        }
+
+        const payload = {
+          delivery: collectDelivery(),
+          product:  document.getElementById('product-select').value,
+          qty:      qtyVal,
+          amount:   getOrderTotal(),
+          currency: 'EUR'
+        };
+
+        const res = await fetch('/api/orders/create', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error('Order create failed: ' + err);
+        }
+
+        const data = await res.json();
+        return data.id;  // PayPal order ID from Java servlet
+      },
+
+      // Called after buyer approves in PayPal popup
+      onApprove: async function(data) {
+        const res = await fetch('/api/orders/capture', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ orderId: data.orderID })
+        });
+
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error('Capture failed: ' + err);
+        }
+
+        const details = await res.json();
+        // Redirect to success page with order reference
+        window.location.href = 'success.html?ref=' + encodeURIComponent(details.id || data.orderID);
+      },
+
+      onCancel: function() {
+        // Buyer closed the PayPal popup — do nothing, let them retry
+        console.log('PayPal checkout cancelled by buyer');
+      },
+
+      onError: function(err) {
+        console.error('PayPal error:', err);
+        const box = document.getElementById('paypal-error');
+        box.style.display = 'flex';
+        box.textContent = 'Payment failed — please try again or use the email order option.';
+      }
+
+    }).render('#paypal-button-container');
+  });
+
+  // Update summary on page load
+  updateSummary();
+</script>
+</body>
+</html>
