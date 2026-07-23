@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Soil Classification Ladder — An Enhanced Lecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --earth-deep: #1a1208;
+    --earth-dark: #2d1f0e;
+    --earth-mid: #5c3d1e;
+    --earth-warm: #8b5e3c;
+    --earth-tan: #c4956a;
+    --earth-sand: #e8d5b7;
+    --earth-pale: #f5ede0;
+    --horizon-a: #3d2b1a;
+    --horizon-e: #c8bfae;
+    --horizon-b: #7a5c3a;
+    --horizon-c: #a08060;
+    --accent-green: #4a7c59;
+    --accent-rust: #8b3a2a;
+    --accent-ochre: #c47a2a;
+    --accent-slate: #4a5568;
+    --ink: #1a1208;
+    --paper: #faf6f0;
+    --formula-bg: #2d1f0e;
+    --formula-text: #e8d5b7;
+    --callout-bg: #f0e8d8;
+    --border: #c4956a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  /* ─── COVER ─── */
+  .cover {
+    background: var(--earth-deep);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 28px,
+        rgba(196,149,106,0.04) 28px,
+        rgba(196,149,106,0.04) 29px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 28px,
+        rgba(196,149,106,0.03) 28px,
+        rgba(196,149,106,0.03) 29px
+      );
+  }
+
+  .cover-spade {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    animation: sway 4s ease-in-out infinite;
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 700;
+    color: var(--earth-sand);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    max-width: 720px;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .cover-subtitle {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    color: var(--earth-tan);
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .cover-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(196,149,106,0.6);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .cover-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--earth-tan), transparent);
+    margin: 1.5rem auto;
+  }
+
+  /* ─── SOIL PROFILE SIDEBAR INDICATOR ─── */
+  .profile-indicator {
+    position: fixed;
+    left: 0; top: 0;
+    width: 12px;
+    height: 100%;
+    z-index: 100;
+    background: linear-gradient(
+      to bottom,
+      #1a0f05 0%,         /* O horizon – litter */
+      #2d1a0a 8%,         /* A horizon – topsoil */
+      #c8bfae 22%,        /* E horizon – eluviation */
+      #7a5c3a 38%,        /* B horizon – illuviation */
+      #a08060 60%,        /* C horizon – parent material */
+      #b0a090 85%,        /* R horizon – bedrock */
+      #c8c0b0 100%
+    );
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .content {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 4rem 2rem 4rem 3rem;
+  }
+
+  /* ─── SECTION HEADERS ─── */
+  .part-header {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: var(--earth-mid);
+    border-bottom: 3px solid var(--earth-tan);
+    padding-bottom: 0.5rem;
+    margin: 4rem 0 2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .order-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--earth-tan);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .order-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: var(--earth-dark);
+    margin: 2.5rem 0 0.8rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .order-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    background: var(--earth-warm);
+    color: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  /* ─── NARRATIVE BLOCKS ─── */
+  .narrative {
+    font-style: italic;
+    color: #5c3d1e;
+    border-left: 4px solid var(--earth-tan);
+    padding: 1rem 1.5rem;
+    background: var(--callout-bg);
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 1.05rem;
+  }
+
+  /* ─── FORMULA BOXES ─── */
+  .formula-box {
+    background: var(--formula-bg);
+    color: var(--formula-text);
+    border-radius: 8px;
+    padding: 2rem 2.5rem;
+    margin: 2rem 0;
+    font-family: 'JetBrains Mono', monospace;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .formula-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--accent-ochre);
+  }
+
+  .formula-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--earth-tan);
+    margin-bottom: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .formula-main {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--earth-sand);
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .formula-terms {
+    list-style: none;
+    padding: 0;
+    margin: 0.8rem 0 0;
+    border-top: 1px solid rgba(196,149,106,0.2);
+    padding-top: 0.8rem;
+  }
+
+  .formula-terms li {
+    font-size: 0.82rem;
+    color: rgba(232,213,183,0.8);
+    padding: 0.2rem 0;
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0.5rem;
+  }
+
+  .formula-terms li .sym {
+    color: var(--earth-tan);
+    font-weight: 600;
+  }
+
+  .formula-viz {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(196,149,106,0.2);
+  }
+
+  /* ─── SVG DIAGRAMS ─── */
+  .diagram-wrap {
+    margin: 2rem 0;
+    background: #fdf8f2;
+    border: 1px solid #ddd0bb;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .diagram-wrap figcaption {
+    font-size: 0.82rem;
+    color: var(--earth-warm);
+    text-align: center;
+    margin-top: 0.8rem;
+    font-style: italic;
+  }
+
+  .diagram-wrap svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  /* ─── HORIZON PROFILE ─── */
+  .horizon-profile {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 2px solid #c4956a;
+    margin: 1.5rem 0;
+    width: fit-content;
+    min-width: 220px;
+  }
+
+  .horizon-layer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+  }
+
+  .hz-code {
+    font-weight: 700;
+    min-width: 2.5rem;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+
+  .hz-desc {
+    color: rgba(0,0,0,0.7);
+    font-size: 0.78rem;
+  }
+
+  /* ─── PROCESS TABLE ─── */
+  .process-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .process-table th {
+    background: var(--earth-dark);
+    color: var(--earth-sand);
+    padding: 0.7rem 1rem;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .process-table td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #e0d0be;
+    vertical-align: top;
+  }
+
+  .process-table tr:nth-child(even) td {
+    background: #f7f0e6;
+  }
+
+  .process-table .process-name {
+    font-weight: 600;
+    color: var(--earth-mid);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+
+  /* ─── CALLOUT ─── */
+  .callout {
+    background: linear-gradient(135deg, #f0e8d8, #e8d5b7);
+    border: 1px solid #c4956a;
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+
+  .callout-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--earth-mid);
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+  }
+
+  /* ─── REFERENCES ─── */
+  .references {
+    background: var(--earth-deep);
+    color: var(--earth-sand);
+    padding: 3rem 2.5rem;
+    margin-top: 4rem;
+  }
+
+  .references h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--earth-tan);
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(196,149,106,0.3);
+    padding-bottom: 0.8rem;
+  }
+
+  .ref-list {
+    list-style: none;
+    counter-reset: refs;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .ref-list li {
+    counter-increment: refs;
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0.8rem;
+    font-size: 0.87rem;
+    line-height: 1.6;
+  }
+
+  .ref-list li::before {
+    content: counter(refs);
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--earth-tan);
+    font-size: 0.75rem;
+    margin-top: 0.1rem;
+    text-align: right;
+  }
+
+  .ref-authors { color: var(--earth-sand); }
+  .ref-year { color: var(--earth-tan); font-weight: 600; }
+  .ref-title { font-style: italic; color: rgba(232,213,183,0.9); }
+  .ref-source { color: rgba(196,149,106,0.8); font-size: 0.82rem; }
+
+  /* ─── CLOSING ─── */
+  .closing-quote {
+    text-align: center;
+    padding: 3rem 2rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: var(--earth-mid);
+    position: relative;
+  }
+
+  .closing-quote::before {
+    content: '"';
+    font-size: 6rem;
+    color: var(--earth-sand);
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+    opacity: 0.5;
+  }
+
+  /* ─── WEATHERING LADDER ─── */
+  .weathering-ladder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 1.5rem auto;
+    max-width: 340px;
+  }
+
+  .mineral-rung {
+    width: 100%;
+    text-align: center;
+    padding: 0.45rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.15);
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .mineral-rung:hover { transform: scaleX(1.02); z-index: 1; }
+
+  .mineral-rung .rate {
+    font-size: 0.65rem;
+    font-weight: 400;
+    opacity: 0.7;
+    margin-left: 0.5rem;
+  }
+
+  .mineral-rung::after {
+    content: '↓';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(0,0,0,0.3);
+    font-size: 0.8rem;
+    z-index: 2;
+  }
+
+  .mineral-rung:last-child::after { display: none; }
+
+  p { margin-bottom: 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  .toc {
+    background: var(--callout-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+  }
+
+  .toc h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--earth-mid);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .toc ol {
+    columns: 2;
+    column-gap: 2rem;
+    font-size: 0.88rem;
+    padding-left: 1.2rem;
+  }
+
+  .toc li { margin-bottom: 0.3rem; color: var(--earth-warm); }
+
+  @media (max-width: 600px) {
+    .content { padding: 2rem 1.5rem 2rem 1.5rem; }
+    .profile-indicator { display: none; }
+    .toc ol { columns: 1; }
+    .formula-terms li { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Soil profile colour strip on the left -->
+<div class="profile-indicator" title="Schematic soil profile horizons O → R"></div>
+
+<!-- ═══════════════════════════════════════════════ COVER ══ -->
+<div class="cover">
+  <div class="cover-spade">🪴</div>
+  <h1>The Soil Classification Ladder</h1>
+  <div class="cover-divider"></div>
+  <p class="cover-subtitle">A Berlin Professor's Narrative Lecture — Enhanced Edition</p>
+  <p class="cover-meta">Humboldt-Universität zu Berlin &nbsp;·&nbsp; Pedology &amp; Soil Genesis &nbsp;·&nbsp; Updated 2024</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════ CONTENT ══ -->
+<div class="content">
+
+  <!-- ── INTRODUCTION ── -->
+  <h2 class="part-header">Introduction — Soil Is Time Made Visible</h2>
+
+  <div class="narrative">
+    "Ladies and gentlemen — soil is not dirt. Soil is biography. It is climate translated into chemistry, life translated into structure, and time translated into horizons."
+  </div>
+
+  <p>A soil classification system is not merely a naming exercise. It is a ladder of increasing organisation, reading from raw mineral matter up to ancient, deeply weathered landscapes.</p>
+
+  <p>The developmental hierarchy of the USDA Soil Taxonomy moves through six levels:</p>
+  <ul style="padding-left:1.4rem; margin-bottom:1rem;">
+    <li><strong>Order</strong> — dominated by a major soil-forming process</li>
+    <li><strong>Suborder</strong> — the climatic or biological setting</li>
+    <li><strong>Great Group</strong> — the dominant horizon architecture</li>
+    <li><strong>Subgroup</strong> — deviations, transitions, or intergrades</li>
+    <li><strong>Family</strong> — texture, mineralogy, temperature regime</li>
+    <li><strong>Series</strong> — local identity</li>
+  </ul>
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li>The Five Soil Factors</li>
+      <li>Entisols</li>
+      <li>Inceptisols</li>
+      <li>Andisols</li>
+      <li>Gelisols</li>
+      <li>Histosols</li>
+      <li>Aridisols</li>
+      <li>Mollisols</li>
+      <li>Alfisols</li>
+      <li>Ultisols</li>
+      <li>Spodosols</li>
+      <li>Vertisols</li>
+      <li>Oxisols</li>
+      <li>Eluviation &amp; Illuviation</li>
+      <li>Weathering Sequences</li>
+      <li>Soil Water</li>
+      <li>Redox &amp; Gleying</li>
+      <li>References</li>
+    </ol>
+  </div>
+
+  <!-- ══ THE FIVE FACTORS ══ -->
+  <h2 class="part-header">The Five Soil-Forming Factors</h2>
+
+  <p>Hans Jenny (1941) formalised Dokuchaev's intuition into a functional equation that remains the cornerstone of pedology:</p>
+
+  <!-- FORMULA 1 — Jenny's State-Factor Equation -->
+  <div class="formula-box">
+    <div class="formula-label">📐 Jenny's State-Factor Equation (1941)</div>
+    <div class="formula-main">S = f (cl, o, r, p, t)</div>
+    <ul class="formula-terms">
+      <li><span class="sym">S</span><span>= any soil property (horizon depth, clay content, pH, CEC …)</span></li>
+      <li><span class="sym">cl</span><span>= climate — temperature and moisture drive weathering rate and biological activity</span></li>
+      <li><span class="sym">o</span><span>= organisms — root channels, earthworm burrows, microbial oxidation of litter</span></li>
+      <li><span class="sym">r</span><span>= relief — slope controls drainage; depressions receive water, ridge-tops lose it</span></li>
+      <li><span class="sym">p</span><span>= parent material — granite vs. limestone vs. basalt vs. loess begin with different minerals</span></li>
+      <li><span class="sym">t</span><span>= time — the master variable: given enough time, any factor can be overwhelmed</span></li>
+    </ul>
+    <div class="formula-viz">
+      <!-- Visual: factor interaction wheel -->
+      <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto;">
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#c4956a" opacity="0.8"/>
+          </marker>
+        </defs>
+        <!-- Central node -->
+        <ellipse cx="200" cy="110" rx="44" ry="28" fill="#5c3d1e"/>
+        <text x="200" y="106" text-anchor="middle" fill="#e8d5b7" font-family="JetBrains Mono,monospace" font-size="11" font-weight="600">S = f(…)</text>
+        <text x="200" y="122" text-anchor="middle" fill="#c4956a" font-family="JetBrains Mono,monospace" font-size="9">Soil Property</text>
+        <!-- Factor nodes -->
+        <!-- cl top -->
+        <ellipse cx="200" cy="24" rx="32" ry="16" fill="#3a2a18"/>
+        <text x="200" y="21" text-anchor="middle" fill="#e8d5b7" font-family="JetBrains Mono,monospace" font-size="10" font-weight="600">cl</text>
+        <text x="200" y="33" text-anchor="middle" fill="#c4956a" font-family="JetBrains Mono,monospace" font-size="8">Climate</text>
+        <line x1="200" y1="40" x2="200" y2="82" stroke="#c4956a" stroke-width="1.5" marker-end="url(#arr)" opacity="0.6"/>
+        <!-- o right -->
+        <ellipse cx="360" cy="80" rx="32" ry="16" fill="#3a2a18"/>
+        <text x="360" y="77" text-anchor="middle" fill="#e8d5b7" font-family="JetBrains Mono,monospace" font-size="10" font-weight="600">o</text>
+        <text x="360" y="89" text-anchor="middle" fill="#c4956a" font-family="JetBrains Mono,monospace" font-size="8">Organisms</text>
+        <line x1="328" y1="80" x2="246" y2="98" stroke="#c4956a" stroke-width="1.5" marker-end="url(#arr)" opacity="0.6"/>
+        <!-- r lower right -->
+        <ellipse cx="340" cy="170" rx="32" ry="16" fill="#3a2a18"/>
+        <text x="340" y="167" text-anchor="middle" fill="#e8d5b7" font-family="JetBrains Mono,monospace" font-size="10" font-weight="600">r</text>
+        <text x="340" y="179" text-anchor="middle" fill="#c4956a" font-family="JetBrains Mono,monospace" font-size="8">Relief</text>
+        <line x1="311" y1="163" x2="244" y2="132" stroke="#c4956a" stroke-width="1.5" marker-end="url(#arr)" opacity="0.6"/>
+        <!-- p lower left -->
+        <ellipse cx="60" cy="170" rx="32" ry="16" fill="#3a2a18"/>
+        <text x="60" y="167" text-anchor="middle" fill="#e8d5b7" font-family="JetBrains Mono,monospace" font-size="10" font-weight="600">p</text>
+        <text x="60" y="179" text-anchor="middle" fill="#c4956a" font-family="JetBrains Mono,monospace" font-size="8">Parent Mat.</text>
+        <line x1="89" y1="163" x2="156" y2="132" stroke="#c4956a" stroke-width="1.5" marker-end="url(#arr)" opacity="0.6"/>
+        <!-- t left -->
+        <ellipse cx="40" cy="80" rx="32" ry="16" fill="#3a2a18"/>
+        <text x="40" y="77" text-anchor="middle" fill="#e8d5b7" font-family="JetBrains Mono,monospace" font-size="10" font-weight="600">t</text>
+        <text x="40" y="89" text-anchor="middle" fill="#c4956a" font-family="JetBrains Mono,monospace" font-size="8">Time</text>
+        <line x1="72" y1="80" x2="156" y2="98" stroke="#c4956a" stroke-width="1.5" marker-end="url(#arr)" opacity="0.6"/>
+      </svg>
+      <p style="font-size:0.75rem;color:rgba(196,149,106,0.6);text-align:center;margin-top:0.5rem;">All five factors converge simultaneously on every property of a soil profile.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════ THE 12 ORDERS ══════════════════ -->
+  <h2 class="part-header">The 12 Soil Orders — A Developmental Story</h2>
+
+  <div class="narrative">
+    "Imagine walking from a fresh volcanic ash field to an ancient tropical rainforest plateau. Every kilometre, weathering intensifies. Horizons sharpen. Minerals disappear. New clays emerge. The soil matures."
+  </div>
+
+  <!-- ── ORDER 1: ENTISOLS ── -->
+  <h3 class="order-name">
+    <span>1. Entisols</span>
+    <span class="order-badge">The Infants</span>
+  </h3>
+
+  <div class="narrative">Fresh floodplains along the Elbe. Sand dunes on the Baltic coast. Alluvial fans beneath Alpine glaciers. These soils are barely born — almost no differentiation has occurred.</div>
+
+  <p><strong>Dominant process:</strong> minimal pedogenesis; physical deposition dominates. The landscape is often still actively reworked by water, wind, or mass movement, resetting any nascent profile development.</p>
+
+  <div class="horizon-profile">
+    <div class="horizon-layer" style="background:#3d2b1a;"><span class="hz-code">A</span><span class="hz-desc" style="color:#ddd;">Thin organic-mineral mix</span></div>
+    <div class="horizon-layer" style="background:#a08060;"><span class="hz-code">C</span><span class="hz-desc">Unweathered parent material</span></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Transition pathway</div>
+    As organic matter accumulates and minimal leaching begins, a weak Bw (cambic) horizon may form, pushing the profile toward <em>Inceptisols</em>.
+  </div>
+
+  <!-- ── ORDER 2: INCEPTISOLS ── -->
+  <h3 class="order-name">
+    <span>2. Inceptisols</span>
+    <span class="order-badge">First Organisation</span>
+  </h3>
+
+  <div class="narrative">A cool forest slope in southern Germany. The soil has started to think. A weak cambic horizon — altered in colour and structure — is its first signature.</div>
+
+  <p>The <em>cambic horizon (Bw)</em> is defined by altered colour or structure relative to the C horizon but lacks illuviated clay, organic matter accumulations, or iron/aluminium oxides sufficient to qualify as more specific horizons. Mineral alteration has begun; primary feldspar is starting to show weathering rinds.</p>
+
+  <div class="horizon-profile">
+    <div class="horizon-layer" style="background:#3d2b1a;"><span class="hz-code">A</span><span class="hz-desc" style="color:#ddd;">Organic-enriched topsoil</span></div>
+    <div class="horizon-layer" style="background:#6b4c2a;"><span class="hz-code">Bw</span><span class="hz-desc">Cambic — altered colour/structure</span></div>
+    <div class="horizon-layer" style="background:#a08060;"><span class="hz-code">C</span><span class="hz-desc">Parent material</span></div>
+  </div>
+
+  <!-- ── ORDER 3: ANDISOLS ── -->
+  <h3 class="order-name">
+    <span>3. Andisols</span>
+    <span class="order-badge">Volcanic Alchemy</span>
+  </h3>
+
+  <div class="narrative">Volcanic ash landscapes from Iceland to the Japanese archipelago. Glass fragments weather almost overnight into short-range-order minerals.</div>
+
+  <p>Rapid hydrolysis of volcanic glass produces <em>allophane</em> and <em>imogolite</em> — amorphous aluminosilicates with enormous surface areas. This gives Andisols their characteristic silky feel, extremely low bulk density, and voracious phosphorus fixation (a major agricultural constraint).</p>
+
+  <!-- FORMULA 2 — Porosity -->
+  <div class="formula-box">
+    <div class="formula-label">📐 Total Porosity from Bulk and Particle Density</div>
+    <div class="formula-main">n = 1 − (ρ<sub style="font-size:0.8em">b</sub> / ρ<sub style="font-size:0.8em">p</sub>)</div>
+    <ul class="formula-terms">
+      <li><span class="sym">n</span><span>= total porosity (dimensionless, 0–1) — the fraction of soil volume occupied by pores</span></li>
+      <li><span class="sym">ρ<sub>b</sub></span><span>= bulk density (g cm⁻³) — mass of oven-dry soil per unit total volume, including pores</span></li>
+      <li><span class="sym">ρ<sub>p</sub></span><span>= particle density (g cm⁻³) — typically ≈ 2.65 for mineral soils; Andisols may be 2.4–2.5 due to glass</span></li>
+    </ul>
+    <div class="formula-viz">
+      <!-- Visual: bulk density comparison bar chart -->
+      <p style="font-size:0.75rem;color:var(--earth-tan);margin-bottom:0.6rem;letter-spacing:0.08em;">TYPICAL BULK DENSITY — SELECTED SOIL ORDERS</p>
+      <svg viewBox="0 0 380 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;display:block;margin:0 auto;">
+        <!-- Axis -->
+        <line x1="80" y1="10" x2="80" y2="110" stroke="#c4956a" stroke-width="1"/>
+        <line x1="80" y1="110" x2="370" y2="110" stroke="#c4956a" stroke-width="1"/>
+        <!-- X ticks: 0 to 1.8 g/cm³ -->
+        <text x="80" y="124" text-anchor="middle" fill="#c4956a" font-size="9" font-family="JetBrains Mono,monospace">0</text>
+        <text x="163" y="124" text-anchor="middle" fill="#c4956a" font-size="9" font-family="JetBrains Mono,monospace">0.6</text>
+        <text x="246" y="124" text-anchor="middle" fill="#c4956a" font-size="9" font-family="JetBrains Mono,monospace">1.2</text>
+        <text x="329" y="124" text-anchor="middle" fill="#c4956a" font-size="9" font-family="JetBrains Mono,monospace">1.8</text>
+        <text x="220" y="138" text-anchor="middle" fill="#c4956a" font-size="8" font-family="JetBrains Mono,monospace">Bulk Density (g cm⁻³)</text>
+        <!-- Bars: scale 1 g/cm³ = 138px -->
+        <!-- Andisol 0.5 -->
+        <rect x="80" y="18" width="69" height="14" fill="#c47a2a" rx="2"/>
+        <text x="76" y="28" text-anchor="end" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">Andisol</text>
+        <text x="155" y="28" fill="#e8d5b7" font-size="8" font-family="JetBrains Mono,monospace" dx="4">~0.5</text>
+        <!-- Histosol 0.2 -->
+        <rect x="80" y="36" width="28" height="14" fill="#4a7c59" rx="2"/>
+        <text x="76" y="46" text-anchor="end" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">Histosol</text>
+        <text x="114" y="46" fill="#e8d5b7" font-size="8" font-family="JetBrains Mono,monospace" dx="4">~0.2</text>
+        <!-- Mollisol 1.1 -->
+        <rect x="80" y="54" width="152" height="14" fill="#8b5e3c" rx="2"/>
+        <text x="76" y="64" text-anchor="end" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">Mollisol</text>
+        <text x="238" y="64" fill="#e8d5b7" font-size="8" font-family="JetBrains Mono,monospace" dx="4">~1.1</text>
+        <!-- Oxisol 1.3 -->
+        <rect x="80" y="72" width="179" height="14" fill="#8b3a2a" rx="2"/>
+        <text x="76" y="82" text-anchor="end" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">Oxisol</text>
+        <text x="265" y="82" fill="#e8d5b7" font-size="8" font-family="JetBrains Mono,monospace" dx="4">~1.3</text>
+        <!-- Sand/Entisol 1.6 -->
+        <rect x="80" y="90" width="221" height="14" fill="#5c3d1e" rx="2"/>
+        <text x="76" y="100" text-anchor="end" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">Entisol</text>
+        <text x="307" y="100" fill="#e8d5b7" font-size="8" font-family="JetBrains Mono,monospace" dx="4">~1.6</text>
+      </svg>
+      <p style="font-size:0.72rem;color:rgba(196,149,106,0.5);text-align:center;margin-top:0.4rem;">Lower bulk density → higher porosity → lighter, more porous soil</p>
+    </div>
+  </div>
+
+  <!-- ── ORDER 4: GELISOLS ── -->
+  <h3 class="order-name">
+    <span>4. Gelisols</span>
+    <span class="order-badge">The Frozen Archive</span>
+  </h3>
+
+  <div class="narrative">The Arctic tundra. A brief summer thaw activates the active layer above permafrost, only for freeze–thaw cycles to warp and fold horizons into contorted patterns — cryoturbation.</div>
+
+  <p>The defining diagnostic feature is <em>permafrost within 2 m</em> of the surface (or gelic materials within 1 m). Horizon boundaries become warped and discontinuous — profiles that would cleanly grade in temperate settings appear folded or intruded. This mechanic mixing can bury organic horizons to great depth.</p>
+
+  <!-- ── ORDER 5: HISTOSOLS ── -->
+  <h3 class="order-name">
+    <span>5. Histosols</span>
+    <span class="order-badge">The Organic Kingdom</span>
+  </h3>
+
+  <div class="narrative">A peat bog where plant production overwhelms decomposition. Carbon piles up faster than microbes can consume it — layer upon layer of partially decomposed organic material.</div>
+
+  <!-- FORMULA 3 — SOC Stock -->
+  <div class="formula-box">
+    <div class="formula-label">📐 Soil Organic Carbon Stock (SOC)</div>
+    <div class="formula-main">SOC = BD × D × C</div>
+    <ul class="formula-terms">
+      <li><span class="sym">SOC</span><span>= organic carbon stock (kg C m⁻²) — the mass of carbon stored per unit area</span></li>
+      <li><span class="sym">BD</span><span>= bulk density (g cm⁻³ or Mg m⁻³) — measured on undisturbed cores</span></li>
+      <li><span class="sym">D</span><span>= depth of the layer (m) — integrate over successive layers for a full profile total</span></li>
+      <li><span class="sym">C</span><span>= carbon concentration (g kg⁻¹ or %) — determined by elemental analyser or loss on ignition</span></li>
+    </ul>
+    <div class="formula-viz">
+      <!-- Layered peat decomposition diagram -->
+      <svg viewBox="0 0 360 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px;display:block;margin:0 auto;">
+        <text x="180" y="12" text-anchor="middle" fill="#c4956a" font-size="9" font-family="JetBrains Mono,monospace" letter-spacing="0.1em">ORGANIC HORIZON DECOMPOSITION SEQUENCE</text>
+        <!-- Oi -->
+        <rect x="20" y="22" width="320" height="26" fill="#2d4a1e" rx="3"/>
+        <text x="32" y="38" fill="#a8d090" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">Oi</text>
+        <text x="70" y="38" fill="rgba(200,230,180,0.85)" font-family="Source Serif 4,serif" font-size="10">Fibric — identifiable plant fibres, &gt;75% fibre volume, minimal decomposition</text>
+        <!-- Oe -->
+        <rect x="20" y="52" width="320" height="26" fill="#3d3010" rx="3"/>
+        <text x="32" y="68" fill="#d4b870" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">Oe</text>
+        <text x="70" y="68" fill="rgba(220,200,150,0.85)" font-family="Source Serif 4,serif" font-size="10">Hemic — intermediate decomposition, 17–75% fibre, darkened</text>
+        <!-- Oa -->
+        <rect x="20" y="82" width="320" height="26" fill="#1a1008" rx="3"/>
+        <text x="32" y="98" fill="#a07840" font-family="JetBrains Mono,monospace" font-size="10" font-weight="700">Oa</text>
+        <text x="70" y="98" fill="rgba(200,170,110,0.85)" font-family="Source Serif 4,serif" font-size="10">Sapric — highly decomposed, &lt;17% fibre, amorphous, dark</text>
+        <!-- Arrow -->
+        <text x="335" y="55" fill="#c4956a" font-size="20" font-family="sans-serif">↓</text>
+        <text x="325" y="72" fill="rgba(196,149,106,0.5)" font-size="7" font-family="JetBrains Mono,monospace">more</text>
+        <text x="320" y="82" fill="rgba(196,149,106,0.5)" font-size="7" font-family="JetBrains Mono,monospace">decom-</text>
+        <text x="320" y="92" fill="rgba(196,149,106,0.5)" font-size="7" font-family="JetBrains Mono,monospace">posed</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ── ORDER 6: ARIDISOLS ── -->
+  <h3 class="order-name">
+    <span>6. Aridisols</span>
+    <span class="order-badge">The Desert Archivists</span>
+  </h3>
+
+  <div class="narrative">In dry climates, water never leaches deeply. Instead of washing salts out of the profile, they concentrate. The soil remembers every drop of rain.</div>
+
+  <p>Aridisols accumulate calcium carbonate (calcic/petrocalcic horizons), gypsum (gypsic horizons), and soluble salts (salic horizons). The depth of calcite accumulation approximates mean annual precipitation — a paleoclimate record written in carbonate.</p>
+
+  <!-- FORMULA 4 — Water Balance -->
+  <div class="formula-box">
+    <div class="formula-label">📐 Climatic Water Balance</div>
+    <div class="formula-main">ΔS = P − ET − R − D</div>
+    <ul class="formula-terms">
+      <li><span class="sym">ΔS</span><span>= change in soil water storage (mm) — positive means recharge, negative means depletion</span></li>
+      <li><span class="sym">P</span><span>= precipitation (mm yr⁻¹) — all inputs: rain, snow, fog</span></li>
+      <li><span class="sym">ET</span><span>= actual evapotranspiration (mm yr⁻¹) — atmospheric demand for water via plants + evaporation</span></li>
+      <li><span class="sym">R</span><span>= surface runoff (mm yr⁻¹)</span></li>
+      <li><span class="sym">D</span><span>= deep drainage / leaching (mm yr⁻¹) — only significant when P &gt; ET</span></li>
+    </ul>
+    <div class="formula-viz">
+      <!-- P vs ET diagram -->
+      <svg viewBox="0 0 380 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;display:block;margin:0 auto;">
+        <defs>
+          <linearGrad id="wg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8b3a2a"/>
+            <stop offset="50%" stop-color="#c47a2a"/>
+            <stop offset="100%" stop-color="#4a7c59"/>
+          </linearGrad>
+        </defs>
+        <!-- Gradient bar -->
+        <rect x="20" y="18" width="340" height="20" rx="4" fill="url(#wg)"/>
+        <!-- Tick at middle -->
+        <line x1="190" y1="14" x2="190" y2="42" stroke="white" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="20" y="54" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">ARID</text>
+        <text x="155" y="54" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">P = ET</text>
+        <text x="325" y="54" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">HUMID</text>
+        <text x="20" y="68" fill="rgba(196,149,106,0.7)" font-size="8" font-family="Source Serif 4,serif">Salts accumulate; Aridisols, Vertisols</text>
+        <text x="210" y="68" fill="rgba(196,149,106,0.7)" font-size="8" font-family="Source Serif 4,serif">Leaching; Mollisols → Alfisols → Ultisols</text>
+        <!-- arrows -->
+        <text x="20" y="84" fill="#c4956a" font-size="8" font-family="JetBrains Mono,monospace">P &lt; ET → no leaching</text>
+        <text x="240" y="84" fill="#c4956a" font-size="8" font-family="JetBrains Mono,monospace">P &gt; ET → leaching</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ── ORDER 7: MOLLISOLS ── -->
+  <h3 class="order-name">
+    <span>7. Mollisols</span>
+    <span class="order-badge">The Grassland Empire</span>
+  </h3>
+
+  <div class="narrative">The Eurasian steppe. Tall grasses die back annually, plunging roots deep. The result — a thick, dark, carbon-rich mollic epipedon — is the most agriculturally valuable horizon on Earth.</div>
+
+  <!-- FORMULA 5 — Base Saturation -->
+  <div class="formula-box">
+    <div class="formula-label">📐 Base Saturation (BS)</div>
+    <div class="formula-main">BS (%) = [(Ca²⁺ + Mg²⁺ + K⁺ + Na⁺) / CEC] × 100</div>
+    <ul class="formula-terms">
+      <li><span class="sym">BS (%)</span><span>= percentage of CEC occupied by base cations (≥ 50% required for mollic epipedon)</span></li>
+      <li><span class="sym">Ca²⁺, Mg²⁺, K⁺, Na⁺</span><span>= exchangeable base cations (cmol<sub>c</sub> kg⁻¹) — the "nutrient battery"</span></li>
+      <li><span class="sym">CEC</span><span>= cation exchange capacity (cmol<sub>c</sub> kg⁻¹) — total capacity of soil to hold cations</span></li>
+    </ul>
+    <div class="formula-viz">
+      <!-- CEC pie / bar comparison across orders -->
+      <p style="font-size:0.75rem;color:var(--earth-tan);margin-bottom:0.5rem;letter-spacing:0.08em;">BASE SATURATION COMPARISON ACROSS ORDERS</p>
+      <svg viewBox="0 0 380 80" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;display:block;margin:0 auto;">
+        <!-- Scale: 100% = 300px, starting at x=60 -->
+        <!-- Mollisol ~90% -->
+        <text x="58" y="20" text-anchor="end" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">Mollisol</text>
+        <rect x="62" y="10" width="270" height="12" fill="#3d2b1a" rx="2" opacity="0.4"/>
+        <rect x="62" y="10" width="243" height="12" fill="#c47a2a" rx="2"/>
+        <text x="312" y="20" fill="#e8d5b7" font-size="8" font-family="JetBrains Mono,monospace">~90%</text>
+        <!-- Alfisol ~60% -->
+        <text x="58" y="38" text-anchor="end" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">Alfisol</text>
+        <rect x="62" y="28" width="270" height="12" fill="#3d2b1a" rx="2" opacity="0.4"/>
+        <rect x="62" y="28" width="162" height="12" fill="#8b5e3c" rx="2"/>
+        <text x="230" y="38" fill="#e8d5b7" font-size="8" font-family="JetBrains Mono,monospace">~60%</text>
+        <!-- Ultisol <35% -->
+        <text x="58" y="56" text-anchor="end" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">Ultisol</text>
+        <rect x="62" y="46" width="270" height="12" fill="#3d2b1a" rx="2" opacity="0.4"/>
+        <rect x="62" y="46" width="84" height="12" fill="#8b3a2a" rx="2"/>
+        <text x="152" y="56" fill="#e8d5b7" font-size="8" font-family="JetBrains Mono,monospace">&lt;35%</text>
+        <!-- Oxisol ~10% -->
+        <text x="58" y="74" text-anchor="end" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">Oxisol</text>
+        <rect x="62" y="64" width="270" height="12" fill="#3d2b1a" rx="2" opacity="0.4"/>
+        <rect x="62" y="64" width="27" height="12" fill="#5c1a10" rx="2"/>
+        <text x="95" y="74" fill="#e8d5b7" font-size="8" font-family="JetBrains Mono,monospace">~10%</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ── ORDER 8: ALFISOLS ── -->
+  <h3 class="order-name">
+    <span>8. Alfisols</span>
+    <span class="order-badge">The Forest Moderates</span>
+  </h3>
+
+  <div class="narrative">Temperate deciduous forests. Moderate leaching. Clay begins moving downward — lessivage has begun its quiet work, building a Bt horizon beneath the leached E.</div>
+
+  <p>The key process is <em>lessivage</em>: clay particles, suspended in downward-percolating water, are washed (eluviated) from the E horizon and deposited (illuviated) in the B horizon as oriented clay skins (argillans or cutans). Alfisols retain moderate base saturation (≥ 35%), distinguishing them from the more depleted Ultisols.</p>
+
+  <div class="horizon-profile">
+    <div class="horizon-layer" style="background:#3d2b1a;"><span class="hz-code">A</span><span class="hz-desc" style="color:#ddd;">Dark organic topsoil</span></div>
+    <div class="horizon-layer" style="background:#c8bfae; color:#333;"><span class="hz-code" style="color:#555;">E</span><span class="hz-desc" style="color:#555;">Eluviated — clay removed, pale</span></div>
+    <div class="horizon-layer" style="background:#7a5c3a;"><span class="hz-code">Bt</span><span class="hz-desc">Argillic — clay illuviated here</span></div>
+    <div class="horizon-layer" style="background:#a08060;"><span class="hz-code">C</span><span class="hz-desc">Parent material</span></div>
+  </div>
+
+  <!-- ── ORDER 9: ULTISOLS ── -->
+  <h3 class="order-name">
+    <span>9. Ultisols</span>
+    <span class="order-badge">The Strongly Weathered</span>
+  </h3>
+
+  <div class="narrative">Humid subtropical landscapes — the piedmont of the southeastern United States, parts of coastal China and southeastern Brazil. Millions of years of rainfall. Bases stripped away. Acidity dominates.</div>
+
+  <p>Like Alfisols, Ultisols have an argillic (Bt) horizon, but long-term leaching has pushed base saturation below 35% throughout the lower profile. Primary minerals are nearly absent; kaolinite dominates the clay fraction, and iron-oxide coatings give the characteristic red/yellow hues. Their low nutrient-holding capacity demands careful fertiliser management.</p>
+
+  <!-- ── ORDER 10: SPODOSOLS ── -->
+  <h3 class="order-name">
+    <span>10. Spodosols</span>
+    <span class="order-badge">The Ash-Coloured</span>
+  </h3>
+
+  <div class="narrative">Conifer forests under cold, humid climates — Scandinavia, Canada, Scotland, Siberia. Organic acids from needles dissolve and mobilise iron and aluminium, leaving behind a ghostly pale E horizon.</div>
+
+  <p>The defining process is <em>podzolisation</em>: cheluviation transports organically complexed Fe and Al downward to the Bhs (spodic) horizon, where they precipitate. The visual contrast — bleached grey E above a dark rusty-brown Bhs — is one of the most dramatic in pedology and was the inspiration for the term "Podzol" (from Russian: pod = under, zola = ash).</p>
+
+  <div class="horizon-profile">
+    <div class="horizon-layer" style="background:#1a1208;"><span class="hz-code">O</span><span class="hz-desc" style="color:#aaa;">Raw conifer litter</span></div>
+    <div class="horizon-layer" style="background:#3d2b1a;"><span class="hz-code">A</span><span class="hz-desc" style="color:#ddd;">Thin organic-mineral mix</span></div>
+    <div class="horizon-layer" style="background:#d0ccc2; color:#333;"><span class="hz-code" style="color:#555;">E</span><span class="hz-desc" style="color:#555;">Ash-pale; Fe, Al, humus removed</span></div>
+    <div class="horizon-layer" style="background:#4a2810;"><span class="hz-code">Bhs</span><span class="hz-desc" style="color:#ddd;">Dark: humus + sesquioxides</span></div>
+    <div class="horizon-layer" style="background:#a08060;"><span class="hz-code">C</span><span class="hz-desc">Sandy parent material</span></div>
+  </div>
+
+  <!-- ── ORDER 11: VERTISOLS ── -->
+  <h3 class="order-name">
+    <span>11. Vertisols</span>
+    <span class="order-badge">The Breathing Clays</span>
+  </h3>
+
+  <div class="narrative">Black cracking soils of the Indian Deccan, the Texas Blacklands, the Gezira plain of Sudan. During the dry season they split open like wounds. When the rains arrive, they swell shut.</div>
+
+  <!-- FORMULA 6 — COLE -->
+  <div class="formula-box">
+    <div class="formula-label">📐 Coefficient of Linear Extensibility (COLE)</div>
+    <div class="formula-main">COLE = (L<sub style="font-size:0.8em">m</sub> − L<sub style="font-size:0.8em">d</sub>) / L<sub style="font-size:0.8em">d</sub></div>
+    <ul class="formula-terms">
+      <li><span class="sym">COLE</span><span>= dimensionless ratio of linear shrinkage on drying; values &gt; 0.09 indicate a vertic horizon; values &gt; 0.20 are extreme</span></li>
+      <li><span class="sym">L<sub>m</sub></span><span>= length of clod at field moisture (moist) — measured at 33 kPa tension (field capacity)</span></li>
+      <li><span class="sym">L<sub>d</sub></span><span>= length of clod after oven-drying at 105°C — fully desiccated dimension</span></li>
+    </ul>
+    <div class="formula-viz">
+      <!-- Shrink-swell animation representation -->
+      <svg viewBox="0 0 380 90" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;display:block;margin:0 auto;">
+        <!-- WET STATE -->
+        <rect x="20" y="10" width="130" height="60" fill="#3a2a18" rx="4"/>
+        <text x="85" y="35" text-anchor="middle" fill="#e8d5b7" font-size="10" font-family="JetBrains Mono,monospace" font-weight="600">WET STATE</text>
+        <text x="85" y="50" text-anchor="middle" fill="#c4956a" font-size="9" font-family="JetBrains Mono,monospace">L_m = 1.0</text>
+        <text x="85" y="63" text-anchor="middle" fill="#a07840" font-size="8" font-family="Source Serif 4,serif">swollen, no cracks</text>
+        <!-- Arrow -->
+        <text x="190" y="45" text-anchor="middle" fill="#c4956a" font-size="22">⇄</text>
+        <text x="190" y="60" text-anchor="middle" fill="rgba(196,149,106,0.5)" font-size="7" font-family="JetBrains Mono,monospace">seasonal</text>
+        <!-- DRY STATE -->
+        <rect x="230" y="15" width="112" height="50" fill="#1a1008" rx="4"/>
+        <line x1="266" y1="15" x2="266" y2="65" stroke="#8b3a2a" stroke-width="1.5"/>
+        <line x1="302" y1="15" x2="302" y2="65" stroke="#8b3a2a" stroke-width="1.5"/>
+        <text x="286" y="36" text-anchor="middle" fill="#e8d5b7" font-size="10" font-family="JetBrains Mono,monospace" font-weight="600">DRY</text>
+        <text x="286" y="50" text-anchor="middle" fill="#c4956a" font-size="9" font-family="JetBrains Mono,monospace">L_d &lt; L_m</text>
+        <text x="286" y="63" text-anchor="middle" fill="#a07840" font-size="8" font-family="Source Serif 4,serif">shrunken, cracked</text>
+        <text x="190" y="82" text-anchor="middle" fill="#c4956a" font-size="8" font-family="JetBrains Mono,monospace">COLE = (L_m − L_d) / L_d → engineering hazard if &gt;0.09</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ── ORDER 12: OXISOLS ── -->
+  <h3 class="order-name">
+    <span>12. Oxisols</span>
+    <span class="order-badge">The Ancient Survivors</span>
+  </h3>
+
+  <div class="narrative">Tropical landscapes weathered for tens of millions of years. Nearly all weatherable minerals are gone. Only iron and aluminium oxides remain — the old philosophers of the pedosphere, stripped of almost everything else.</div>
+
+  <p>The oxic horizon is uniform, deep, and eerily featureless compared to the dramatic profiles of younger soils — because extreme age has homogenised everything. Variable-charge iron and aluminium oxides dominate, giving very low and pH-dependent CEC. Despite looking uniform, Oxisols often have excellent physical properties (stable microaggregates) but are nutrient-poor without external inputs.</p>
+
+  <!-- ══════════════════ WEATHERING SEQUENCE ══════════════════ -->
+  <h2 class="part-header">The Goldich Weathering Sequence</h2>
+
+  <p>Minerals dissolve in the reverse order of their crystallisation from magma (Bowen's reaction series). The first to form are most susceptible; the last are most resistant.</p>
+
+  <div class="weathering-ladder">
+    <div class="mineral-rung" style="background:#5c1a10; color:#ffd0c0;">Olivine <span class="rate">fastest weathering</span></div>
+    <div class="mineral-rung" style="background:#7a2810; color:#ffd0c0;">Pyroxene</div>
+    <div class="mineral-rung" style="background:#8b3a1a; color:#ffe0c8;">Amphibole</div>
+    <div class="mineral-rung" style="background:#8b5e3c; color:#f5e0d0;">Biotite</div>
+    <div class="mineral-rung" style="background:#a08060; color:#f5e8dc;">Ca-plagioclase → Na-plagioclase</div>
+    <div class="mineral-rung" style="background:#b09070; color:#f5ede0;">K-feldspar</div>
+    <div class="mineral-rung" style="background:#c8bfae; color:#3d2b1a;">Muscovite</div>
+    <div class="mineral-rung" style="background:#e8e0d0; color:#3d2b1a;">Quartz <span class="rate" style="color:#8b5e3c;">slowest</span></div>
+  </div>
+
+  <p>The more advanced the soil order, the more the mineral suite has shifted toward the bottom of this ladder — quartz-dominated sands in highly weathered Ultisols and Oxisols.</p>
+
+  <h3 style="font-family:'Playfair Display',serif; color:var(--earth-mid); margin: 1.5rem 0 0.8rem; font-size:1.15rem;">Clay Mineral Progression with Increasing Weathering</h3>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 540 60" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ra" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#8b5e3c"/>
+        </marker>
+      </defs>
+      <rect x="10" y="15" width="110" height="30" rx="4" fill="#8b5e3c"/>
+      <text x="65" y="33" text-anchor="middle" fill="white" font-size="10" font-family="JetBrains Mono,monospace">Smectite</text>
+      <line x1="122" y1="30" x2="148" y2="30" stroke="#8b5e3c" stroke-width="1.8" marker-end="url(#ra)"/>
+      <rect x="150" y="15" width="110" height="30" rx="4" fill="#7a5c3a"/>
+      <text x="205" y="28" text-anchor="middle" fill="white" font-size="9" font-family="JetBrains Mono,monospace">Illite /</text>
+      <text x="205" y="40" text-anchor="middle" fill="white" font-size="9" font-family="JetBrains Mono,monospace">Vermiculite</text>
+      <line x1="262" y1="30" x2="288" y2="30" stroke="#8b5e3c" stroke-width="1.8" marker-end="url(#ra)"/>
+      <rect x="290" y="15" width="110" height="30" rx="4" fill="#6b4c2a"/>
+      <text x="345" y="33" text-anchor="middle" fill="white" font-size="10" font-family="JetBrains Mono,monospace">Kaolinite</text>
+      <line x1="402" y1="30" x2="428" y2="30" stroke="#8b5e3c" stroke-width="1.8" marker-end="url(#ra)"/>
+      <rect x="430" y="15" width="100" height="30" rx="4" fill="#8b3a2a"/>
+      <text x="480" y="28" text-anchor="middle" fill="white" font-size="9" font-family="JetBrains Mono,monospace">Fe/Al</text>
+      <text x="480" y="40" text-anchor="middle" fill="white" font-size="9" font-family="JetBrains Mono,monospace">Oxides</text>
+      <!-- bottom label -->
+      <text x="10" y="56" fill="#8b5e3c" font-size="8" font-family="JetBrains Mono,monospace">Early weathering</text>
+      <text x="430" y="56" fill="#8b3a2a" font-size="8" font-family="JetBrains Mono,monospace">Extreme weathering</text>
+    </svg>
+    <figcaption>Clay mineral transformation with increasing weathering intensity and time. High-CEC 2:1 smectites are progressively replaced by low-CEC 1:1 kaolinite and finally by variable-charge iron/aluminium oxides.</figcaption>
+  </div>
+
+  <!-- ══════════════════ SOIL WATER ══════════════════ -->
+  <h2 class="part-header">Soil Water Calculations</h2>
+
+  <!-- FORMULA 7 — Gravimetric -->
+  <div class="formula-box">
+    <div class="formula-label">📐 Gravimetric Water Content (θ_g)</div>
+    <div class="formula-main">θ_g = M<sub style="font-size:0.8em">w</sub> / M<sub style="font-size:0.8em">d</sub></div>
+    <ul class="formula-terms">
+      <li><span class="sym">θ_g</span><span>= gravimetric water content (g water g⁻¹ dry soil, or kg kg⁻¹) — measured directly by oven-drying</span></li>
+      <li><span class="sym">M<sub>w</sub></span><span>= mass of water = (mass of moist soil) − (mass after oven-drying at 105°C)</span></li>
+      <li><span class="sym">M<sub>d</sub></span><span>= mass of oven-dry soil — the stable reference mass</span></li>
+    </ul>
+  </div>
+
+  <!-- FORMULA 8 — Volumetric -->
+  <div class="formula-box">
+    <div class="formula-label">📐 Volumetric Water Content (θ_v)</div>
+    <div class="formula-main">θ_v = θ_g × ρ<sub style="font-size:0.8em">b</sub></div>
+    <ul class="formula-terms">
+      <li><span class="sym">θ_v</span><span>= volumetric water content (cm³ water cm⁻³ soil, or m³ m⁻³) — the form used in irrigation and remote sensing</span></li>
+      <li><span class="sym">θ_g</span><span>= gravimetric water content from above</span></li>
+      <li><span class="sym">ρ<sub>b</sub></span><span>= bulk density (g cm⁻³) — the conversion factor that accounts for pore space</span></li>
+    </ul>
+    <div class="formula-viz">
+      <p style="font-size:0.75rem;color:var(--earth-tan);margin-bottom:0.4rem;letter-spacing:0.08em;">WHY CONVERT? — THE THREE-PHASE MODEL</p>
+      <svg viewBox="0 0 360 70" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px;display:block;margin:0 auto;">
+        <!-- Air -->
+        <rect x="20" y="10" width="80" height="50" fill="rgba(100,160,220,0.2)" rx="3" stroke="#4a80b0" stroke-width="1"/>
+        <text x="60" y="32" text-anchor="middle" fill="#a0c0e0" font-size="9" font-family="JetBrains Mono,monospace">AIR</text>
+        <text x="60" y="44" text-anchor="middle" fill="#a0c0e0" font-size="8" font-family="JetBrains Mono,monospace">(pore space)</text>
+        <!-- Water -->
+        <rect x="105" y="10" width="80" height="50" fill="rgba(70,130,180,0.4)" rx="3" stroke="#4682b4" stroke-width="1"/>
+        <text x="145" y="32" text-anchor="middle" fill="#c0e0ff" font-size="9" font-family="JetBrains Mono,monospace">WATER</text>
+        <text x="145" y="44" text-anchor="middle" fill="#c0e0ff" font-size="8" font-family="JetBrains Mono,monospace">θ_v = vol/vol</text>
+        <!-- Solids -->
+        <rect x="190" y="10" width="150" height="50" fill="rgba(92,61,30,0.7)" rx="3" stroke="#8b5e3c" stroke-width="1"/>
+        <text x="265" y="32" text-anchor="middle" fill="#e8d5b7" font-size="9" font-family="JetBrains Mono,monospace">MINERAL SOLIDS</text>
+        <text x="265" y="44" text-anchor="middle" fill="#c4956a" font-size="8" font-family="JetBrains Mono,monospace">ρ_b captures this fraction</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══════════════════ REDOX ══════════════════ -->
+  <h2 class="part-header">Redox Processes and Gleying</h2>
+
+  <p>Waterlogged soils become anoxic within hours to days. Anaerobic bacteria must use alternative electron acceptors to drive respiration, proceeding in order of decreasing energy yield:</p>
+
+  <div class="formula-box">
+    <div class="formula-label">📐 Sequential Electron Acceptor Reduction (Redox Ladder)</div>
+    <div class="formula-main">O₂ → NO₃⁻ → Mn⁴⁺ → Fe³⁺ → SO₄²⁻ → CO₂</div>
+    <ul class="formula-terms">
+      <li><span class="sym">O₂</span><span>= oxygen — most energetically favourable; consumed first (Eh &gt; +300 mV)</span></li>
+      <li><span class="sym">NO₃⁻</span><span>= nitrate denitrification (Eh ≈ +200 to +300 mV) — releases N₂ gas</span></li>
+      <li><span class="sym">Mn⁴⁺</span><span>= manganese reduction (Eh ≈ +200 mV) — black Mn nodules dissolve</span></li>
+      <li><span class="sym">Fe³⁺</span><span>= iron reduction (Eh ≈ 0 to +100 mV) — causes grey-blue gleyed colours (Fe²⁺)</span></li>
+      <li><span class="sym">SO₄²⁻</span><span>= sulphate reduction (Eh &lt; −100 mV) — H₂S formation</span></li>
+      <li><span class="sym">CO₂</span><span>= methanogenesis (Eh &lt; −200 mV) — methane emission from peatlands</span></li>
+    </ul>
+    <div class="formula-viz">
+      <!-- Redox spectrum bar -->
+      <svg viewBox="0 0 360 50" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px;display:block;margin:0 auto;">
+        <defs>
+          <linearGradient id="redoxg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4a80b0"/>
+            <stop offset="40%" stop-color="#c4956a"/>
+            <stop offset="70%" stop-color="#8b3a2a"/>
+            <stop offset="100%" stop-color="#1a1208"/>
+          </linearGradient>
+        </defs>
+        <rect x="20" y="10" width="320" height="18" rx="4" fill="url(#redoxg)"/>
+        <text x="20" y="42" fill="#a0c0e0" font-size="8" font-family="JetBrains Mono,monospace">+600 mV (oxic)</text>
+        <text x="200" y="42" text-anchor="middle" fill="#c4956a" font-size="8" font-family="JetBrains Mono,monospace">Fe reduction / gleying</text>
+        <text x="340" y="42" text-anchor="end" fill="rgba(196,149,106,0.6)" font-size="8" font-family="JetBrains Mono,monospace">−300 mV</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ══════════════════ PEDOGENIC PROCESSES TABLE ══════════════════ -->
+  <h2 class="part-header">Summary — Major Pedogenic Processes</h2>
+
+  <table class="process-table">
+    <thead>
+      <tr><th>Process</th><th>Main Effect</th><th>Associated Orders</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="process-name">Melanisation</td><td>Darkening and enrichment by organic matter</td><td>Mollisols</td></tr>
+      <tr><td class="process-name">Calcification</td><td>Carbonate accumulation in B horizon</td><td>Aridisols, Mollisols</td></tr>
+      <tr><td class="process-name">Salinisation</td><td>Soluble salt accumulation</td><td>Aridisols</td></tr>
+      <tr><td class="process-name">Lessivage</td><td>Clay translocation: E → Bt</td><td>Alfisols, Ultisols</td></tr>
+      <tr><td class="process-name">Podzolisation</td><td>Cheluviation of Fe, Al, and humus</td><td>Spodosols</td></tr>
+      <tr><td class="process-name">Laterisation / ferrallitisation</td><td>Extreme oxide enrichment; desilication</td><td>Oxisols, Ultisols</td></tr>
+      <tr><td class="process-name">Gleisation</td><td>Reduction; grey-blue mottling and matrix</td><td>Entisols, Inceptisols, Histosols</td></tr>
+      <tr><td class="process-name">Paludisation</td><td>Peat accumulation under anaerobic conditions</td><td>Histosols</td></tr>
+      <tr><td class="process-name">Cryoturbation</td><td>Freeze–thaw mixing and horizon disruption</td><td>Gelisols</td></tr>
+      <tr><td class="process-name">Pedoturbation</td><td>Mechanical mixing (also bio-, argillo-, anthro-)</td><td>Vertisols</td></tr>
+      <tr><td class="process-name">Cambification</td><td>In-situ alteration of minerals; Bw formation</td><td>Inceptisols</td></tr>
+      <tr><td class="process-name">Andosolisation</td><td>Amorphous mineral formation from volcanic glass</td><td>Andisols</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ══════════════════ CLOSING ══════════════════ -->
+  <div class="closing-quote">
+    <br><br>
+    "Soil is where geology becomes biology.<br>And classification is our attempt to read the grammar of the Earth."
+    <p style="font-size:0.85rem; font-style:normal; color:var(--earth-tan); margin-top:1.5rem; font-family:'JetBrains Mono',monospace;">— The Professor, Humboldt-Universität zu Berlin</p>
+  </div>
+
+</div><!-- /content -->
+
+<!-- ═══════════════════════════════════════════════ REFERENCES ══ -->
+<div class="references" style="max-width:100%; padding-left: calc(12px + 2rem);">
+  <div style="max-width:820px; margin:0 auto; padding: 0 1rem 0 1rem;">
+  <h2>References</h2>
+  <ol class="ref-list">
+    <li>
+      <span class="ref-authors">Soil Survey Staff.</span>
+      <div>
+        <span class="ref-year">(2022). </span>
+        <span class="ref-title">Keys to Soil Taxonomy</span>
+        <span class="ref-source"> (13th ed.). U.S. Department of Agriculture, Natural Resources Conservation Service. Washington, D.C.</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">Jenny, H.</span>
+      <div>
+        <span class="ref-year">(1941). </span>
+        <span class="ref-title">Factors of Soil Formation: A System of Quantitative Pedology.</span>
+        <span class="ref-source"> McGraw-Hill, New York. [Reprinted Dover Publications, 1994]</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">Dokuchaev, V.V.</span>
+      <div>
+        <span class="ref-year">(1883). </span>
+        <span class="ref-title">Russkiy Chernozem [Russian Chernozem].</span>
+        <span class="ref-source"> Imperial Free Economic Society, St. Petersburg. [Foundational work establishing soil as a natural body.]</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">Brady, N.C. &amp; Weil, R.R.</span>
+      <div>
+        <span class="ref-year">(2016). </span>
+        <span class="ref-title">The Nature and Properties of Soils</span>
+        <span class="ref-source"> (15th ed.). Pearson Education, Columbus, OH.</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">Buol, S.W., Southard, R.J., Graham, R.C. &amp; McDaniel, P.A.</span>
+      <div>
+        <span class="ref-year">(2011). </span>
+        <span class="ref-title">Soil Genesis and Classification</span>
+        <span class="ref-source"> (6th ed.). Wiley-Blackwell, Oxford.</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">Goldich, S.S.</span>
+      <div>
+        <span class="ref-year">(1938). </span>
+        <span class="ref-title">A study of rock weathering.</span>
+        <span class="ref-source"> Journal of Geology, 46(1), 17–58. https://doi.org/10.1086/624619</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">Kämpf, N., Scheinost, A.C. &amp; Schulze, D.G.</span>
+      <div>
+        <span class="ref-year">(2012). </span>
+        <span class="ref-title">Oxide minerals in soils.</span>
+        <span class="ref-source"> In Huang, P.M. et al. (Eds.), Handbook of Soil Sciences: Properties and Processes (2nd ed., pp. 1–26). CRC Press.</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">Bockheim, J.G., Gennadiyev, A.N., Hartemink, A.E. &amp; Brevik, E.C.</span>
+      <div>
+        <span class="ref-year">(2014). </span>
+        <span class="ref-title">Soil-forming factors and Soil Taxonomy.</span>
+        <span class="ref-source"> Geoderma, 226–227, 231–237. https://doi.org/10.1016/j.geoderma.2014.02.016</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">Sparks, D.L.</span>
+      <div>
+        <span class="ref-year">(2003). </span>
+        <span class="ref-title">Environmental Soil Chemistry</span>
+        <span class="ref-source"> (2nd ed.). Academic Press / Elsevier, San Diego.</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">van Breemen, N. &amp; Buurman, P.</span>
+      <div>
+        <span class="ref-year">(2002). </span>
+        <span class="ref-title">Soil Formation</span>
+        <span class="ref-source"> (2nd ed.). Kluwer Academic Publishers, Dordrecht.</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">Torn, M.S., Trumbore, S.E., Chadwick, O.A., Vitousek, P.M. &amp; Hendricks, D.M.</span>
+      <div>
+        <span class="ref-year">(1997). </span>
+        <span class="ref-title">Mineral control of soil organic carbon storage and turnover.</span>
+        <span class="ref-source"> Nature, 389, 170–173. https://doi.org/10.1038/38260</span>
+      </div>
+    </li>
+    <li>
+      <span class="ref-authors">WRB (IUSS Working Group).</span>
+      <div>
+        <span class="ref-year">(2022). </span>
+        <span class="ref-title">World Reference Base for Soil Resources</span>
+        <span class="ref-source"> (4th ed.). International Union of Soil Sciences (IUSS), Vienna. [Parallel international classification system.]</span>
+      </div>
+    </li>
+  </ol>
+  </div>
+</div>
+
+</body>
+</html>
