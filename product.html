@@ -1,75 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shop & Services Inventory — Rustic Garden Farm</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;900&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink: #241C12; --soil: #1E1710; --parchment: #F2EAD8; --parchment-2: #E8DCCA; --parchment-3: #DDD0B8;
-    --cherry: #9C3B2E; --cherry-dark: #7C2E23; --moss: #435841; --gold: #C99A3E; --line: rgba(36,28,18,.13); --r: 2px;
-  }
-  *, *::before, *::after { box-sizing: border-box; }
-  body { margin: 0; background: var(--parchment-2); color: var(--ink); font-family: 'Work Sans', sans-serif; -webkit-font-smoothing: antialiased; }
-  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
-  .site-header { background: var(--soil); color: var(--parchment); border-bottom: 1px solid rgba(241,233,216,.18); }
-  .nav { display: flex; align-items: center; justify-content: space-between; padding: 13px 28px; max-width: 1160px; margin: 0 auto; }
-  .brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; text-decoration: none; color: var(--parchment); }
-  .brand-mark { width: 32px; height: 32px; border-radius: 50%; background: var(--cherry); display: flex; align-items: center; justify-content: center; }
-  .nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; font-size: 13.5px; }
-  .nav-links a { text-decoration: none; color: rgba(241,233,216,.78); }
-  
-  .catalog-header { padding: 60px 0 30px; text-align: center; }
-  .catalog-header h1 { font-family: 'Fraunces', serif; font-size: 42px; margin: 0 0 12px; }
-  .eyebrow { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); }
-  
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding-bottom: 80px; }
-  .card { background: var(--parchment); border: 1px solid var(--line); padding: 24px; border-radius: var(--r); display: flex; flex-direction: column; }
-  .ph { background: var(--parchment-3); aspect-ratio: 4/3; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-family: 'Space Mono', monospace; font-size: 11px; color: rgba(36,28,18,.4); }
-  .tag { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--moss); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; display: block; }
-  .card h3 { font-family: 'Fraunces', serif; font-size: 22px; margin: 0 0 10px; }
-  .desc { font-size: 14px; color: rgba(36,28,18,.7); flex-grow: 1; margin: 0 0 20px; line-height: 1.5; }
-  .foot { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 16px; }
-  .price { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 15px; }
-  .price small { font-size: 11px; color: rgba(36,28,18,.6); font-weight: 400; display: block; }
-  .buy-btn { background: var(--cherry); color: white; border: none; padding: 8px 16px; font-family: 'Work Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; border-radius: var(--r); text-decoration: none; text-align: center; }
-  .buy-btn:hover { background: var(--cherry-dark); }
-  .service-btn { background: var(--moss); }
-  .service-btn:hover { background: #324231; }
-
-  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop & Services Inventory — Rustic Garden Farm</title>
+  <meta name="description" content="Explore single-origin coffee, macadamia nuts, agro-tourism sessions, and ecological training from Rustic Garden, Embu, Kenya.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,500;9..144,0,600;9..144,0,700;1,300;1,500&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="site-header">
-  <nav class="nav">
-    <a class="brand" href="index.html">
-      <div class="brand-mark"><svg viewBox="0 0 18 18" fill="none" width="16"><circle cx="9" cy="9" r="7" stroke="#F2EAD8" stroke-width="1.5"/><path d="M9 4 C6 7 6 11 9 14 C12 11 12 7 9 4Z" fill="#F2EAD8"/></svg></div>
-      Rustic Garden
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
+  <span class="close" id="menuClose" onclick="closeMobileMenu()" aria-label="Close menu">✕ Close</span>
+  <a href="index.html">Home</a>
+  <a href="product.html">Shop Inventory</a>
+  <a href="contact.html">Contact &amp; Inquiries</a>
+  <a href="checkout.html">Checkout</a>
+</div>
+
+<!-- Main Navigation -->
+<nav id="mainNav">
+  <a href="index.html" class="nav-mark">Rustic <span>Garden</span></a>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="product.html" class="active">Shop Inventory</a></li>
+    <li><a href="contact.html">Contact &amp; Inquiries</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="https://github.com/groupdougie/rustic-garden" class="nav-gh" target="_blank" rel="noopener" aria-label="GitHub Repository">
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      Source
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="product.html" style="color:var(--gold);">Shop Inventory</a></li>
-      <li><a href="contact.html">Contact &amp; Inquiries</a></li>
-    </ul>
-  </nav>
-</header>
+    <button class="nav-burger" id="burgerBtn" onclick="openMobileMenu()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
 <main class="wrap">
-  <header class="catalog-header">
-    <span class="eyebrow">Harvest &amp; Services Portal</span>
+  <header class="catalog-header reveal">
+    <span class="mono" style="color: var(--gold);">Harvest &amp; Services Portal</span>
     <h1>Farm Products &amp; Ecological Offerings</h1>
   </header>
 
+  <!-- Filter Bar -->
+  <div class="filter-bar reveal">
+    <button class="filter-btn active" data-filter="all">All Items</button>
+    <button class="filter-btn" data-filter="harvest">Harvest</button>
+    <button class="filter-btn" data-filter="services">Services &amp; Education</button>
+  </div>
+
   <div class="grid">
     <!-- Item 1: Roasted Coffee -->
-    <div class="card">
-      <div class="ph">[ Photo: Roasted Beans 375g ]</div>
+    <div class="card reveal" data-category="harvest">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=600&auto=format&fit=crop" alt="Roasted Coffee Beans" loading="lazy">
+      </div>
       <span class="tag">SL28 Variety &bull; Honey Processed</span>
       <h3>Charlie's Coffee (Roasted)</h3>
       <p class="desc">Hand-sorted, altitude-grown Arabica roasted in balanced batches to highlight native bright citrus and rich chocolate profiles.</p>
@@ -80,8 +73,10 @@
     </div>
 
     <!-- Item 2: Green Coffee -->
-    <div class="card">
-      <div class="ph">[ Photo: Green Beans 375g ]</div>
+    <div class="card reveal" data-category="harvest">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=600&auto=format&fit=crop" alt="Green Coffee Beans" loading="lazy">
+      </div>
       <span class="tag">Raw Arabica &bull; Sun Dried</span>
       <h3>Charlie's Coffee (Green)</h3>
       <p class="desc">Raw single-origin green coffee beans processed on raised African beds, ready for custom home roasting profiles.</p>
@@ -92,8 +87,10 @@
     </div>
 
     <!-- Item 3: Macadamia -->
-    <div class="card">
-      <div class="ph">[ Photo: Macadamia Nuts 1kg ]</div>
+    <div class="card reveal" data-category="harvest">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1543218024-57a70143c369?q=80&w=600&auto=format&fit=crop" alt="Macadamia Nuts" loading="lazy">
+      </div>
       <span class="tag">Intercropped Canopy Lot</span>
       <h3>Polyculture Macadamia</h3>
       <p class="desc">Premium raw macadamia nuts harvested from shade trees integrated inside our regenerative organic coffee orchard fields.</p>
@@ -104,8 +101,10 @@
     </div>
 
     <!-- Item 4: Wedding Photo Sessions -->
-    <div class="card">
-      <div class="ph">[ Photo: Agroforestry Backdrop ]</div>
+    <div class="card reveal" data-category="services">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=600&auto=format&fit=crop" alt="Agroforestry Backdrop" loading="lazy">
+      </div>
       <span class="tag">Agro-Tourism &amp; Space Booking</span>
       <h3>Farm Photography Venue</h3>
       <p class="desc">Access our scenic agricultural views, multi-tier bioswales, and volcanic Mount Kenya landscapes for private wedding photo sessions.</p>
@@ -116,8 +115,10 @@
     </div>
 
     <!-- Item 5: Aquaculture Training -->
-    <div class="card">
-      <div class="ph">[ Photo: Aquaculture Infrastructure ]</div>
+    <div class="card reveal" data-category="services">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?q=80&w=600&auto=format&fit=crop" alt="Aquaculture Infrastructure" loading="lazy">
+      </div>
       <span class="tag">Ecological Education</span>
       <h3>Aquaculture Training Program</h3>
       <p class="desc">Immersive structured monthly training regarding zero-waste tilapia integration, bio-nutrient loop operations, and gravity-fed channel designs.</p>
@@ -128,8 +129,10 @@
     </div>
 
     <!-- Item 6: Garden Management -->
-    <div class="card">
-      <div class="ph">[ Photo: Managed Biological Garden ]</div>
+    <div class="card reveal" data-category="services">
+      <div class="card-img-wrap">
+        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=600&auto=format&fit=crop" alt="Biological Garden" loading="lazy">
+      </div>
       <span class="tag">Agroecological Design Consulting</span>
       <h3>Garden Management Services</h3>
       <p class="desc">Professional execution of sustainable soil water systems, continuous compost setups, and architectural landscaping tailored to your grounds.</p>
@@ -141,16 +144,18 @@
   </div>
 </main>
 
-<script>
-  function checkout(name, price) {
-    // Directs physical inventory buyers directly to your serverless payment processing portal
-    window.location.href = `payment.html?item=${encodeURIComponent(name)}&price=${price}`;
-  }
+<footer>
+  <div class="footer-left">
+    <div class="footer-mark">Rustic <span>Garden</span></div>
+    <div class="mono">Kavutiri, Kirinyaga County &bull; Kenya</div>
+    <div class="mono">Sylvotherapy &bull; Aquaculture &bull; Charlie's Coffee</div>
+  </div>
+  <a href="https://github.com/groupdougie/rustic-garden" class="footer-gh" target="_blank" rel="noopener" aria-label="GitHub repository">
+    <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    groupdougie/rustic-garden
+  </a>
+</footer>
 
-  function requestService(serviceName) {
-    // Forwards experiential reservations seamlessly directly into your inquiries page form
-    window.location.href = `contact.html?interest=${encodeURIComponent(serviceName)}`;
-  }
-</script>
+<script src="script.js"></script>
 </body>
 </html>
