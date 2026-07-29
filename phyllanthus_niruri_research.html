@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phyllanthus niruri × Cannabis sativa — Phytochemical Convergence Map</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── Design tokens ──────────────────────────────────────── */
+:root {
+  --forest:       #0F3325;
+  --leaf:         #1D6B4A;
+  --leaf-light:   #2D9166;
+  --mist:         #E8F5EE;
+  --page:         #F7FBFA;
+  --pn-purple:    #5B3E9B;
+  --pn-light:     #EDE9F8;
+  --cs-green:     #1A7A52;
+  --cs-light:     #D5EDDF;
+  --shared-gold:  #A86C00;
+  --shared-light: #FEF3D8;
+  --alert:        #C8471A;
+  --alert-bg:     #FDF0EB;
+  --text-main:    #1A2820;
+  --text-sub:     #4A6357;
+  --text-muted:   #7A9689;
+  --border:       #D0E5D8;
+  --border-soft:  #E5F0E8;
+  --white:        #FFFFFF;
+  --shadow:       0 1px 4px rgba(15,51,37,0.08), 0 0 0 0.5px rgba(15,51,37,0.06);
+  --shadow-card:  0 2px 12px rgba(15,51,37,0.10), 0 0 0 0.5px rgba(15,51,37,0.07);
+}
+
+/* ─── Reset & base ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--page);
+  color: var(--text-main);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Typography ─────────────────────────────────────────── */
+h1, h2, h3, .serif { font-family: 'DM Serif Display', Georgia, serif; }
+.mono { font-family: 'DM Mono', 'Courier New', monospace; }
+
+/* ─── Header ─────────────────────────────────────────────── */
+.site-header {
+  background: var(--forest);
+  color: var(--white);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(29,107,74,0.35) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 80% at 10% 80%, rgba(91,62,155,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.header-inner {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 56px 40px 48px;
+}
+.header-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: rgba(255,255,255,0.18);
+  max-width: 200px;
+}
+h1 {
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+h1 em {
+  font-style: italic;
+  color: #A8E6C4;
+}
+.header-subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  max-width: 640px;
+  margin-bottom: 32px;
+  line-height: 1.7;
+}
+.header-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 0.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.8);
+}
+.pill-dot { width: 7px; height: 7px; border-radius: 50%; }
+
+/* ─── Disclaimer banner ───────────────────────────────────── */
+.disclaimer {
+  background: var(--alert-bg);
+  border-top: 2px solid var(--alert);
+  padding: 14px 40px;
+}
+.disclaimer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.disclaimer-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.disclaimer p {
+  font-size: 12.5px;
+  color: #7A2800;
+  line-height: 1.55;
+}
+.disclaimer strong { font-weight: 600; }
+
+/* ─── Nav tabs ───────────────────────────────────────────── */
+.nav-wrap {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 8px rgba(15,51,37,0.06);
+}
+.nav-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-tab {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-sub);
+  padding: 15px 20px;
+  cursor: pointer;
+  border-bottom: 2.5px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  user-select: none;
+}
+.nav-tab:hover { color: var(--leaf); }
+.nav-tab.active {
+  color: var(--forest);
+  border-bottom-color: var(--leaf);
+}
+
+/* ─── Main layout ────────────────────────────────────────── */
+.main { max-width: 1080px; margin: 0 auto; padding: 36px 40px 80px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ─── Section titles ─────────────────────────────────────── */
+.section-header {
+  margin-bottom: 28px;
+}
+.section-title {
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--forest);
+  margin-bottom: 6px;
+}
+.section-desc {
+  font-size: 14px;
+  color: var(--text-sub);
+  max-width: 700px;
+  line-height: 1.65;
+}
+
+/* ─── Highlight callout ───────────────────────────────────── */
+.callout {
+  background: var(--mist);
+  border-left: 3px solid var(--leaf);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  font-size: 13.5px;
+  color: var(--forest);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.callout strong { font-weight: 600; }
+
+/* ─── Plant identity split ───────────────────────────────── */
+.plant-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.plant-card {
+  border-radius: 14px;
+  padding: 20px 22px;
+  border: 1px solid;
+}
+.plant-card.pn {
+  background: var(--pn-light);
+  border-color: rgba(91,62,155,0.2);
+}
+.plant-card.cs {
+  background: var(--cs-light);
+  border-color: rgba(26,122,82,0.2);
+}
+.plant-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.plant-card.pn .plant-label { color: var(--pn-purple); }
+.plant-card.cs .plant-label { color: var(--cs-green); }
+.plant-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 19px;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+.plant-card.pn .plant-name { color: var(--pn-purple); }
+.plant-card.cs .plant-name { color: var(--cs-green); }
+.plant-common {
+  font-size: 13px;
+  color: var(--text-sub);
+  margin-bottom: 12px;
+}
+.plant-facts {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.plant-facts li {
+  font-size: 12.5px;
+  color: var(--text-main);
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.5;
+}
+.plant-facts li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* ─── Card ───────────────────────────────────────────────── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow);
+}
+.card + .card { margin-top: 16px; }
+.card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+/* ─── Grid ───────────────────────────────────────────────── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* ─── Compound rows ──────────────────────────────────────── */
+.cpd-list { display: flex; flex-direction: column; gap: 0; }
+.cpd-row {
+  display: flex;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 0.5px solid var(--border-soft);
+  align-items: flex-start;
+}
+.cpd-row:last-child { border-bottom: none; }
+.cpd-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.cpd-dot.shared { background: var(--shared-gold); }
+.cpd-dot.pn { background: var(--pn-purple); }
+.cpd-dot.cs { background: var(--cs-green); }
+.cpd-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-main);
+  min-width: 100px;
+  flex-shrink: 0;
+  line-height: 1.4;
+  margin-top: 1px;
+}
+.cpd-bio {
+  font-size: 12.5px;
+  color: var(--text-sub);
+  line-height: 1.5;
+}
+
+/* ─── Legend ─────────────────────────────────────────────── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--text-sub);
+  margin-bottom: 20px;
+  align-items: center;
+}
+.leg { display: flex; align-items: center; gap: 6px; }
+.leg-dot { width: 9px; height: 9px; border-radius: 50%; }
+
+/* ─── Tag chips ──────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+  margin: 2px 3px 2px 0;
+}
+.tag.shared { background: var(--shared-light); color: var(--shared-gold); border: 0.5px solid rgba(168,108,0,0.25); }
+.tag.pn { background: var(--pn-light); color: var(--pn-purple); border: 0.5px solid rgba(91,62,155,0.2); }
+.tag.cs { background: var(--cs-light); color: var(--cs-green); border: 0.5px solid rgba(26,122,82,0.2); }
+
+/* ─── Venn / Overlap diagram ─────────────────────────────── */
+.venn-wrap {
+  background: var(--white);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 28px 22px 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.venn-svg-wrap { overflow-x: auto; }
+.venn-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--text-sub);
+  flex-wrap: wrap;
+}
+
+/* ─── Bioactivity bridge ─────────────────────────────────── */
+.bridge-table { width: 100%; border-collapse: collapse; }
+.bridge-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.bridge-table td {
+  padding: 11px 12px;
+  border-bottom: 0.5px solid var(--border-soft);
+  font-size: 12.5px;
+  vertical-align: top;
+  line-height: 1.55;
+}
+.bridge-table tr:last-child td { border-bottom: none; }
+.bridge-table td:nth-child(2) {
+  text-align: center;
+  font-size: 16px;
+  color: var(--text-muted);
+  padding: 11px 8px;
+  vertical-align: middle;
+}
+.equiv-strong { color: var(--shared-gold); }
+.equiv-partial { color: var(--cs-green); }
+.equiv-none { color: var(--alert); }
+
+/* ─── Summary grid ───────────────────────────────────────── */
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+.summary-cell {
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1px solid;
+}
+.summary-cell.strong {
+  background: var(--shared-light);
+  border-color: rgba(168,108,0,0.2);
+}
+.summary-cell.pn {
+  background: var(--pn-light);
+  border-color: rgba(91,62,155,0.2);
+}
+.summary-cell.cs {
+  background: var(--cs-light);
+  border-color: rgba(26,122,82,0.2);
+}
+.summary-cell.moderate {
+  background: var(--mist);
+  border-color: rgba(29,107,74,0.2);
+}
+.summary-cell-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+.summary-cell.strong .summary-cell-label { color: var(--shared-gold); }
+.summary-cell.pn .summary-cell-label { color: var(--pn-purple); }
+.summary-cell.cs .summary-cell-label { color: var(--cs-green); }
+.summary-cell.moderate .summary-cell-label { color: var(--leaf); }
+.summary-cell p { font-size: 12.5px; color: var(--text-main); line-height: 1.6; }
+
+/* ─── Preparation protocol ───────────────────────────────── */
+.prep-block { margin-bottom: 20px; }
+.prep-block-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--forest);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.prep-block-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  background: var(--forest);
+  color: var(--white);
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+.prep-steps { display: flex; flex-direction: column; gap: 0; }
+.prep-step {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--border-soft);
+}
+.prep-step:last-child { border-bottom: none; }
+.step-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--mist);
+  border: 1.5px solid var(--leaf);
+  color: var(--forest);
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'DM Mono', monospace;
+}
+.step-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+.step-body { font-size: 12.5px; color: var(--text-sub); line-height: 1.6; }
+.step-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--leaf-light);
+  font-style: italic;
+}
+
+/* ─── For patients section ───────────────────────────────── */
+.patient-callout {
+  background: var(--forest);
+  color: rgba(255,255,255,0.85);
+  border-radius: 14px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
+}
+.patient-callout h3 {
+  color: #A8E6C4;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.patient-callout p {
+  font-size: 13px;
+  line-height: 1.7;
+}
+.relevance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.relevance-card {
+  background: var(--white);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+.relevance-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--forest);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.relevance-card-title .icon { font-size: 16px; }
+.relevance-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.relevance-card ul li {
+  font-size: 12.5px;
+  color: var(--text-sub);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.5;
+}
+.relevance-card ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--leaf);
+  font-size: 11px;
+}
+.important-box {
+  background: var(--alert-bg);
+  border: 1px solid rgba(200,71,26,0.25);
+  border-radius: 12px;
+  padding: 16px 18px;
+  font-size: 13px;
+  color: #7A2800;
+  line-height: 1.65;
+}
+.important-box strong { font-weight: 600; }
+
+/* ─── Footer ─────────────────────────────────────────────── */
+.site-footer {
+  background: var(--forest);
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+  text-align: center;
+  padding: 24px 40px;
+  line-height: 1.7;
+}
+.site-footer a { color: rgba(255,255,255,0.65); }
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .header-inner { padding: 36px 20px 32px; }
+  .disclaimer { padding: 12px 20px; }
+  .nav-inner { padding: 0 16px; }
+  .main { padding: 24px 20px 60px; }
+  .plant-split, .grid-2, .summary-grid, .relevance-grid { grid-template-columns: 1fr; }
+  .nav-tab { padding: 13px 14px; font-size: 12px; }
+  .bridge-table th:nth-child(2), .bridge-table td:nth-child(2) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ══════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Phytochemical convergence · Educational reference</div>
+    <h1><em>Phyllanthus niruri</em> &times; <em>Cannabis sativa</em></h1>
+    <p class="header-subtitle">
+      A researcher-grade map of terpene and flavonoid overlap between two botanicals with documented anti-inflammatory, immunomodulatory, and hepatoprotective profiles — and what that overlap means for people living with autoimmune and type 2 inflammatory conditions.
+    </p>
+    <div class="header-pills">
+      <span class="pill"><span class="pill-dot" style="background:#C8B0FF"></span>P. niruri — Phyllanthaceae</span>
+      <span class="pill"><span class="pill-dot" style="background:#7FD9AA"></span>C. sativa — Cannabaceae</span>
+      <span class="pill"><span class="pill-dot" style="background:#F5C842"></span>5 shared flavonoids identified</span>
+      <span class="pill"><span class="pill-dot" style="background:#F5C842"></span>2 shared terpenes confirmed</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═════════════════════ DISCLAIMER ════════════════════════ -->
+<div class="disclaimer">
+  <div class="disclaimer-inner">
+    <span class="disclaimer-icon">⚠</span>
+    <p>
+      <strong>Educational use only.</strong> This resource summarises published phytochemical and pharmacological research. It does not constitute medical advice, endorse self-treatment, or recommend specific products. Regulatory status of Cannabis sativa preparations varies by jurisdiction — consult local law and a qualified clinician before use. All dosing information cited reflects traditional or experimental contexts only.
+    </p>
+  </div>
+</div>
+
+<!-- ════════════════════════ NAV ═══════════════════════════ -->
+<nav class="nav-wrap" aria-label="Content sections">
+  <div class="nav-inner">
+    <div class="nav-tab active" onclick="showPanel('overview', this)">Overview</div>
+    <div class="nav-tab" onclick="showPanel('terpenes', this)">Terpene map</div>
+    <div class="nav-tab" onclick="showPanel('flavonoids', this)">Flavonoid overlap</div>
+    <div class="nav-tab" onclick="showPanel('bioactivity', this)">Bioactivity bridge</div>
+    <div class="nav-tab" onclick="showPanel('preparation', this)">Preparation</div>
+    <div class="nav-tab" onclick="showPanel('patients', this)">For patients</div>
+  </div>
+</nav>
+
+<!-- ════════════════════════ MAIN ══════════════════════════ -->
+<main class="main">
+
+<!-- ─────────────────────── OVERVIEW ─────────────────────── -->
+<section class="panel active" id="overview">
+  <div class="section-header">
+    <h2 class="section-title">Why these two plants?</h2>
+    <p class="section-desc">
+      Despite belonging to entirely different plant families and growing on different continents, <em>P. niruri</em> and <em>C. sativa</em> share a surprising degree of phytochemical overlap — particularly in the flavonoid and monoterpene classes that drive their anti-inflammatory properties.
+    </p>
+  </div>
+
+  <div class="plant-split">
+    <div class="plant-card pn">
+      <div class="plant-label">Phyllanthaceae</div>
+      <div class="plant-name">Phyllanthus niruri</div>
+      <div class="plant-common">Chanca piedra · Gale of the wind · Stone-breaker</div>
+      <ul class="plant-facts">
+        <li>Pantropical weed; common seasonal herb in East African highlands including Kirinyaga County</li>
+        <li>Traditional uses: hepatitis B, kidney stones, malaria, diabetes, inflammation</li>
+        <li>Key compound classes: lignans, hydrolysable tannins, flavonoids, triterpenes</li>
+        <li>Standardisation marker: phyllanthin (lignan); 0.5–1% in commercial extracts</li>
+        <li>Aqueous LD₅₀ &gt; 5,000 mg/kg in rat models — classified non-toxic</li>
+      </ul>
+    </div>
+    <div class="plant-card cs">
+      <div class="plant-label">Cannabaceae</div>
+      <div class="plant-name">Cannabis sativa</div>
+      <div class="plant-common">Hemp · Marijuana (medical cultivars)</div>
+      <ul class="plant-facts">
+        <li>Cultivated globally; pharmacological interest centres on cannabinoid and terpene content</li>
+        <li>Key compound classes: cannabinoids (THC/CBD), 120+ terpenes across 5 structural classes, flavonoids</li>
+        <li>Distinctive flavonoids: canniflavins A/B/C — structurally unique prenylated flavones with COX inhibition</li>
+        <li>β-Caryophyllene: only terpene that acts as a cannabinoid; CB2 receptor agonist</li>
+        <li>Regulatory status highly variable — jurisdiction-dependent</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>The structural convergence argument:</strong> When two phylogenetically distant plants independently produce the same molecule — rutin, quercetin, astragalin, kaempferol, limonene, p-cymene — that convergence is not coincidence. It reflects evolutionary pressure toward compounds that modulate inflammation, oxidative stress, and microbial defence through conserved biochemical pathways. For researchers and clinicians, shared chemistry implies shared mechanism.
+  </div>
+
+  <div class="card">
+    <div class="card-label">At a glance — confirmed overlap</div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+      <div>
+        <div style="font-size:28px; font-family:'DM Serif Display',serif; color:var(--shared-gold); margin-bottom:4px;">5</div>
+        <div style="font-size:12px; color:var(--text-sub); line-height:1.5;">Flavonoids identical across both plants (rutin, quercetin, astragalin/kaempferol, vitexin, apigenin)</div>
+      </div>
+      <div>
+        <div style="font-size:28px; font-family:'DM Serif Display',serif; color:var(--shared-gold); margin-bottom:4px;">2</div>
+        <div style="font-size:12px; color:var(--text-sub); line-height:1.5;">Monoterpenes shared by identity: limonene and p-cymene — both confirmed in peer-reviewed extraction studies</div>
+      </div>
+      <div>
+        <div style="font-size:28px; font-family:'DM Serif Display',serif; color:var(--pn-purple); margin-bottom:4px;">3</div>
+        <div style="font-size:12px; color:var(--text-sub); line-height:1.5;">Compound classes exclusive to P. niruri with no cannabis equivalent: lignans, hydrolysable tannins, lupeol-type triterpenes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── TERPENES ─────────────────────── -->
+<section class="panel" id="terpenes">
+  <div class="section-header">
+    <h2 class="section-title">Terpene map</h2>
+    <p class="section-desc">
+      Terpenes are volatile secondary metabolites built from isoprene units (C5). They account for the aroma profiles of both plants and contribute significantly to anti-inflammatory, antimicrobial, and penetration-enhancing activities.
+    </p>
+  </div>
+
+  <div class="callout">
+    Both plants share <strong>limonene</strong> (C10 monoterpene) and <strong>p-cymene</strong> (C10 monoterpene) by confirmed chemical identity. <em>C. sativa</em> carries 120 terpenes across 5 structural classes; <em>P. niruri</em> is narrower — monoterpenes and triterpenes are the documented classes, with sesquiterpenes present across the Phyllanthus genus.
+  </div>
+
+  <div class="legend">
+    <span class="leg"><span class="leg-dot" style="background:var(--shared-gold)"></span>Shared compound (identical molecule)</span>
+    <span class="leg"><span class="leg-dot" style="background:var(--pn-purple)"></span><em>P. niruri</em> only</span>
+    <span class="leg"><span class="leg-dot" style="background:var(--cs-green)"></span><em>C. sativa</em> only</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">P. niruri — documented terpenes</div>
+      <div class="cpd-list">
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">Limonene</span>
+          <span class="cpd-bio">Monoterpene (C10). Anti-carcinogenic in liver tumour models; skin penetration enhancer (diclofenac uptake); antibacterial. One of two shared monoterpenes.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">p-Cymene</span>
+          <span class="cpd-bio">Monoterpene (C10). Antioxidant; antimicrobial; prevents α-tocopherol (vitamin E) oxidation in formulations. Identical molecule in both plants.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot pn"></span>
+          <span class="cpd-name">Lupeol</span>
+          <span class="cpd-bio">Triterpene (C30, lupane-type). Skin chemopreventive; hepatoprotective; apoptotic in human pancreatic adenocarcinoma cell lines. P. niruri-exclusive — no cannabis equivalent.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot pn"></span>
+          <span class="cpd-name">Phyllanthenol</span>
+          <span class="cpd-bio">Triterpene long-chain terpenoid alcohol. Antioxidant contribution; co-occurs with lupeol in root/stem fractions.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot pn"></span>
+          <span class="cpd-name">Phyllantheol / phyllanthenone</span>
+          <span class="cpd-bio">Triterpene variants. Documented across aerial parts; structurally related to lupeol class.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">C. sativa — 120 terpenes (selected)</div>
+      <div class="cpd-list">
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">Limonene</span>
+          <span class="cpd-bio">Monoterpene. Present across 61 cannabis monoterpenes. Citrus aroma; anxiolytic, antibacterial. Shared with P. niruri by identity.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">p-Cymene</span>
+          <span class="cpd-bio">Monoterpene. Antioxidant synergist in the terpene blend. Isomeric to thyme-derived cymene. Shared with P. niruri by identity.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot cs"></span>
+          <span class="cpd-name">β-Myrcene</span>
+          <span class="cpd-bio">Monoterpene. Sedative; analgesic; anti-inflammatory. Among the most abundant cannabis monoterpenes. No equivalent in P. niruri.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot cs"></span>
+          <span class="cpd-name">β-Caryophyllene</span>
+          <span class="cpd-bio">Sesquiterpene (C15). CB2 receptor agonist — the only terpene that functions as a cannabinoid. Anti-inflammatory via endocannabinoid system.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot cs"></span>
+          <span class="cpd-name">α-Pinene / Linalool</span>
+          <span class="cpd-bio">Monoterpenes. α-Pinene: bronchodilatory, memory-supporting (AChE inhibition). Linalool: anxiolytic, sedative.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot cs"></span>
+          <span class="cpd-name">51 sesquiterpenes (C15)</span>
+          <span class="cpd-bio">Largest aromatic class in cannabis. Includes humulene, bisabolol, farnesene. Anti-inflammatory; characteristic cannabis aroma.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot cs"></span>
+          <span class="cpd-name">2 triterpenes (C30)</span>
+          <span class="cpd-bio">Friedelin and epifriedelanol — friedelan-type skeleton. Structurally distinct from P. niruri's lupane-type lupeol. Activities not equivalent.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Structural classes compared</div>
+    <div class="cpd-list">
+      <div class="cpd-row">
+        <span class="cpd-name" style="min-width:120px">Monoterpenes (C10)</span>
+        <span class="cpd-bio">Both plants: limonene + p-cymene confirmed by identity. 2 isoprene units. Most volatile class — responsible for aroma and topical penetration enhancement. Cannabis has 61 monoterpenes total; P. niruri's monoterpene profile is narrower but includes the two shared molecules.</span>
+      </div>
+      <div class="cpd-row">
+        <span class="cpd-name" style="min-width:120px">Sesquiterpenes (C15)</span>
+        <span class="cpd-bio">Cannabis: 51 compounds — dominant aromatic class. P. niruri: sesquiterpenes documented for Phyllanthus genus (~40 species-level), but species-specific list for P. niruri is not well characterised in reviewed literature. No direct overlap claimed.</span>
+      </div>
+      <div class="cpd-row">
+        <span class="cpd-name" style="min-width:120px">Diterpenes (C20)</span>
+        <span class="cpd-bio">Cannabis: 2 confirmed (phytol class). P. niruri: phytol-class possible but not reported in core literature for this species.</span>
+      </div>
+      <div class="cpd-row" style="border-bottom:none">
+        <span class="cpd-name" style="min-width:120px">Triterpenes (C30)</span>
+        <span class="cpd-bio">P. niruri: lupeol, phyllanthenol, phyllantheol — well-documented, bioactive, lupane-type skeleton. Cannabis: 2 triterpenes (friedelan-type) — different structural class. No bioactivity equivalence should be assumed.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── FLAVONOIDS ───────────────────── -->
+<section class="panel" id="flavonoids">
+  <div class="section-header">
+    <h2 class="section-title">Flavonoid overlap</h2>
+    <p class="section-desc">
+      Flavonoids are polyphenolic secondary metabolites with well-characterised anti-inflammatory, antioxidant, and immunomodulatory mechanisms. The degree of flavonoid convergence between these two unrelated plant families is pharmacologically significant.
+    </p>
+  </div>
+
+  <div class="callout">
+    At minimum <strong>5 flavonoids are confirmed shared by identity</strong>: rutin, quercetin, astragalin (kaempferol-3-O-glucoside), vitexin/orientin, and apigenin. This is a high degree of convergence for plants in the Phyllanthaceae and Cannabaceae families, which last shared a common ancestor hundreds of millions of years ago.
+  </div>
+
+  <!-- Visual Venn SVG -->
+  <div class="venn-wrap">
+    <div class="card-label" style="margin-bottom:16px">Compound overlap diagram</div>
+    <div class="venn-svg-wrap">
+      <svg viewBox="0 0 860 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:860px;display:block;margin:0 auto">
+        <!-- P. niruri circle -->
+        <circle cx="290" cy="160" r="130" fill="rgba(91,62,155,0.08)" stroke="#5B3E9B" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- C. sativa circle -->
+        <circle cx="570" cy="160" r="130" fill="rgba(26,122,82,0.08)" stroke="#1A7A52" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- Overlap fill -->
+        <path d="M430,72 A130,130,0,0,1,430,248 A130,130,0,0,1,430,72" fill="rgba(168,108,0,0.10)" stroke="none"/>
+
+        <!-- P. niruri label -->
+        <text x="200" y="50" text-anchor="middle" font-family="DM Serif Display, serif" font-size="13" font-style="italic" fill="#5B3E9B">P. niruri</text>
+        <text x="200" y="66" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#7A6AAB">only</text>
+
+        <!-- C. sativa label -->
+        <text x="660" y="50" text-anchor="middle" font-family="DM Serif Display, serif" font-size="13" font-style="italic" fill="#1A7A52">C. sativa</text>
+        <text x="660" y="66" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#4A9A72">only</text>
+
+        <!-- Shared label -->
+        <text x="430" y="42" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="#A86C00">Shared</text>
+
+        <!-- Shared compounds (centre) -->
+        <text x="430" y="105" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" font-weight="500" fill="#6B4200">Rutin</text>
+        <text x="430" y="122" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" font-weight="500" fill="#6B4200">Quercetin</text>
+        <text x="430" y="139" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" font-weight="500" fill="#6B4200">Astragalin</text>
+        <text x="430" y="156" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" font-weight="500" fill="#6B4200">Kaempferol</text>
+        <text x="430" y="173" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" font-weight="500" fill="#6B4200">Vitexin/Orientin</text>
+        <text x="430" y="190" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" font-weight="500" fill="#6B4200">Apigenin</text>
+        <text x="430" y="213" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#8B6200">Limonene</text>
+        <text x="430" y="228" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#8B6200">p-Cymene</text>
+
+        <!-- P. niruri only -->
+        <text x="225" y="110" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#5B3E9B">Lupeol</text>
+        <text x="215" y="128" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#5B3E9B">Phyllanthin</text>
+        <text x="220" y="146" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#5B3E9B">Hypophyllanthin</text>
+        <text x="218" y="164" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#5B3E9B">Geraniin</text>
+        <text x="222" y="182" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#5B3E9B">Corilagin</text>
+        <text x="218" y="200" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#5B3E9B">Ellagic acid</text>
+        <text x="215" y="218" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#5B3E9B">Nirurin</text>
+        <text x="218" y="236" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#5B3E9B">Quercitrin</text>
+
+        <!-- C. sativa only -->
+        <text x="635" y="110" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#1A7A52">β-Caryophyllene</text>
+        <text x="635" y="128" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#1A7A52">β-Myrcene</text>
+        <text x="635" y="146" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#1A7A52">Canniflavin A/B/C</text>
+        <text x="635" y="164" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#1A7A52">Naringenin</text>
+        <text x="635" y="182" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#1A7A52">α-Pinene</text>
+        <text x="635" y="200" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#1A7A52">Linalool</text>
+        <text x="635" y="218" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#1A7A52">THC / CBD</text>
+        <text x="635" y="236" text-anchor="middle" font-family="DM Mono, monospace" font-size="9.5" fill="#1A7A52">Cytisoside</text>
+      </svg>
+    </div>
+    <div class="venn-legend">
+      <span class="leg"><span class="leg-dot" style="background:var(--pn-purple)"></span>P. niruri exclusive</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--shared-gold)"></span>Confirmed shared (identity)</span>
+      <span class="leg"><span class="leg-dot" style="background:var(--cs-green)"></span>C. sativa exclusive</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-label">P. niruri flavonoids</div>
+      <div class="cpd-list">
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">Rutin</span>
+          <span class="cpd-bio">Quercetin-3-O-rutinoside. Confirmed shared. Capillary-protective, anti-hypertensive, antioxidant.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">Quercetin</span>
+          <span class="cpd-bio">Flavonol aglycone. Confirmed shared. Anti-aggregation, anti-inflammatory, antifungal, antispasmodic.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">Astragalin</span>
+          <span class="cpd-bio">Kaempferol-3-O-glucoside. Immunomodulatory, anti-allergic, anti-IgE, anti-dermatitis documented in vitro.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">Kaempferol</span>
+          <span class="cpd-bio">Flavonol. Present as rhamnopyranoside in P. niruri. Anti-inflammatory, antioxidant.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">Orientin / Vitexin</span>
+          <span class="cpd-bio">C-glycosides. Confirmed by LC-MS metabolomics. Anti-inflammatory, antioxidant.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot shared"></span>
+          <span class="cpd-name">Apigenin</span>
+          <span class="cpd-bio">Flavone. Confirmed in methanol extract. Anti-inflammatory, potential anxiolytic.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot pn"></span>
+          <span class="cpd-name">Nirurin</span>
+          <span class="cpd-bio">Prenylated flavanone glycoside — P. niruri specific. Pharmacological convergence with canniflavins (both prenylated).</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot pn"></span>
+          <span class="cpd-name">Quercitrin</span>
+          <span class="cpd-bio">Quercetin-3-O-rhamnoside. Different sugar residue than cannabis quercetin glycosides.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot pn"></span>
+          <span class="cpd-name">Isoquercitrin</span>
+          <span class="cpd-bio">Quercetin-3-O-glucoside. Antioxidant; anti-inflammatory in preclinical models.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">C. sativa exclusive flavonoids</div>
+      <div class="cpd-list">
+        <div class="cpd-row">
+          <span class="cpd-dot cs"></span>
+          <span class="cpd-name">Canniflavin A</span>
+          <span class="cpd-bio">Methylated isoprenoid flavone — structurally unique to cannabis. COX-1/COX-2 inhibition; ~30× more potent than aspirin by weight in early cell models.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot cs"></span>
+          <span class="cpd-name">Canniflavin B/C</span>
+          <span class="cpd-bio">Structural variants of canniflavin A. Same prenylated flavone backbone; anti-inflammatory through prostaglandin pathway.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot cs"></span>
+          <span class="cpd-name">Naringenin / Naringin</span>
+          <span class="cpd-bio">Flavanones confirmed in hemp. Not reported in P. niruri. Antioxidant; anti-inflammatory.</span>
+        </div>
+        <div class="cpd-row">
+          <span class="cpd-dot cs"></span>
+          <span class="cpd-name">Cytisoside</span>
+          <span class="cpd-bio">Vitexin-2-O-glucoside — cannabis-specific glycoside form of vitexin backbone.</span>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; padding-top:14px; border-top:0.5px solid var(--border-soft)">
+        <div class="card-label" style="margin-bottom:10px">Structural analogy (not identity)</div>
+        <div class="cpd-row">
+          <span class="cpd-dot" style="background:#888; flex-shrink:0; margin-top:5px"></span>
+          <span class="cpd-bio"><span class="mono" style="font-size:11px; color:var(--text-main)">Nirurin (P. niruri)</span> and <span class="mono" style="font-size:11px; color:var(--text-main)">Canniflavins (C. sativa)</span> are both prenylated flavonoids — same class, different backbone oxidation state. Structural analogy suggests parallel anti-inflammatory activity, but activities are not directly transferable without experimental confirmation.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── BIOACTIVITY ───────────────────── -->
+<section class="panel" id="bioactivity">
+  <div class="section-header">
+    <h2 class="section-title">Bioactivity bridge</h2>
+    <p class="section-desc">
+      Where compounds are chemically identical across both plants, documented bioactivity in one plant applies directly to the other. Where compounds are structurally analogous (same class, different glycoside), activity is plausible but requires independent confirmation.
+    </p>
+  </div>
+
+  <div class="callout">
+    Equivalence symbols used below: <strong>≡</strong> = identical molecule, activity transfers directly · <strong>~</strong> = same aglycone, different sugar (activity plausible, not confirmed for glycoside) · <strong>≈</strong> = structural analogy, parallel mechanism inferred · <strong>≠</strong> = no structural equivalent in other plant
+  </div>
+
+  <div class="card">
+    <div class="card-label">Compound-level bioactivity bridge</div>
+    <table class="bridge-table">
+      <thead>
+        <tr>
+          <th>P. niruri compound + activity</th>
+          <th></th>
+          <th>C. sativa compound + activity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag shared">Rutin</span> Capillary strength, antioxidant, anti-hypertensive</td>
+          <td><span class="equiv-strong">≡</span></td>
+          <td><span class="tag shared">Rutin</span> Same molecule — same targets, directly applicable across both plant sources</td>
+        </tr>
+        <tr>
+          <td><span class="tag shared">Quercetin</span> Anti-aggregation, anti-inflammatory, antifungal, antispasmodic</td>
+          <td><span class="equiv-strong">≡</span></td>
+          <td><span class="tag shared">Quercetin</span> Identical aglycone; present in all 4 cannabis cultivars tested in published studies</td>
+        </tr>
+        <tr>
+          <td><span class="tag shared">Astragalin</span> Immunomodulatory, anti-allergic, anti-IgE, anti-dermatitis</td>
+          <td><span class="equiv-partial">~</span></td>
+          <td><span class="tag cs">Kaempferol-sophoroside</span> Same aglycone (kaempferol), different sugar — immune activity plausible but not confirmed for the cannabis glycoside specifically</td>
+        </tr>
+        <tr>
+          <td><span class="tag shared">Limonene</span> Anti-carcinogenic (liver models), penetration enhancer, antibacterial</td>
+          <td><span class="equiv-strong">≡</span></td>
+          <td><span class="tag shared">Limonene</span> Identical monoterpene — same mechanisms apply; cannabis is a confirmed alternative source</td>
+        </tr>
+        <tr>
+          <td><span class="tag shared">p-Cymene</span> Antioxidant, antimicrobial, α-tocopherol protection</td>
+          <td><span class="equiv-strong">≡</span></td>
+          <td><span class="tag shared">p-Cymene</span> Identical monoterpene — bioactivities transfer directly</td>
+        </tr>
+        <tr>
+          <td><span class="tag pn">Lupeol</span> Skin chemopreventive, hepatoprotective, apoptotic (pancreatic adenocarcinoma lines)</td>
+          <td><span class="equiv-none">≠</span></td>
+          <td><span class="tag cs">Friedelan triterpenes</span> Cannabis triterpenes are friedelan-type — structurally distinct. No equivalence. Lupeol is P. niruri's most differentiated advantage in combined formulations.</td>
+        </tr>
+        <tr>
+          <td><span class="tag pn">Nirurin</span> Prenylated flavanone — anti-inflammatory under investigation</td>
+          <td><span class="equiv-partial">≈</span></td>
+          <td><span class="tag cs">Canniflavin A/B/C</span> Both are prenylated flavonoids — structural analogy, different backbone. Cannabis: COX inhibition confirmed. P. niruri parallel activity plausible but not yet demonstrated.</td>
+        </tr>
+        <tr>
+          <td><span class="tag pn">Ellagic acid / Geraniin / Corilagin</span> Anti-carcinogenic, DNA protection, antiviral (HBV, HIV)</td>
+          <td><span class="equiv-none">≠</span></td>
+          <td><span class="tag cs">No equivalent</span> Hydrolysable tannins are exclusive to P. niruri — a major differentiating class</td>
+        </tr>
+        <tr>
+          <td><span class="tag pn">Phyllanthin / Hypophyllanthin</span> Hepatoprotective, anti-inflammatory, anti-HIV (in vitro)</td>
+          <td><span class="equiv-none">≠</span></td>
+          <td><span class="tag cs">No lignan class</span> Lignans are the most distinctive P. niruri compound class — not found in cannabis. Phyllanthin is the primary standardisation marker.</td>
+        </tr>
+        <tr>
+          <td><span class="tag pn">Quercetin-based anti-lithic activity</span> Kidney stone dissolution in rat models (calcium oxalate)</td>
+          <td><span class="equiv-partial">≈</span></td>
+          <td><span class="tag cs">Quercetin (shared)</span> Quercetin present in both; anti-lithic effect attributed to P. niruri's unique tannin-lignan-flavonoid synergy, not quercetin alone</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-cell strong">
+      <div class="summary-cell-label">Strong overlap</div>
+      <p>Antioxidant, anti-inflammatory, antimicrobial — carried by shared quercetin, rutin, limonene, and p-cymene. Activity documented independently in both plants; mechanism identical at the molecular level.</p>
+    </div>
+    <div class="summary-cell moderate">
+      <div class="summary-cell-label">Moderate overlap</div>
+      <p>Immunomodulation (kaempferol skeleton), anti-cancer (quercetin, limonene), capillary and vascular support (rutin). Shared mechanisms with plant-specific glycoside variations.</p>
+    </div>
+    <div class="summary-cell pn">
+      <div class="summary-cell-label">P. niruri exclusive advantage</div>
+      <p>Hepatoprotection, anti-lithic (kidney stone dissolution), anti-HBV, anti-HIV in vitro — driven by unique lignans (phyllanthin), lupeol, and hydrolysable tannins (geraniin, ellagic acid). No cannabis equivalent for these compound classes.</p>
+    </div>
+    <div class="summary-cell cs">
+      <div class="summary-cell-label">C. sativa exclusive advantage</div>
+      <p>CB2 agonism via β-caryophyllene (endocannabinoid system modulation), 120-compound terpene breadth, canniflavin COX inhibition, and clinically-studied cannabinoid (CBD/THC) pharmacology.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── PREPARATION ──────────────────── -->
+<section class="panel" id="preparation">
+  <div class="section-header">
+    <h2 class="section-title">Preparation protocol — P. niruri</h2>
+    <p class="section-desc">
+      Different compound classes require different extraction methods. A single preparation cannot capture all bioactive fractions simultaneously. Three distinct preparations are described below, each targeting a specific compound class.
+    </p>
+  </div>
+
+  <div class="callout">
+    <strong>Extraction targets:</strong> (A) Aqueous decoction — flavonoids, tannins, lignans · (B) Hydroalcoholic extract — broadest phytochemical range · (C) Essential oil — monoterpenes (limonene, p-cymene) · (D) Lipophilic fraction — lupeol and triterpenes. These require separate, sequential preparations.
+  </div>
+
+  <div class="card prep-block">
+    <div class="prep-block-title">
+      <span class="prep-block-badge">A</span>
+      Aqueous decoction — traditional, field-appropriate
+    </div>
+    <div class="prep-steps">
+      <div class="prep-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Plant material</div>
+          <div class="step-body">Harvest whole aerial parts at pre-flowering stage for maximum phytochemical content. In Kirinyaga County, P. niruri is a seasonal weed in humid, shaded borders. Wash thoroughly. Sun-dry on raised racks 3–5 days, or shade-dry 7–10 days. Grind to coarse powder. Target yield: ~1,800 g dried powder per extraction batch.</div>
+        </div>
+      </div>
+      <div class="prep-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Decoction</div>
+          <div class="step-body">Boil 4–8 g dried powder in 300 ml water for 10–15 minutes at atmospheric pressure. Strain through muslin or fine cloth. Cool before use. This captures: flavonoids (rutin, quercetin, astragalin), hydrolysable tannins (geraniin, corilagin, ellagic acid), lignans (partially). Water solubility confirmed at 26.2% — highest of all tested extraction solvents.</div>
+          <div class="step-note">Monoterpenes (limonene, p-cymene) are largely lost at boiling — use Preparation C for terpene-targeted extraction.</div>
+        </div>
+      </div>
+      <div class="prep-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Dosing — decoction</div>
+          <div class="step-body">Standard: 2 cups (~300 ml each) daily, taken away from meals. Equivalent to ~8–16 g dried herb/day. Consistent with Ayurvedic and East African traditional practice. Aqueous LD₅₀ in rats: &gt;5,000 mg/kg body weight — classified non-toxic in animal models. Recommended duration for hepatoprotective / anti-lithic applications: 4–8 weeks.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card prep-block">
+    <div class="prep-block-title">
+      <span class="prep-block-badge">B</span>
+      Hydroalcoholic extract — optimal phytochemical breadth
+    </div>
+    <div class="prep-steps">
+      <div class="prep-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Solvent selection</div>
+          <div class="step-body">50% ethanol (v/v) in water — documented optimal for P. niruri for total phenolic content and antioxidant capacity. Captures both hydrophilic (flavonoids, tannins) and moderately lipophilic (quercetin aglycone, lignans, p-cymene-related fractions) simultaneously.</div>
+        </div>
+      </div>
+      <div class="prep-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Maceration</div>
+          <div class="step-body">Cold maceration: soak dried powder in 50% ethanol at 1:10 w/v ratio, 24–72 hours at room temperature with periodic agitation. Filter through Whatman No. 1 paper. Evaporate ethanol under reduced pressure at &lt;40°C, or use as tincture directly. Soxhlet at 75°C gives more exhaustive extraction but risks degrading heat-sensitive phenolics.</div>
+        </div>
+      </div>
+      <div class="prep-step">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Standardisation target</div>
+          <div class="step-body">For research or commercial preparations: standardise to 0.5–1% phyllanthin (lignan marker). Dose: 150–300 mg standardised extract twice daily. Ethanol extract LD₅₀: non-toxic up to 300 mg/kg in Sprague-Dawley rats (subchronic); no genotoxic effects documented at 50–250 mg/kg over 30 days.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card prep-block">
+    <div class="prep-block-title">
+      <span class="prep-block-badge">C</span>
+      Essential oil fraction — terpene-targeted (limonene + p-cymene)
+    </div>
+    <div class="prep-steps">
+      <div class="prep-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Steam distillation</div>
+          <div class="step-body">Use fresh aerial parts — limonene and p-cymene are volatile and partially lost during drying. Steam distil fresh material in a Clevenger apparatus. Collect essential oil layer. Yield is low (P. niruri is not an oil-rich plant), but both monoterpenes are confirmed by GC-MS in published studies.</div>
+        </div>
+      </div>
+      <div class="prep-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Application — topical penetration enhancement</div>
+          <div class="step-body">Limonene is documented to enhance transdermal diclofenac penetration in hairless rat models — relevant for topical wound and anti-inflammatory formulations. Dilute essential oil to 1–5% in carrier oil (coconut, jojoba) before topical application. p-Cymene at low concentrations functions as antioxidant synergist in the formulation.</div>
+          <div class="step-note">Do not apply undiluted essential oil to skin.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card prep-block">
+    <div class="prep-block-title">
+      <span class="prep-block-badge">D</span>
+      Triterpene fraction — lupeol (hepatoprotective / skin chemopreventive)
+    </div>
+    <div class="prep-steps">
+      <div class="prep-step">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Non-polar extraction</div>
+          <div class="step-body">Lupeol and phyllanthenol are non-polar — extracted with petroleum ether or n-hexane in a Soxhlet apparatus. Sequential extraction (petroleum ether → ethanol → water) yields three distinct fractions, each enriched for a different compound class. The non-polar fraction is lupeol-rich.</div>
+        </div>
+      </div>
+      <div class="prep-step">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Bioactivity and use context</div>
+          <div class="step-body">Lupeol (lupane-type pentacyclic triterpene, C30): skin chemopreventive — suppresses benzoyl peroxide-induced cutaneous toxicity; hepatoprotective against cadmium-induced liver toxicity; apoptotic in human pancreatic adenocarcinoma cell lines in vitro. This is the most differentiated advantage of P. niruri in any combined formulation — cannabis triterpenes are friedelan-type and structurally distinct, with no equivalent activity.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────── FOR PATIENTS ─────────────────── -->
+<section class="panel" id="patients">
+  <div class="section-header">
+    <h2 class="section-title">For patients — autoimmune and type 2 inflammatory conditions</h2>
+    <p class="section-desc">
+      This section translates the phytochemical data above into plain-language relevance for people living with autoimmune conditions or chronic type 2 (low-grade) inflammation. It does not constitute medical advice.
+    </p>
+  </div>
+
+  <div class="patient-callout">
+    <h3>What is type 2 inflammation?</h3>
+    <p>
+      Type 2 inflammation is driven primarily by Th2 immune cells, IgE antibodies, and cytokines including IL-4, IL-5, and IL-13. It underlies conditions such as atopic dermatitis (eczema), allergic asthma, food allergies, and eosinophilic disorders. It is distinct from the type 1 / Th1 response that dominates in conditions like rheumatoid arthritis, Crohn's disease, and multiple sclerosis — although mixed-type inflammation is common. Many conventional pharmaceuticals target single pathways; botanical compounds often act on multiple convergent pathways simultaneously.
+    </p>
+  </div>
+
+  <div class="relevance-grid">
+    <div class="relevance-card">
+      <div class="relevance-card-title"><span class="icon">🔴</span>Atopic dermatitis / eczema</div>
+      <ul>
+        <li>Astragalin (shared): anti-IgE and anti-dermatitis activity in preclinical models — inhibits mast cell degranulation</li>
+        <li>Quercetin (shared): mast cell stabiliser; reduces histamine release in cell models</li>
+        <li>Lupeol (P. niruri only): suppresses cutaneous inflammatory response to chemical irritants in rodent skin models</li>
+        <li>β-Caryophyllene (cannabis only): CB2 agonism modulates keratinocyte inflammation</li>
+        <li>Limonene (shared): topical penetration enhancer — could increase delivery of co-formulated compounds through skin barrier</li>
+      </ul>
+    </div>
+    <div class="relevance-card">
+      <div class="relevance-card-title"><span class="icon">🫁</span>Allergic asthma</div>
+      <ul>
+        <li>Quercetin (shared): reduces bronchial hyperresponsiveness in animal models via inhibition of type 2 cytokines</li>
+        <li>α-Pinene (cannabis only): documented bronchodilatory effect; AChE inhibitor</li>
+        <li>Apigenin (shared): anti-inflammatory flavone with potential airway-protective properties in cell models</li>
+        <li>Rutin (shared): capillary protective — may reduce oedema in airway mucosa</li>
+      </ul>
+    </div>
+    <div class="relevance-card">
+      <div class="relevance-card-title"><span class="icon">⚙️</span>Rheumatoid arthritis (type 1/mixed)</div>
+      <ul>
+        <li>Quercetin (shared): inhibits pro-inflammatory cytokines (TNF-α, IL-1β, IL-6) in synovial cell models</li>
+        <li>Canniflavin A/B (cannabis only): COX inhibition — same pathway as NSAIDs, with lower gastric side-effect profile in early studies</li>
+        <li>Phyllanthin / hypophyllanthin (P. niruri only): anti-inflammatory in carrageenan-induced paw oedema models</li>
+        <li>β-Caryophyllene (cannabis only): CB2 agonism in joint tissues; anti-nociceptive in preclinical pain models</li>
+      </ul>
+    </div>
+    <div class="relevance-card">
+      <div class="relevance-card-title"><span class="icon">🧬</span>Autoimmune hepatitis / liver inflammation</div>
+      <ul>
+        <li>Phyllanthin / hypophyllanthin (P. niruri only): hepatoprotective against paracetamol-induced and carbon tetrachloride-induced hepatotoxicity in rodent models</li>
+        <li>Lupeol (P. niruri only): hepatoprotective against cadmium toxicity; modulates liver enzymes in animal studies</li>
+        <li>Geraniin / corilagin (P. niruri only): antiviral against HBV in cell culture — relevant for hepatitis B-associated liver inflammation</li>
+        <li>Ellagic acid (P. niruri only): hepatoprotective, anti-carcinogenic; DNA protective</li>
+      </ul>
+    </div>
+    <div class="relevance-card">
+      <div class="relevance-card-title"><span class="icon">🫀</span>Metabolic inflammation (type 2)</div>
+      <ul>
+        <li>Quercetin (shared): documented insulin-sensitising and anti-glycation effects in cell models; anti-inflammatory in adipose tissue</li>
+        <li>Kaempferol (shared): inhibits adipogenesis in cell models; antioxidant relevant to oxidative stress in metabolic syndrome</li>
+        <li>Rutin (shared): improves vascular integrity; anti-hypertensive in rodent models</li>
+        <li>Phyllanthin (P. niruri only): anti-diabetic effects documented in streptozotocin-induced rat models</li>
+      </ul>
+    </div>
+    <div class="relevance-card">
+      <div class="relevance-card-title"><span class="icon">💡</span>Oxidative stress (cross-condition)</div>
+      <ul>
+        <li>p-Cymene (shared): prevents α-tocopherol oxidation — antioxidant synergist in multi-compound extracts</li>
+        <li>Ellagic acid (P. niruri only): free-radical scavenging; DNA protection in genotoxicity assays</li>
+        <li>Quercetin / rutin (shared): among the most well-characterised antioxidant flavonoids; reactive oxygen species (ROS) scavenging at nM concentrations in vitro</li>
+        <li>Isoquercitrin (P. niruri only): potent antioxidant in DPPH and ORAC assays</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-label">Key concept — why compound convergence matters</div>
+    <p style="font-size:13px; color:var(--text-sub); line-height:1.7; margin-bottom:10px">
+      Chronic inflammation rarely has a single molecular target. Most inflammatory conditions involve multiple dysregulated pathways operating simultaneously — NF-κB, COX, lipoxygenase, mast cell signalling, Th2 cytokine cascades, and reactive oxygen species. A botanical extract with 5 shared flavonoids + 2 shared terpenes + unique class-specific compounds (lignans, lupeol) acts across several of these pathways at once.
+    </p>
+    <p style="font-size:13px; color:var(--text-sub); line-height:1.7">
+      This polypharmacological profile is both a strength (broader coverage) and a research challenge (difficult to attribute effect to a single compound). It is one reason why standardised extracts — where phyllanthin content is controlled — are preferred in clinical research over raw herbal preparations.
+    </p>
+  </div>
+
+  <div class="important-box">
+    <strong>Before using any botanical preparation:</strong> The evidence base for P. niruri and cannabis-derived products ranges from well-replicated in vitro findings to limited clinical data. Most studies cited here are cell models or animal studies — these do not automatically predict human efficacy or safety. Interactions with immunosuppressants, anticoagulants (quercetin may potentiate warfarin), and HIV/hepatitis medications are possible. Always discuss with a qualified clinician before beginning any botanical protocol, particularly if you are managing an autoimmune condition or taking prescription medication.
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════ FOOTER ══════════════════════════ -->
+<footer class="site-footer">
+  <p>Phytochemical data compiled from peer-reviewed ethnopharmacology, natural products chemistry, and pharmacognosy literature.</p>
+  <p style="margin-top:4px">This page is for educational and research reference. It does not substitute clinical judgement or regulatory guidance.</p>
+  <p style="margin-top:8px; font-size:11px; opacity:0.6">Prepared for deployment on GitHub Pages · Content version 1.0 · Kavutiri Farm Research Reference</p>
+</footer>
+
+<script>
+function showPanel(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
