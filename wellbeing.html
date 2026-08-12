@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seniors' Daily Well-Being & Comfort Guide</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --accent-gold: #f59e0b;
+            --accent-green: #10b981;
+            --accent-blue: #38bdf8;
+            --text-light: #f8fafc;
+            --text-soft: #cbd5e1;
+            --border-soft: #334155;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-main);
+            font-size: 18px; /* High legibility default */
+            line-height: 1.7;
+            padding: 24px 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .wrapper {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-soft);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        header p {
+            color: var(--text-soft);
+            font-size: 1.1rem;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .info-card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-soft);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .info-card h2 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--border-soft);
+            padding-bottom: 10px;
+        }
+
+        /* Selector Grid */
+        .zone-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        @media (min-width: 650px) {
+            .zone-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .zone-btn {
+            background-color: var(--bg-dark);
+            border: 2px solid var(--border-soft);
+            color: var(--text-light);
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .zone-btn:hover {
+            border-color: var(--accent-gold);
+            background-color: #172033;
+        }
+
+        .zone-btn.active {
+            border-color: var(--accent-gold);
+            background-color: #242217;
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+        }
+
+        .zone-btn .btn-title {
+            font-weight: bold;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        .zone-btn .btn-sub {
+            font-size: 0.95rem;
+            color: var(--text-soft);
+        }
+
+        /* Dynamic Detail Panel */
+        .detail-box {
+            background-color: var(--bg-dark);
+            border: 2px solid var(--border-soft);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 16px;
+        }
+
+        .detail-box h3 {
+            color: var(--accent-gold);
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+
+        .detail-section {
+            margin-top: 20px;
+        }
+
+        .detail-section h4 {
+            color: var(--accent-green);
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-section p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+        }
+
+        /* Gentle Timer & Breathing Guide */
+        .timer-card {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .timer-clock {
+            font-size: 3.5rem;
+            font-weight: bold;
+            font-family: monospace;
+            color: var(--accent-blue);
+            background-color: var(--bg-dark);
+            padding: 12px 36px;
+            border-radius: 12px;
+            border: 2px solid var(--border-soft);
+        }
+
+        .breath-guide {
+            font-size: 1.25rem;
+            color: var(--accent-green);
+            font-weight: bold;
+            min-height: 36px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-main {
+            background-color: var(--accent-gold);
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 16px 36px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            min-width: 180px;
+        }
+
+        .btn-main:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-soft);
+            font-size: 1.1rem;
+            padding: 16px 28px;
+            border: 2px solid var(--border-soft);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            color: var(--text-light);
+            border-color: var(--text-soft);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            padding: 16px 0;
+            border-top: 1px solid var(--border-soft);
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <h1>Gentle Daily Comfort & Balance Guide</h1>
+        <p>A simple, comforting guide designed to soothe chronic swelling, joint stiffness, and nerve sensitivity by gently calming the body’s internal signals.</p>
+    </header>
+
+    <!-- Section 1: Understanding Inflammation & Balance -->
+    <div class="info-card">
+        <h2>1. Understanding Your Body’s Natural Signals</h2>
+        <p>As we age, our bodies can experience lingering irritation known as <strong>Type 2 inflammation</strong>—which often shows up as joint stiffness, dry tissues, skin sensitivities, or reactive breathing. In traditional wellness wisdom, this erratic, sharp sensitivity is called a <strong>Vata imbalance</strong> (excess dryness and kinetic energy).</p>
+        <p style="margin-top: 12px;">You do not need to fight this energy. By placing gentle, sustained pressure on key natural "reset buttons" on your hands, legs, and ears, you send calming signals along your nerves directly to your brain and heart.</p>
+    </div>
+
+    <!-- Section 2: Choose Your Relief Zone -->
+    <div class="info-card">
+        <h2>2. Select a Comfort Zone to Focus On</h2>
+        <div class="zone-grid">
+            <button class="zone-btn active" onclick="selectZone(0)">
+                <span class="btn-title">1. The Hand Comfort Spot</span>
+                <span class="btn-sub">Best for general aches, head stiffness & fatigue</span>
+            </button>
+            <button class="zone-btn" onclick="selectZone(1)">
+                <span class="btn-title">2. The Forearm Calm Spot</span>
+                <span class="btn-sub">Best for tightness, chest tension & calming sleep</span>
+            </button>
+            <button class="zone-btn" onclick="selectZone(2)">
+                <span class="btn-title">3. The Lower Leg Grounding Spot</span>
+                <span class="btn-sub">Best for knee stiffness, digestion & swelling</span>
+            </button>
+            <button class="zone-btn" onclick="selectZone(3)">
+                <span class="btn-title">4. The Ear Peace Spot</span>
+                <span class="btn-sub">Best for immediate stress relief & deep calm</span>
+            </button>
+        </div>
+
+        <div class="detail-box" id="zone-details">
+            <!-- Populated via JavaScript -->
+        </div>
+    </div>
+
+    <!-- Section 3: Guided Timer & Breathing -->
+    <div class="info-card timer-card">
+        <h2>3. Guided 2-Minute Comfort Timer</h2>
+        <p style="color: var(--text-soft);">Hold the chosen spot with comfortable, steady pressure. Breathe slowly while following the prompt below.</p>
+        
+        <div class="timer-clock" id="timer-display">02:00</div>
+        <div class="breath-guide" id="breath-guide">Ready when you are...</div>
+
+        <div class="btn-group">
+            <button class="btn-main" id="start-btn" onclick="toggleTimer()">Start Session</button>
+            <button class="btn-secondary" onclick="resetTimer()">Reset Timer</button>
+        </div>
+    </div>
+
+    <footer>
+        Designed for Ease of Access | Gentle Home Wellness Protocol
+    </footer>
+</div>
+
+<script>
+    const zones = [
+        {
+            title: "1. The Hand Comfort Spot (LI4 / Hegu)",
+            where: "Located in the soft, muscular webbing on the back of your hand, right between the base of your thumb and index finger.",
+            howToHold: "Use the thumb and index finger of your opposite hand to gently pinch this soft area. If your fingers are stiff or arthritic, press the area gently against a soft cushion or your thigh using the flat pad of your knuckle.",
+            whyItHelps: "This spot acts as a natural circuit breaker for stiffness and aches throughout the upper body. It tells your nervous system to release natural tension-relieving endorphins.",
+            comfortTip: "Apply steady, warm pressure for 1 to 2 minutes while taking slow, gentle breaths."
+        },
+        {
+            title: "2. The Forearm Calm Spot (PC6 / Neiguan)",
+            where: "On the inside of your forearm, about three finger-breadths up from your wrist crease, resting between the two central tendons you can feel there.",
+            howToHold: "Press gently into this spot with the flat pad of your thumb. You do not need to press hard—just enough to feel a soft, dull warmth.",
+            whyItHelps: "This spot directly connects to the vagus nerve, which acts as your body's master brake pedal. It slows down a racing heart, calms nervous stomach butterflies, and prepares your mind for restful sleep.",
+            comfortTip: "Wonderful to hold in bed before sleeping to settle an overactive mind or mild evening restlessness."
+        },
+        {
+            title: "3. The Lower Leg Grounding Spot (ST36 / Zusanli)",
+            where: "On the outside of your lower leg, about four finger-breadths below your kneecap, in the soft muscular dip just beside your shin bone.",
+            howToHold: "Sit comfortably in a supportive chair. Use the heel of your palm or your thumb to make slow, small, warm circles over this area.",
+            whyItHelps: "Known in traditional medicine as the 'Leg Three Miles' spot because it restores stamina. Modern science shows it reduces inflammatory swelling in joints and aids smooth digestion.",
+            comfortTip: "Ideal to use in the morning while sitting down with warm tea to help ground your body's energy for the day."
+        },
+        {
+            title: "4. The Ear Peace Spot (Ear Shen Men)",
+            where: "In the upper third of your ear, nestled inside the small, shallow depression near the top curve of your outer ear.",
+            howToHold: "Gently pinch the upper part of your ear between your thumb and index finger using light, cushiony pressure.",
+            whyItHelps: "The outer ear is rich in nerves that connect directly to your brain's relaxation centers. Touching this point provides an instant signal to turn down stress hormones.",
+            comfortTip: "Use this spot whenever you feel sudden overwhelming stress, loud environmental noise, or unexpected pain flares."
+        }
+    ];
+
+    let currentZone = 0;
+    let timerInterval = null;
+    let timeLeft = 120; // 2 minutes
+    let isRunning = false;
+
+    function renderZone(index) {
+        const item = zones[index];
+        const container = document.getElementById('zone-details');
+        container.innerHTML = `
+            <h3>${item.title}</h3>
+            <div class="detail-section">
+                <h4>Where to Find It</h4>
+                <p>${item.where}</p>
+            </div>
+            <div class="detail-section">
+                <h4>How to Comfortably Hold It</h4>
+                <p>${item.howToHold}</p>
+            </div>
+            <div class="detail-section">
+                <h4>How It Helps Your Body</h4>
+                <p>${item.whyItHelps}</p>
+            </div>
+            <div class="detail-section">
+                <h4>Best Time for Relief</h4>
+                <p>${item.comfortTip}</p>
+            </div>
+        `;
+    }
+
+    function selectZone(index) {
+        currentZone = index;
+        const buttons = document.querySelectorAll('.zone-btn');
+        buttons.forEach((btn, i) => {
+            if (i === index) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        renderZone(index);
+        resetTimer();
+    }
+
+    function updateTimerDisplay() {
+        const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const secs = (timeLeft % 60).toString().padStart(2, '0');
+        document.getElementById('timer-display').innerText = `${mins}:${secs}`;
+    }
+
+    function updateBreathingPrompt() {
+        const guide = document.getElementById('breath-guide');
+        if (!isRunning) {
+            guide.innerText = "Ready when you are...";
+            guide.style.color = "var(--accent-green)";
+            return;
+        }
+
+        // 12-second breath cycle (4s inhale, 8s extended exhale)
+        const cycle = timeLeft % 12;
+        if (cycle >= 8) {
+            guide.innerText = "Gently Inhale... (4 seconds)";
+            guide.style.color = "var(--accent-blue)";
+        } else {
+            guide.innerText = "Slowly Exhale... (8 seconds)";
+            guide.style.color = "var(--accent-green)";
+        }
+    }
+
+    function toggleTimer() {
+        const startBtn = document.getElementById('start-btn');
+        if (isRunning) {
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.innerText = "Resume Session";
+            updateBreathingPrompt();
+        } else {
+            isRunning = true;
+            startBtn.innerText = "Pause Session";
+            timerInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    updateBreathingPrompt();
+                } else {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    startBtn.innerText = "Session Complete";
+                    document.getElementById('breath-guide').innerText = "Rest comfortably. Session complete!";
+                }
+            }, 1000);
+        }
+    }
+
+    function resetTimer() {
+        clearInterval(timerInterval);
+        isRunning = false;
+        timeLeft = 120;
+        updateTimerDisplay();
+        updateBreathingPrompt();
+        document.getElementById('start-btn').innerText = "Start Session";
+    }
+
+    // Initialize initial view
+    renderZone(0);
+</script>
+
+</body>
+</html>
