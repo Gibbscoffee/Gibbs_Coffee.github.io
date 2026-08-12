@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kavutiri Farm — A Year on the Coffee Farm</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700&display=swap');
+
+  :root {
+    --soil:     #5C3A1E;
+    --bark:     #8B5E3C;
+    --leaf:     #2D7A3A;
+    --leaf-lt:  #4CAF61;
+    --cherry:   #C0392B;
+    --cherry-lt:#E74C3C;
+    --sky:      #2980B9;
+    --sky-lt:   #5DADE2;
+    --sun:      #F1C40F;
+    --sun-lt:   #F9E547;
+    --cream:    #FDF6EC;
+    --ink:      #2C1A0E;
+    --mist:     #EAF4FF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── COVER ─────────────────────────────────────── */
+  .cover {
+    background: linear-gradient(160deg, #1B6B30 0%, #2D7A3A 45%, #5C3A1E 100%);
+    color: white;
+    text-align: center;
+    padding: 32px 24px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3Ccircle cx='30' cy='30' r='10'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 60px 60px;
+  }
+  .cover-emoji { font-size: 52px; display: block; margin-bottom: 8px; }
+  .cover h1 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 26px;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .cover .subtitle {
+    font-size: 13px;
+    opacity: 0.88;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .cover .flags {
+    margin-top: 12px;
+    font-size: 26px;
+    letter-spacing: 4px;
+  }
+  .cover .tagline {
+    margin-top: 10px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    display: inline-block;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── INTRO BOX ───────────────────────────────────── */
+  .intro {
+    background: white;
+    margin: 14px 12px;
+    border-radius: 14px;
+    padding: 14px 16px;
+    border-left: 5px solid var(--leaf);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  }
+  .intro h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 15px;
+    color: var(--leaf);
+    margin-bottom: 6px;
+  }
+  .intro p { font-size: 13px; margin-bottom: 6px; }
+  .intro p:last-child { margin-bottom: 0; }
+
+  /* ── LEGEND ───────────────────────────────────────── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 12px 12px;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 5px;
+    background: white;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 11.5px;
+    font-weight: 700;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.09);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── SEASON HEADERS ───────────────────────────────── */
+  .season-header {
+    font-family: 'Baloo 2', cursive;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    margin: 6px 12px 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .season-header.long-rains  { background: #D6EFD8; color: #1B5E20; }
+  .season-header.short-rains { background: #BBDEFB; color: #0D47A1; }
+  .season-header.cool-dry    { background: #FFF8E1; color: #E65100; }
+  .season-header.hot-dry     { background: #FCE4EC; color: #880E4F; }
+
+  /* ── MONTH CARDS ──────────────────────────────────── */
+  .months-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 0 12px 6px;
+  }
+
+  .month-card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border-top: 5px solid var(--leaf);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .month-card.rain-high  { border-top-color: #1565C0; }
+  .month-card.rain-med   { border-top-color: #42A5F5; }
+  .month-card.rain-low   { border-top-color: #FFB300; }
+  .month-card.rain-dry   { border-top-color: #EF6C00; }
+
+  .month-head {
+    padding: 8px 10px 4px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .month-emoji { font-size: 22px; }
+  .month-name {
+    font-family: 'Baloo 2', cursive;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .month-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 0 10px 6px;
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .badge.rain  { background: #E3F2FD; color: #1565C0; }
+  .badge.temp  { background: #FFF3E0; color: #E65100; }
+  .badge.water { background: #E8F5E9; color: #2E7D32; }
+
+  .month-status {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    letter-spacing: 0.02em;
+  }
+  .status-dry     { background: #FFF3E0; color: #E65100; }
+  .status-wet     { background: #E3F2FD; color: #1565C0; }
+  .status-balance { background: #F3E5F5; color: #6A1B9A; }
+  .status-ok      { background: #E8F5E9; color: #2E7D32; }
+
+  .month-action {
+    background: var(--cream);
+    padding: 7px 10px 9px;
+    flex: 1;
+    border-top: 1px dashed #E0D6CA;
+  }
+  .month-action .label {
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bark);
+    margin-bottom: 3px;
+  }
+  .month-action p {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+  .month-action .fun-note {
+    margin-top: 4px;
+    font-size: 10.5px;
+    color: #6D4C41;
+    font-style: italic;
+  }
+
+  /* ── WATER METER ───────────────────────────────────── */
+  .rain-bar-wrap {
+    padding: 2px 10px 6px;
+  }
+  .rain-bar-track {
+    height: 7px;
+    background: #EEE;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .rain-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #42A5F5, #1565C0);
+    transition: width 0.3s;
+  }
+  .rain-bar-label {
+    font-size: 9.5px;
+    color: #999;
+    margin-top: 2px;
+    font-weight: 600;
+  }
+
+  /* ── GLOSSARY ───────────────────────────────────────── */
+  .glossary {
+    margin: 8px 12px 10px;
+    background: white;
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  }
+  .glossary h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 14px;
+    color: var(--soil);
+    margin-bottom: 8px;
+  }
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .glossary-item {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+  .glossary-item strong {
+    display: block;
+    font-size: 11.5px;
+    color: var(--leaf);
+    margin-bottom: 2px;
+  }
+
+  /* ── QUIZ ───────────────────────────────────────────── */
+  .quiz {
+    margin: 0 12px 10px;
+    background: linear-gradient(135deg, #E8F5E9, #FFF8E1);
+    border-radius: 14px;
+    padding: 12px 14px;
+    border: 2px dashed var(--leaf);
+  }
+  .quiz h2 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 14px;
+    color: var(--leaf);
+    margin-bottom: 7px;
+  }
+  .quiz ol {
+    padding-left: 18px;
+  }
+  .quiz li {
+    font-size: 12px;
+    margin-bottom: 7px;
+    font-weight: 600;
+  }
+  .quiz .answer-space {
+    border-bottom: 1.5px solid #B2DFDB;
+    margin-top: 3px;
+    height: 18px;
+    display: block;
+  }
+
+  /* ── FOOTER ─────────────────────────────────────────── */
+  .footer {
+    background: var(--soil);
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 10.5px;
+    line-height: 1.7;
+  }
+  .footer strong { color: white; }
+
+  /* ── PRINT ───────────────────────────────────────────── */
+  @media print {
+    body { background: white; }
+    .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .month-card, .season-header, .badge, .glossary, .quiz, .footer {
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <span class="cover-emoji">☕🌿🍒</span>
+  <h1>A Year on the Coffee Farm</h1>
+  <div class="subtitle">Kavutiri Farm · Kirinyaga County, Kenya</div>
+  <div class="flags">🇩🇪 🇬🇧 🇰🇪</div>
+  <div class="tagline">Sunday School Discovery Handout · Ages 8–11</div>
+</div>
+
+<!-- INTRO -->
+<div class="intro">
+  <h2>🌍 Hello from Three Countries!</h2>
+  <p>Whether you are reading this in <strong>Hesse (Germany)</strong>, <strong>Gloucestershire (UK)</strong>, or right here in <strong>Kavutiri, Kenya</strong> — you are all connected to the same amazing farm where real coffee cherries grow!</p>
+  <p>This farm sits in the highlands of Kenya at about 1,600 metres above sea level. That's higher than most mountains in the UK! The farmers here watch the weather <strong>every single day</strong> to know when to water, when to harvest, and when to protect their plants. Let's follow the farm through its whole year! 🗓️</p>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><span class="dot" style="background:#1565C0"></span>Lots of rain</div>
+  <div class="legend-item"><span class="dot" style="background:#42A5F5"></span>Some rain</div>
+  <div class="legend-item"><span class="dot" style="background:#FFB300"></span>A little rain</div>
+  <div class="legend-item"><span class="dot" style="background:#EF6C00"></span>Very dry</div>
+  <div class="legend-item"><span class="dot" style="background:#C0392B"></span>Harvest time!</div>
+</div>
+
+<!-- ────── HOT DRY SEASON ────── -->
+<div class="season-header hot-dry">☀️ Dry &amp; Warm Season — Jan to Feb</div>
+
+<div class="months-grid">
+
+  <!-- JANUARY -->
+  <div class="month-card rain-dry">
+    <div class="month-head">
+      <span class="month-emoji">🌵</span>
+      <span class="month-name">January</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 239 mm</span>
+      <span class="badge temp">🌡 20.7 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:19%"></div></div>
+      <div class="rain-bar-label">Rain level (out of max 1,280 mm)</div>
+    </div>
+    <div class="month-status status-dry">💧 Thirsty time — soil is drying out</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Water the plants by hand (irrigation). Get tiny seedlings ready in the nursery.</p>
+      <p class="fun-note">☁️ Germany &amp; UK: You might have snow right now!</p>
+    </div>
+  </div>
+
+  <!-- FEBRUARY -->
+  <div class="month-card rain-dry">
+    <div class="month-head">
+      <span class="month-emoji">🌸</span>
+      <span class="month-name">February</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 331 mm</span>
+      <span class="badge temp">🌡 21.8 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:26%"></div></div>
+      <div class="rain-bar-label">Rain level</div>
+    </div>
+    <div class="month-status status-dry">🔆 Hottest month — plants need the most water</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Keep watering lots — this is the driest, hottest month. Watch closely for the first tiny white flowers on the coffee trees!</p>
+      <p class="fun-note">🌸 Coffee flowers smell like jasmine. Amazing!</p>
+    </div>
+  </div>
+
+</div><!-- /months-grid -->
+
+<!-- ────── LONG RAINS ────── -->
+<div class="season-header long-rains">🌧 The Long Rains — March to May</div>
+
+<div class="months-grid">
+
+  <!-- MARCH -->
+  <div class="month-card rain-med">
+    <div class="month-head">
+      <span class="month-emoji">🌱</span>
+      <span class="month-name">March</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 630 mm</span>
+      <span class="badge temp">🌡 21.8 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:49%"></div></div>
+      <div class="rain-bar-label">Rain level</div>
+    </div>
+    <div class="month-status status-wet">🎉 Rain is arriving! Soil is filling up with water</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Stop watering — the sky is doing it! Watch out for plant diseases that love the wet weather.</p>
+      <p class="fun-note">🌿 New leaves shoot out everywhere this month.</p>
+    </div>
+  </div>
+
+  <!-- APRIL -->
+  <div class="month-card rain-high">
+    <div class="month-head">
+      <span class="month-emoji">🌊</span>
+      <span class="month-name">April</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 1,280 mm</span>
+      <span class="badge temp">🌡 20.9 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:100%"></div></div>
+      <div class="rain-bar-label">Rain level — the WET month!</div>
+    </div>
+    <div class="month-status status-wet">💦 SOAKING! Soil is full — water is running off</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Dig channels so extra water doesn't wash away the good soil. Very busy with erosion control!</p>
+      <p class="fun-note">🌧 April gets MORE rain than the UK gets ALL YEAR!</p>
+    </div>
+  </div>
+
+  <!-- MAY -->
+  <div class="month-card rain-med">
+    <div class="month-head">
+      <span class="month-emoji">🍒</span>
+      <span class="month-name">May</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 586 mm</span>
+      <span class="badge temp">🌡 20.5 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:46%"></div></div>
+      <div class="rain-bar-label">Rain level</div>
+    </div>
+    <div class="month-status status-ok">✅ Rain slowing down — still plenty in the soil</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>The Long Rains are ending. Coffee cherries are growing bigger every day!</p>
+      <p class="fun-note">🍒 A coffee cherry takes 5–6 months to ripen.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ────── COOL DRY ────── -->
+<div class="season-header cool-dry">🌬 Cool &amp; Dry Season — June to September</div>
+
+<div class="months-grid">
+
+  <!-- JUNE -->
+  <div class="month-card rain-low">
+    <div class="month-head">
+      <span class="month-emoji">🌬️</span>
+      <span class="month-name">June</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 206 mm</span>
+      <span class="badge temp">🌡 19.4 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:16%"></div></div>
+      <div class="rain-bar-label">Rain level</div>
+    </div>
+    <div class="month-status status-dry">🌤 Getting drier — a little extra watering needed</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Start light watering again. Watch out for the coffee berry borer — a tiny beetle that can damage the cherries!</p>
+      <p class="fun-note">🐛 Farmers look out for tiny beetles called CBB.</p>
+    </div>
+  </div>
+
+  <!-- JULY -->
+  <div class="month-card rain-low">
+    <div class="month-head">
+      <span class="month-emoji">😴</span>
+      <span class="month-name">July</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 305 mm</span>
+      <span class="badge temp">🌡 18.8 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:24%"></div></div>
+      <div class="rain-bar-label">Rain level</div>
+    </div>
+    <div class="month-status status-balance">🌿 Balanced — rain and thirst nearly equal</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Very little irrigation needed! The plants are resting and growing slowly. Coolest month of the year.</p>
+      <p class="fun-note">❄️ Kenyans call this cool season "Julai" (July)!</p>
+    </div>
+  </div>
+
+  <!-- AUGUST -->
+  <div class="month-card rain-low">
+    <div class="month-head">
+      <span class="month-emoji">🌦️</span>
+      <span class="month-name">August</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 472 mm</span>
+      <span class="badge temp">🌡 18.8 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:37%"></div></div>
+      <div class="rain-bar-label">Rain level</div>
+    </div>
+    <div class="month-status status-ok">💧 Surprise rain! Soil getting a good drink</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>"Flush rains" arrive — a surprise burst of rain that helps the cherries swell and ripen.</p>
+      <p class="fun-note">🎁 Farmers love August rain — it's a gift!</p>
+    </div>
+  </div>
+
+  <!-- SEPTEMBER -->
+  <div class="month-card rain-low">
+    <div class="month-head">
+      <span class="month-emoji">🌤️</span>
+      <span class="month-name">September</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 280 mm</span>
+      <span class="badge temp">🌡 20.2 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:22%"></div></div>
+      <div class="rain-bar-label">Rain level</div>
+    </div>
+    <div class="month-status status-balance">🔄 In-between season — farmers watch carefully</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Check how much water is in the soil. Add fertiliser to the ground to get ready for the Short Rains.</p>
+      <p class="fun-note">🌍 Fertiliser = food for the soil, like a vitamin!</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ────── SHORT RAINS ────── -->
+<div class="season-header short-rains">🌦 The Short Rains — October to December</div>
+
+<div class="months-grid">
+
+  <!-- OCTOBER -->
+  <div class="month-card rain-med">
+    <div class="month-head">
+      <span class="month-emoji">🌺</span>
+      <span class="month-name">October</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 354 mm</span>
+      <span class="badge temp">🌡 21.0 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:28%"></div></div>
+      <div class="rain-bar-label">Rain level</div>
+    </div>
+    <div class="month-status status-wet">🌧 Short Rains begin — exciting time!</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Main harvest begins! Pick the ripe red cherries. Watch for the rain to trigger new flower buds too.</p>
+      <p class="fun-note">🍒 Red = ripe! Green = not yet. Yellow = almost!</p>
+    </div>
+  </div>
+
+  <!-- NOVEMBER -->
+  <div class="month-card rain-high">
+    <div class="month-head">
+      <span class="month-emoji">⛈️</span>
+      <span class="month-name">November</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 927 mm</span>
+      <span class="badge temp">🌡 20.3 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:72%"></div></div>
+      <div class="rain-bar-label">Rain level — very wet again!</div>
+    </div>
+    <div class="month-status status-wet">💦 Very wet again — ground is full</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Harvest continues AND drainage channels need clearing. Get the pulping station ready — this machine removes the fruit skin from the seeds.</p>
+      <p class="fun-note">⚙️ A pulping machine = the first step to making coffee!</p>
+    </div>
+  </div>
+
+  <!-- DECEMBER -->
+  <div class="month-card rain-low">
+    <div class="month-head">
+      <span class="month-emoji">🏆</span>
+      <span class="month-name">December</span>
+    </div>
+    <div class="month-badges">
+      <span class="badge rain">🌧 293 mm</span>
+      <span class="badge temp">🌡 20.3 °C</span>
+    </div>
+    <div class="rain-bar-wrap">
+      <div class="rain-bar-track"><div class="rain-bar-fill" style="width:23%"></div></div>
+      <div class="rain-bar-label">Rain level</div>
+    </div>
+    <div class="month-status status-ok">🎄 Rain fading — harvest in full swing!</div>
+    <div class="month-action">
+      <div class="label">👩‍🌾 What the farmers do</div>
+      <p>Peak harvest! Cherries are perfectly ripe. Everyone picks as fast as they can — the whole family helps!</p>
+      <p class="fun-note">🎄 While you open Christmas presents, Kavutiri is harvesting!</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- GLOSSARY -->
+<div class="glossary">
+  <h2>📖 Word Explorer — What do these words mean?</h2>
+  <div class="glossary-grid">
+    <div class="glossary-item">
+      <strong>☔ Precipitation (mm)</strong>
+      A fancy science word for rain! We measure it in millimetres — like how tall the rainwater would be if none soaked into the ground.
+    </div>
+    <div class="glossary-item">
+      <strong>🌡 Temperature (°C)</strong>
+      How hot or cold the air is, measured in degrees Celsius. Kavutiri stays between 17°C and 24°C all year — never freezing, never scorching!
+    </div>
+    <div class="glossary-item">
+      <strong>💧 ET0 — Evapotranspiration</strong>
+      How thirsty the air is! ET0 tells us how much water plants and soil lose into the air each day. High ET0 = plants need more water.
+    </div>
+    <div class="glossary-item">
+      <strong>🪣 Water Balance</strong>
+      Like a bank account for water! Rain goes IN. Thirsty air and plants take water OUT. If the balance is negative, it's time to irrigate.
+    </div>
+    <div class="glossary-item">
+      <strong>🚿 Irrigation</strong>
+      Watering plants on purpose when there isn't enough rain. Farmers at Kavutiri irrigate most in January and February.
+    </div>
+    <div class="glossary-item">
+      <strong>🍒 Coffee Cherry</strong>
+      The fruit of the coffee tree! Each red cherry holds 2 seeds inside — those seeds, once processed and roasted, become the coffee in your cup.
+    </div>
+    <div class="glossary-item">
+      <strong>🌍 Long Rains vs Short Rains</strong>
+      Kenya has TWO rainy seasons! Long Rains = March–May (bigger). Short Rains = October–December (shorter). Very different from Germany or the UK!
+    </div>
+    <div class="glossary-item">
+      <strong>🌱 Nursery</strong>
+      Not a baby nursery — a plant nursery! A special sheltered place where tiny coffee seedlings grow strong before being planted out.
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz">
+  <h2>🧠 Try This! — Quick Farm Quiz</h2>
+  <ol>
+    <li>Which month gets the MOST rain? <span class="answer-space"></span></li>
+    <li>What are the two seasons called when it rains a lot in Kenya? <span class="answer-space"></span></li>
+    <li>In January, the soil is dry. What do farmers do? <span class="answer-space"></span></li>
+    <li>Name one month when the coffee cherries are harvested. <span class="answer-space"></span></li>
+    <li>Why do you think coffee plants need BOTH sun AND rain? <span class="answer-space"></span></li>
+    <li>Kenya's highest temperature recorded on this farm was 23.85 °C. Is that hotter or cooler than a hot summer day where YOU live? <span class="answer-space"></span></li>
+  </ol>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>Gibbs Coffee / Cascara Project · Kavutiri Farm, Kirinyaga County, Kenya</strong><br>
+  Data from 1,672 days of daily weather records (2022–2026) · Gibbs Empowerment Framework<br>
+  Sunday School Handout · Hesse 🇩🇪 · Gloucestershire 🇬🇧 · Kavutiri 🇰🇪
+</div>
+
+</body>
+</html>
