@@ -516,16 +516,12 @@
 <body>
 
  
-<!-- Mobile menu overlay -->
-<!-- Enhanced Navigation Section -->
 <header class="site-header">
     <nav id="mainNav" class="navbar" aria-label="Main Navigation">
-        <!-- Brand Logo / Mark -->
         <a href="index.html" class="nav-mark" aria-label="Rustic Garden Home">
             Rustic <span>Garden</span>
         </a>
 
-        <!-- Desktop Navigation Links -->
         <div class="nav-links">
             <a href="index.html" class="nav-item active">Home</a>
             <a href="product.html" class="nav-item">Coffee Collection</a>
@@ -540,7 +536,6 @@
             <a href="success.html" class="nav-item">Success</a>
         </div>
 
-        <!-- Action Controls -->
         <div class="nav-right">
             <a href="https://github.com/groupdougie/Gibbs_Coffee"
                class="nav-gh"
@@ -555,7 +550,6 @@
 
             <a class="nav-cta" href="checkout.html">Order Coffee</a>
 
-            <!-- Mobile Hamburger Toggle -->
             <button class="nav-burger"
                     id="burgerBtn"
                     aria-label="Toggle navigation menu"
@@ -568,7 +562,6 @@
         </div>
     </nav>
 
-    <!-- Mobile Navigation Overlay & Modal -->
     <div class="mobile-menu-backdrop" id="menuBackdrop" onclick="closeMobileMenu()" aria-hidden="true"></div>
     <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile Navigation" aria-hidden="true">
         <div class="mobile-menu-header">
@@ -596,7 +589,6 @@
 <main id="mainContent">
 
 <style>
-/* Base Styles & Variables */
 :root {
     --nav-bg: #1c1917;
     --nav-text: #f5f5f4;
@@ -631,16 +623,9 @@
     letter-spacing: 0.5px;
 }
 
-.nav-mark span {
-    color: var(--accent-color);
-}
+.nav-mark span { color: var(--accent-color); }
 
-/* Links (Desktop) */
-.nav-links {
-    display: flex;
-    gap: 1.2rem;
-    align-items: center;
-}
+.nav-links { display: flex; gap: 1.2rem; align-items: center; }
 
 .nav-item {
     color: #a8a29e;
@@ -650,16 +635,9 @@
     transition: color var(--transition-speed) ease;
 }
 
-.nav-item:hover, .nav-item.active {
-    color: var(--nav-text);
-}
+.nav-item:hover, .nav-item.active { color: var(--nav-text); }
 
-/* Nav Actions Right */
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+.nav-right { display: flex; align-items: center; gap: 1rem; }
 
 .nav-gh {
     display: flex;
@@ -674,10 +652,7 @@
     transition: all var(--transition-speed);
 }
 
-.nav-gh:hover {
-    color: var(--nav-text);
-    border-color: #78716c;
-}
+.nav-gh:hover { color: var(--nav-text); border-color: #78716c; }
 
 .nav-cta {
     background-color: var(--accent-color);
@@ -690,11 +665,8 @@
     transition: background-color var(--transition-speed);
 }
 
-.nav-cta:hover {
-    background-color: var(--accent-hover);
-}
+.nav-cta:hover { background-color: var(--accent-hover); }
 
-/* Hamburger Button */
 .nav-burger {
     display: none;
     flex-direction: column;
@@ -715,7 +687,6 @@
     transition: all var(--transition-speed);
 }
 
-/* Mobile Menu Slide-Over Overlay */
 .mobile-menu-backdrop {
     display: none;
     position: fixed;
@@ -741,13 +712,8 @@
     overflow-y: auto;
 }
 
-.mobile-menu.open {
-    right: 0;
-}
-
-.mobile-menu-backdrop.open {
-    display: block;
-}
+.mobile-menu.open { right: 0; }
+.mobile-menu-backdrop.open { display: block; }
 
 .mobile-menu-header {
     display: flex;
@@ -757,11 +723,7 @@
     border-bottom: 1px solid #292524;
 }
 
-.mobile-brand {
-    font-weight: bold;
-    color: var(--nav-text);
-}
-
+.mobile-brand { font-weight: bold; color: var(--nav-text); }
 .mobile-brand span { color: var(--accent-color); }
 
 .close-btn {
@@ -786,18 +748,11 @@
     transition: color 0.2s;
 }
 
-.mobile-nav-links a:hover {
-    color: var(--accent-color);
-}
+.mobile-nav-links a:hover { color: var(--accent-color); }
 
-/* Responsive Breakpoint */
 @media (max-width: 1024px) {
-    .nav-links {
-        display: none;
-    }
-    .nav-burger {
-        display: flex;
-    }
+    .nav-links { display: none; }
+    .nav-burger { display: flex; }
 }
 </style>
 
@@ -807,14 +762,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenu = document.getElementById('mobileMenu');
     const menuBackdrop = document.getElementById('menuBackdrop');
 
-    function openMobileMenu() {
+    window.openMobileMenu = function() {
         mobileMenu.classList.add('open');
         menuBackdrop.classList.add('open');
         burgerBtn.setAttribute('aria-expanded', 'true');
         mobileMenu.setAttribute('aria-hidden', 'false');
         menuBackdrop.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden'; // Lock background scroll
-    }
+        document.body.style.overflow = 'hidden';
+    };
 
     window.closeMobileMenu = function() {
         mobileMenu.classList.remove('open');
@@ -826,11 +781,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     burgerBtn.addEventListener('click', () => {
-        const isOpen = mobileMenu.classList.contains('open');
-        isOpen ? closeMobileMenu() : openMobileMenu();
+        mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
     });
 
-    // Close on Escape key press
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
             closeMobileMenu();
@@ -838,43 +791,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
-<!-- ========== HERO ========== -->
-<section class="hero">
-  <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=1800&auto=format&fit=crop" alt="Misty forest at dawn on the Mount Kenya slopes" id="heroBgImg">
-  </div>
-  <div class="hero-content wrap">
-    <div class="hero-eyebrow">
-      <div class="rule"></div>
-      <span class="mono">Kavutiri · Embu County · Kenya</span>
-    </div>
-    <h1>Bring the mountain<br>home for <em>winter</em>.</h1>
-    <p class="hero-sub">4,400 feet below Mount Kenya, a garden grows coffee, trees, and quiet — the three things a Frankfurt winter tends to take away. This is where it comes from.</p>
-    <div class="hero-meta">
-      <div>
-        <div class="num">4,400 ft</div>
-        <div class="lbl">Coffee elevation</div>
-      </div>
-      <div>
-        <div class="num">100%</div>
-        <div class="lbl">Arabica, organic</div>
-      </div>
-      <div>
-        <div class="num">90%</div>
-        <div class="lbl">Hand-processed</div>
-      </div>
-      <div>
-        <div class="num">Embu</div>
-        <div class="lbl">County, Kenya</div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-scroll" aria-hidden="true">
-    <div class="tick"></div>
-    <span class="mono">Scroll</span>
-  </div>
-</section>
-
 <!-- ========== GITHUB BADGE STRIP ========== -->
 <div class="gh-strip reveal">
   <div class="wrap">
