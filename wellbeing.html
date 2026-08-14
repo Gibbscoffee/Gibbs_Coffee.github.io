@@ -3,607 +3,896 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gentle Comfort & Balance Guide</title>
+<title>The Living Wellness Atlas | Rustic Garden</title>
+<meta name="description" content="An educational journey through Ayurveda, Traditional Chinese Medicine, and botanical traditions — explore acupressure points, cooling herbs, and daily rhythms for balance.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Living Wellness Atlas | Rustic Garden">
+<meta property="og:description" content="An educational journey through Ayurveda, Traditional Chinese Medicine, and botanical traditions.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --font-body: 'Atkinson Hyperlegible', Verdana, sans-serif;
-    --font-display: 'Fraunces', Georgia, serif;
-    --radius: 18px;
+
+:root{
+  --forest:#28483d;
+  --sage:#7fa08a;
+  --cream:#f7f3eb;
+  --gold:#c8a96a;
+  --earth:#8b5a3c;
+  --mist:#eef5f0;
+  --dark:#18211d;
+  --ink:#24312a;
+  --radius-lg:22px;
+  --radius-md:14px;
+  --shadow-soft:0 12px 35px rgba(0,0,0,.08);
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  line-height:1.8;
+  overflow-x:hidden;
+}
+
+img{display:block;max-width:100%;}
+
+a{color:inherit;}
+
+/* Skip link */
+.skip-link{
+  position:absolute;
+  left:-999px;
+  top:auto;
+  background:var(--forest);
+  color:#fff;
+  padding:12px 20px;
+  border-radius:0 0 10px 0;
+  z-index:10000;
+}
+.skip-link:focus{
+  left:0;
+  top:0;
+}
+
+/* Focus visibility */
+a:focus-visible,
+button:focus-visible,
+.point:focus-visible,
+input:focus-visible{
+  outline:3px solid var(--earth);
+  outline-offset:3px;
+}
+
+/* Progress Bar */
+#progress{
+  position:fixed;
+  top:0;
+  left:0;
+  width:0%;
+  height:4px;
+  background:var(--gold);
+  z-index:9999;
+  transition:width .1s linear;
+}
+
+/* Navigation */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:16px 8%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(247,243,235,.9);
+  backdrop-filter:blur(14px);
+  z-index:999;
+  border-bottom:1px solid rgba(40,72,61,.08);
+}
+
+.logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.9rem;
+  color:var(--forest);
+  text-decoration:none;
+  font-weight:600;
+}
+
+nav ul{
+  display:flex;
+  gap:28px;
+  list-style:none;
+}
+
+nav a{
+  color:var(--forest);
+  text-decoration:none;
+  font-weight:500;
+  font-size:.95rem;
+  letter-spacing:.02em;
+  position:relative;
+}
+
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0;
+  height:2px;
+  background:var(--gold);
+  transition:width .3s var(--ease);
+}
+
+nav a:hover::after{width:100%;}
+
+.nav-toggle{
+  display:none;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:8px;
+}
+
+.nav-toggle svg{stroke:var(--forest);}
+
+@media(max-width:760px){
+  .nav-toggle{display:block;}
+  nav ul{
+    position:absolute;
+    top:100%;
+    right:0;
+    left:0;
+    flex-direction:column;
+    background:var(--cream);
+    padding:20px 8%;
+    gap:16px;
+    display:none;
+    border-bottom:1px solid rgba(40,72,61,.1);
   }
+  nav ul.open{display:flex;}
+}
 
-  /* ---- Daylight theme (default) ---- */
-  [data-theme="day"] {
-    --bg: #EDE7DC;
-    --bg-soft: #E4DCC9;
-    --card: #FBF8F2;
-    --ink: #262620;
-    --ink-soft: #55524A;
-    --ember: #B06A1E;
-    --ember-bg: #F4E3C6;
-    --moss: #3F5D42;
-    --moss-bg: #DFE9DE;
-    --dusk: #3E5C78;
-    --dusk-bg: #DEE7EE;
-    --border: #D8CFBD;
-    --shadow: 0 6px 18px rgba(60, 46, 20, 0.10);
-  }
+/* Hero */
+.hero{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
 
-  /* ---- Evening theme ---- */
-  [data-theme="evening"] {
-    --bg: #211D17;
-    --bg-soft: #2A241B;
-    --card: #2C271E;
-    --ink: #F3ECDD;
-    --ink-soft: #CBBFA5;
-    --ember: #E7AE55;
-    --ember-bg: #4A3A1E;
-    --moss: #8FB593;
-    --moss-bg: #2E3B2C;
-    --dusk: #9BB4D2;
-    --dusk-bg: #263544;
-    --border: #46392A;
-    --shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
-  }
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(rgba(24,33,29,.5),rgba(24,33,29,.6)),
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1800&q=80");
+  background-size:cover;
+  background-position:center;
+  animation:slowZoom 30s linear infinite alternate;
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+@keyframes slowZoom{
+  from{transform:scale(1);}
+  to{transform:scale(1.08);}
+}
 
-  html { font-size: 100%; scroll-behavior: smooth; }
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:850px;
+  padding:30px;
+}
 
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font-body);
-    font-size: 1.25rem;
-    line-height: 1.75;
-    padding: 20px 14px 60px;
-    display: flex;
-    justify-content: center;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
+.eyebrow{
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  font-size:.8rem;
+  color:var(--gold);
+  margin-bottom:16px;
+  display:block;
+}
 
-  .wrapper { max-width: 880px; width: 100%; display: flex; flex-direction: column; gap: 26px; }
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.6rem,6vw,4.7rem);
+  margin-bottom:20px;
+  font-weight:600;
+}
 
-  a, button { font-family: inherit; }
+.hero p{
+  font-size:clamp(1rem,2vw,1.25rem);
+  margin-bottom:35px;
+  max-width:640px;
+  margin-left:auto;
+  margin-right:auto;
+}
 
-  button:focus-visible, .zone-btn:focus-visible {
-    outline: 3px solid var(--dusk);
-    outline-offset: 3px;
-  }
+.btn{
+  display:inline-block;
+  padding:15px 34px;
+  border-radius:50px;
+  background:var(--gold);
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  border:none;
+  cursor:pointer;
+  font-size:1rem;
+  font-family:inherit;
+  transition:transform .3s var(--ease),background .3s var(--ease);
+}
 
-  /* ---- Top control bar ---- */
-  .control-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-  }
+.btn:hover{
+  transform:translateY(-3px);
+  background:var(--earth);
+}
 
-  .pill-group {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 999px;
-    padding: 6px;
-    box-shadow: var(--shadow);
-  }
+/* Sections */
+section{
+  padding:clamp(60px,10vw,95px) 8%;
+  max-width:1280px;
+  margin:0 auto;
+}
 
-  .pill-btn {
-    background: transparent;
-    border: none;
-    color: var(--ink);
-    font-weight: 700;
-    border-radius: 999px;
-    padding: 10px 16px;
-    cursor: pointer;
-    min-height: 48px;
-    min-width: 48px;
-  }
+.title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,4vw,3rem);
+  color:var(--forest);
+  text-align:center;
+  margin-bottom:16px;
+  font-weight:600;
+}
 
-  .pill-btn.active {
-    background: var(--ember-bg);
-    color: var(--ember);
-  }
+.subtitle{
+  text-align:center;
+  max-width:640px;
+  margin:0 auto 55px;
+  color:#55655c;
+}
 
-  .pill-label { padding: 0 8px; font-size: 0.95rem; color: var(--ink-soft); }
+/* Glass cards */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+}
 
-  /* ---- Header with hearth motif ---- */
-  header {
-    background: radial-gradient(ellipse at 50% -20%, var(--ember-bg), transparent 60%), var(--card);
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    padding: 40px 26px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
-  }
+.card{
+  background:#fff;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  box-shadow:var(--shadow-soft);
+  transition:transform .35s var(--ease);
+}
 
-  .hearth-icon {
-    width: 68px;
-    height: 68px;
-    margin: 0 auto 14px;
-    display: block;
-  }
+.card:hover{transform:translateY(-10px);}
 
-  header h1 {
-    font-family: var(--font-display);
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-size: clamp(1.9rem, 4vw, 2.6rem);
-    color: var(--ember);
-    margin-bottom: 14px;
-    line-height: 1.25;
-  }
+.card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
 
-  header p {
-    color: var(--ink-soft);
-    font-size: 1.15rem;
-    max-width: 680px;
-    margin: 0 auto;
-  }
+.card-body{padding:24px;}
 
-  .places {
-    margin-top: 16px;
-    font-size: 1rem;
-    color: var(--ink-soft);
-    font-style: italic;
-  }
+.card h3{
+  color:var(--forest);
+  margin-bottom:12px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;
+}
 
-  /* ---- Info card ---- */
-  .info-card {
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    padding: 30px 26px;
-    box-shadow: var(--shadow);
-  }
+/* Comparison */
+.compare{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+}
 
-  .info-card h2 {
-    font-family: var(--font-display);
-    color: var(--dusk);
-    font-size: 1.55rem;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+.panel{
+  background:#fff;
+  padding:34px;
+  border-radius:var(--radius-lg);
+  border-top:6px solid var(--gold);
+}
 
-  .note-box {
-    margin-top: 16px;
-    background: var(--dusk-bg);
-    border-left: 5px solid var(--dusk);
-    border-radius: 10px;
-    padding: 14px 18px;
-    color: var(--ink);
-    font-size: 1.05rem;
-  }
+.panel h3{
+  font-family:'Cormorant Garamond',serif;
+  color:var(--forest);
+  font-size:1.5rem;
+  margin-bottom:14px;
+}
 
-  /* ---- Zone grid ---- */
-  .zone-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 14px;
-  }
+/* Timeline */
+.timeline{
+  position:relative;
+  max-width:900px;
+  margin:auto;
+}
 
-  @media (min-width: 650px) {
-    .zone-grid { grid-template-columns: 1fr 1fr; }
-  }
+.step{
+  background:#fff;
+  margin:20px 0;
+  padding:28px;
+  border-left:5px solid var(--gold);
+  border-radius:var(--radius-md);
+}
 
-  .zone-btn {
-    background: var(--bg-soft);
-    border: 2px solid var(--border);
-    color: var(--ink);
-    padding: 18px;
-    border-radius: 14px;
-    cursor: pointer;
-    text-align: left;
-    transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-height: 88px;
-  }
+.step strong{
+  color:var(--forest);
+  display:block;
+  margin-bottom:6px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;
+}
 
-  .zone-btn:hover { border-color: var(--ember); transform: translateY(-2px); }
+/* Acupressure */
+.points{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:20px;
+}
 
-  .zone-btn.active {
-    border-color: var(--ember);
-    background: var(--ember-bg);
-    box-shadow: var(--shadow);
-  }
+.point{
+  background:#fff;
+  border:none;
+  padding:25px;
+  text-align:center;
+  border-radius:18px;
+  cursor:pointer;
+  transition:transform .3s var(--ease),background .3s var(--ease);
+  font-family:inherit;
+  color:var(--forest);
+}
 
-  .zone-icon { width: 44px; height: 44px; flex-shrink: 0; }
-  .zone-icon svg { width: 100%; height: 100%; }
+.point:hover,.point:focus-visible{
+  background:var(--mist);
+  transform:translateY(-6px);
+}
 
-  .zone-text { display: flex; flex-direction: column; gap: 4px; }
+.point .icon{
+  font-size:2rem;
+  display:block;
+  margin-bottom:12px;
+}
 
-  .btn-title { font-weight: 700; color: var(--ember); font-size: 1.15rem; font-family: var(--font-display); }
-  .btn-sub { font-size: 0.95rem; color: var(--ink-soft); }
+.point strong{display:block;font-size:1rem;}
+.point span.label{display:block;font-size:.8rem;color:#5c6d63;margin-top:4px;}
 
-  /* ---- Detail box ---- */
-  .detail-box {
-    background: var(--bg-soft);
-    border: 2px solid var(--border);
-    border-radius: 14px;
-    padding: 26px;
-    margin-top: 18px;
-  }
+/* Modal */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  padding:25px;
+  z-index:2000;
+}
 
-  .detail-head {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
-  }
+.modal.open{display:flex;}
 
-  .detail-box h3 {
-    font-family: var(--font-display);
-    color: var(--ember);
-    font-size: 1.5rem;
-  }
+.modal-box{
+  background:#fff;
+  max-width:720px;
+  width:100%;
+  border-radius:24px;
+  overflow:hidden;
+  max-height:90vh;
+  overflow-y:auto;
+}
 
-  .listen-btn {
-    background: var(--moss-bg);
-    color: var(--moss);
-    border: 2px solid var(--moss);
-    border-radius: 999px;
-    padding: 10px 18px;
-    font-weight: 700;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    min-height: 48px;
-  }
+.modal img{
+  width:100%;
+  height:280px;
+  object-fit:cover;
+}
 
-  .listen-btn:hover { background: var(--moss); color: var(--card); }
+.modal-content{padding:28px;}
 
-  .detail-section { margin-top: 18px; }
+.modal-content h2{
+  font-family:'Cormorant Garamond',serif;
+  color:var(--forest);
+  margin-bottom:12px;
+}
 
-  .detail-section h4 {
-    color: var(--moss);
-    font-size: 1.05rem;
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-  }
+.close{
+  float:right;
+  cursor:pointer;
+  font-size:1.8rem;
+  background:none;
+  border:none;
+  line-height:1;
+  color:var(--forest);
+  padding:4px 8px;
+}
 
-  .detail-section p { color: var(--ink); font-size: 1.1rem; }
+.modal-note{
+  margin-top:18px;
+  color:#666;
+  font-size:.92rem;
+}
 
-  /* ---- Timer card ---- */
-  .timer-card { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+/* Herbs */
+.tag{
+  display:inline-block;
+  background:var(--mist);
+  color:var(--forest);
+  padding:8px 15px;
+  border-radius:40px;
+  margin:6px 6px 0 0;
+  font-size:.88rem;
+}
 
-  .hearth-wrap { position: relative; width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; }
+/* Reflection */
+.quiz{
+  background:#fff;
+  border-radius:var(--radius-lg);
+  padding:clamp(24px,4vw,35px);
+  max-width:760px;
+  margin:auto;
+}
 
-  .hearth-glow {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--ember) 0%, var(--moss) 100%);
-    opacity: 0.85;
-    animation: breathe 12s ease-in-out infinite;
-    transform-origin: center;
-  }
+.quiz fieldset{border:none;}
+.quiz legend{
+  font-family:'Cormorant Garamond',serif;
+  color:var(--forest);
+  font-size:1.3rem;
+  margin-bottom:10px;
+}
 
-  .hearth-glow.paused { animation-play-state: paused; }
+.question{margin:16px 0;}
 
-  @keyframes breathe {
-    0%   { transform: scale(0.72); opacity: 0.65; }
-    33%  { transform: scale(1);    opacity: 0.95; }
-    100% { transform: scale(0.72); opacity: 0.65; }
-  }
+.question label{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  cursor:pointer;
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    .hearth-glow { animation: none; transform: scale(0.9); }
-  }
+.question input{width:18px;height:18px;accent-color:var(--gold);}
 
-  .timer-clock {
-    position: relative;
-    font-size: 2.6rem;
-    font-weight: 700;
-    font-family: var(--font-display);
-    color: var(--card);
-    z-index: 2;
-    background: rgba(0,0,0,0.18);
-    padding: 10px 22px;
-    border-radius: 12px;
-  }
+.result{
+  display:none;
+  margin-top:25px;
+  padding:20px;
+  background:var(--mist);
+  border-left:5px solid var(--gold);
+  border-radius:0 var(--radius-md) var(--radius-md) 0;
+}
 
-  .breath-guide { font-size: 1.3rem; color: var(--moss); font-weight: 700; min-height: 36px; }
+.result.show{display:block;}
 
-  .btn-group { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+/* Footer */
+footer{
+  background:var(--dark);
+  color:#ddd;
+  padding:70px 8%;
+  text-align:center;
+}
 
-  .btn-main {
-    background: var(--ember);
-    color: var(--card);
-    font-size: 1.2rem;
-    font-weight: 700;
-    padding: 16px 36px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    min-width: 190px;
-    min-height: 60px;
-    box-shadow: var(--shadow);
-  }
+footer h2{
+  font-family:'Cormorant Garamond',serif;
+  margin-bottom:20px;
+}
 
-  .btn-main:hover { opacity: 0.92; }
+footer p{max-width:680px;margin:0 auto;color:#bfc7c2;}
 
-  .btn-secondary {
-    background: transparent;
-    color: var(--ink-soft);
-    font-size: 1.1rem;
-    padding: 16px 28px;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    cursor: pointer;
-    min-height: 60px;
-  }
+footer a{color:var(--gold);text-decoration:none;}
+footer a:hover{text-decoration:underline;}
 
-  .btn-secondary:hover { color: var(--ink); border-color: var(--ink-soft); }
+/* Fade animation */
+.fade{
+  opacity:0;
+  transform:translateY(35px);
+  transition:opacity 1s var(--ease),transform 1s var(--ease);
+}
 
-  footer {
-    text-align: center;
-    color: var(--ink-soft);
-    font-size: 1rem;
-    padding: 20px 10px 4px;
-    border-top: 1px solid var(--border);
-  }
+.fade.show{
+  opacity:1;
+  transform:none;
+}
 
-  footer .disclaimer { max-width: 640px; margin: 10px auto 0; font-size: 0.95rem; }
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .fade{opacity:1;transform:none;transition:none;}
+  .hero::before{animation:none;}
+  .card,.point,.btn{transition:none;}
+}
+
+@media(max-width:760px){
+  .hero h1{font-size:2.6rem;}
+}
+
 </style>
 </head>
-<body data-theme="day">
 
-<div class="wrapper">
+<body>
 
-  <!-- Accessibility control bar -->
-  <div class="control-bar">
-    <div class="pill-group" role="group" aria-label="Text size">
-      <span class="pill-label">Text size</span>
-      <button class="pill-btn" data-size="100" onclick="setTextSize(100, this)">A</button>
-      <button class="pill-btn active" data-size="120" onclick="setTextSize(120, this)">A</button>
-      <button class="pill-btn" data-size="145" onclick="setTextSize(145, this)">A</button>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div id="progress" role="progressbar" aria-hidden="true"></div>
+
+<nav aria-label="Primary">
+  <a href="index.html" class="logo">Rustic Garden</a>
+
+  <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle menu">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+
+  <ul id="navMenu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#balance">Balance</a></li>
+    <li><a href="#points">Points</a></li>
+    <li><a href="#herbs">Herbs</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-content fade">
+    <span class="eyebrow">Rustic Garden Wellness Library</span>
+    <h1>The Living Wellness Atlas</h1>
+    <p>
+      An educational journey through Ayurveda, Traditional Chinese Medicine,
+      botanical traditions, forests, flowing water, and the art of restoring balance.
+    </p>
+    <a href="#balance" class="btn">Enter the Forest</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section id="balance" aria-labelledby="balance-title">
+  <h2 class="title fade" id="balance-title">Understanding Fire &amp; Damp</h2>
+  <p class="subtitle fade">Two traditions, two vocabularies, one shared idea: balance is a practice, not a destination.</p>
+
+  <div class="compare">
+    <div class="panel fade">
+      <h3>Ayurveda</h3>
+      <p>
+        Agni represents digestive and metabolic fire.
+        Traditional Ayurvedic practice views health as maintaining balanced Agni rather than extinguishing it.
+        When fire becomes excessively sharp (Tikshna Agni), cooling foods, calming routines, and restorative herbs are traditionally explored.
+      </p>
     </div>
-    <div class="pill-group" role="group" aria-label="Theme">
-      <button class="pill-btn active" id="theme-day" onclick="setTheme('day')">☀️ Daylight</button>
-      <button class="pill-btn" id="theme-evening" onclick="setTheme('evening')">🌙 Evening</button>
+
+    <div class="panel fade">
+      <h3>Traditional Chinese Medicine</h3>
+      <p>
+        Damp Heat is a traditional TCM pattern describing warmth combined with heaviness or stagnation.
+        Traditional approaches include cooling acupressure points, herbal wisdom, and lifestyle practices intended to encourage harmony.
+      </p>
     </div>
   </div>
+</section>
 
-  <header>
-    <svg class="hearth-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M32 6C24 18 18 24 18 34a14 14 0 0 0 28 0c0-6-3-10-6-14 1 6-2 9-4 9-3 0-4-3-3-7-3 3-5 8-5 12a4 4 0 0 0 8 0" stroke="var(--ember)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <h1>Gentle Comfort &amp; Balance Guide</h1>
-    <p>A warm, unhurried guide to soothing everyday stiffness, swelling, and restlessness — using gentle pressure on a few well-known comfort points on your hands, arms, legs, and ears.</p>
-    <p class="places">However you take your tea — by a Cotswold fireside, a Hessian stove, or under an Embu evening sky — this guide is for you.</p>
-  </header>
+<section aria-labelledby="nature-title">
+  <h2 class="title fade" id="nature-title">Nature's Cooling Landscape</h2>
 
-  <!-- Section 1 -->
-  <div class="info-card">
-    <h2>1. Understanding Your Body's Signals</h2>
-    <p>As we grow older, the body sometimes carries lingering irritation — stiff joints, dry or sensitive skin, or breathing that feels a little tighter than it used to. Many traditions describe this restless, dry energy as an imbalance that benefits from slow, steady touch.</p>
-    <p style="margin-top: 12px;">You don't need to fight this feeling. By resting gentle, sustained pressure on a few well-known points on your hands, arms, legs, and ears, you send calming signals along your nerves — a simple, time-honoured way to help your body settle.</p>
-    <div class="note-box">
-      <strong>A gentle reminder:</strong> these are traditional comfort techniques, not medical treatment. If you have an ongoing health condition or something feels new or worsening, please check in with your doctor or nurse.
-    </div>
-  </div>
-
-  <!-- Section 2 -->
-  <div class="info-card">
-    <h2>2. Choose a Comfort Zone</h2>
-    <div class="zone-grid" id="zone-grid"></div>
-    <div class="detail-box" id="zone-details"></div>
-  </div>
-
-  <!-- Section 3 -->
-  <div class="info-card timer-card">
-    <h2 style="align-self:flex-start;">3. Guided Two-Minute Comfort Timer</h2>
-    <p style="color: var(--ink-soft);">Hold your chosen spot with comfortable, steady pressure. Watch the glow, and let your breath follow it.</p>
-
-    <div class="hearth-wrap">
-      <div class="hearth-glow" id="hearth-glow"></div>
-      <div class="timer-clock" id="timer-display">02:00</div>
+  <div class="grid">
+    <div class="card fade">
+      <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=80" alt="A waterfall cascading over mossy rocks in a forest" loading="lazy" decoding="async" width="900" height="220">
+      <div class="card-body">
+        <h3>Waterfalls</h3>
+        <p>Flowing water symbolizes release, clarity, and the gentle movement often celebrated across traditional wellness systems.</p>
+      </div>
     </div>
 
-    <div class="breath-guide" id="breath-guide">Ready when you are...</div>
+    <div class="card fade">
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80" alt="Sunlight filtering through a dense ancient forest canopy" loading="lazy" decoding="async" width="900" height="220">
+      <div class="card-body">
+        <h3>Ancient Forests</h3>
+        <p>Cool shade, moisture, and stillness evoke restorative qualities found in many botanical traditions.</p>
+      </div>
+    </div>
 
-    <div class="btn-group">
-      <button class="btn-main" id="start-btn" onclick="toggleTimer()">Start Session</button>
-      <button class="btn-secondary" onclick="resetTimer()">Reset Timer</button>
+    <div class="card fade">
+      <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80" alt="Moss-covered stones surrounded by soft mist" loading="lazy" decoding="async" width="900" height="220">
+      <div class="card-body">
+        <h3>Moss &amp; Mist</h3>
+        <p>Soft landscapes remind us that balance is often cultivated through gentleness rather than force.</p>
+      </div>
     </div>
   </div>
+</section>
 
-  <footer>
-    Designed for Ease of Access — large text, simple steps, and a calm pace.
-    <p class="disclaimer">This guide offers gentle comfort techniques only and is not a substitute for medical advice. Please speak with a doctor about any ongoing pain, swelling, or health concerns.</p>
-  </footer>
+<section id="points" aria-labelledby="points-title">
+  <h2 class="title fade" id="points-title">Interactive Acupressure Explorer</h2>
+  <p class="subtitle fade">Select a point to learn about its traditional role. Educational content only — not a substitute for professional care.</p>
+
+  <div class="points" role="list">
+    <button class="point fade" type="button" data-title="LI11 – Quchi" data-text="Traditionally used in TCM to help cool excess heat." data-img="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80">
+      <span class="icon" aria-hidden="true">🌿</span>
+      <strong>LI11</strong>
+      <span class="label">Quchi</span>
+    </button>
+
+    <button class="point fade" type="button" data-title="LV3 – Taichong" data-text="Traditionally associated with easing tension." data-img="https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=900&q=80">
+      <span class="icon" aria-hidden="true">🏔️</span>
+      <strong>LV3</strong>
+      <span class="label">Taichong</span>
+    </button>
+
+    <button class="point fade" type="button" data-title="SP9 – Yinlingquan" data-text="Traditionally associated with draining dampness." data-img="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=900&q=80">
+      <span class="icon" aria-hidden="true">🍃</span>
+      <strong>SP9</strong>
+      <span class="label">Yinlingquan</span>
+    </button>
+
+    <button class="point fade" type="button" data-title="ST36 – Zusanli" data-text="Traditionally associated with digestive vitality." data-img="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=80">
+      <span class="icon" aria-hidden="true">💧</span>
+      <strong>ST36</strong>
+      <span class="label">Zusanli</span>
+    </button>
+
+    <button class="point fade" type="button" data-title="PC6 – Neiguan" data-text="Traditionally associated with calming." data-img="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80">
+      <span class="icon" aria-hidden="true">🎋</span>
+      <strong>PC6</strong>
+      <span class="label">Neiguan</span>
+    </button>
+
+    <button class="point fade" type="button" data-title="KI3 – Taixi" data-text="Traditionally associated with nourishing Yin." data-img="https://images.unsplash.com/photo-1473773508845-188df298d2d1?auto=format&fit=crop&w=900&q=80">
+      <span class="icon" aria-hidden="true">🪨</span>
+      <strong>KI3</strong>
+      <span class="label">Taixi</span>
+    </button>
+  </div>
+</section>
+
+<section id="herbs" aria-labelledby="herbs-title">
+  <h2 class="title fade" id="herbs-title">Botanical Wisdom</h2>
+
+  <div class="grid">
+    <div class="card fade">
+      <img src="https://images.unsplash.com/photo-1515586838455-8f8f940d6853?auto=format&fit=crop&w=900&q=80" alt="Fresh green herbs and leaves arranged on a wooden surface" loading="lazy" decoding="async" width="900" height="220">
+      <div class="card-body">
+        <h3>Cooling Herbs</h3>
+        <p>Guduchi, Amla, Coriander, and Aloe Vera are traditionally described as cooling allies.</p>
+        <div class="tag">Guduchi</div>
+        <div class="tag">Amla</div>
+        <div class="tag">Coriander</div>
+      </div>
+    </div>
+
+    <div class="card fade">
+      <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=80" alt="Turmeric root and powder alongside other bitter botanicals" loading="lazy" decoding="async" width="900" height="220">
+      <div class="card-body">
+        <h3>Bitter Botanicals</h3>
+        <p>Neem, Turmeric, and Andrographis illustrate the traditional role of bitter herbs.</p>
+        <div class="tag">Neem</div>
+        <div class="tag">Turmeric</div>
+        <div class="tag">Andrographis</div>
+      </div>
+    </div>
+
+    <div class="card fade">
+      <img src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=900&q=80" alt="Fennel, mint, and cardamom pods on a rustic table" loading="lazy" decoding="async" width="900" height="220">
+      <div class="card-body">
+        <h3>Digestive Aromatics</h3>
+        <p>Fennel, Mint, and Cardamom are traditionally paired with digestive rituals.</p>
+        <div class="tag">Fennel</div>
+        <div class="tag">Mint</div>
+        <div class="tag">Cardamom</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="bridge-title">
+  <h2 class="title fade" id="bridge-title">East African Botanical Bridge</h2>
+
+  <div class="grid">
+    <div class="card fade">
+      <img src="https://images.unsplash.com/photo-1425913397330-cf8af2ff40a1?auto=format&fit=crop&w=900&q=80" alt="A tall tree in an East African woodland landscape" loading="lazy" decoding="async" width="900" height="220">
+      <div class="card-body">
+        <h3>Warburgia ugandensis</h3>
+        <p>A remarkable East African medicinal tree traditionally valued in local herbal knowledge.</p>
+      </div>
+    </div>
+
+    <div class="card fade">
+      <img src="https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=900&q=80" alt="Aloe vera plant with thick green succulent leaves" loading="lazy" decoding="async" width="900" height="220">
+      <div class="card-body">
+        <h3>Aloe Vera</h3>
+        <p>A familiar botanical traditionally associated with cooling qualities across several traditions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="rhythm-title">
+  <h2 class="title fade" id="rhythm-title">A Cooling Daily Rhythm</h2>
+
+  <div class="timeline">
+    <div class="step fade"><strong>Dawn</strong>Begin with warm water and a quiet moment outdoors beneath trees.</div>
+    <div class="step fade"><strong>Morning</strong>Choose fresh herbs and gentle movement rather than rushing.</div>
+    <div class="step fade"><strong>Afternoon</strong>Hydrate well and favour cooling foods such as cucumber and coriander.</div>
+    <div class="step fade"><strong>Evening</strong>Wind down with calming herbal tea and reduced stimulation.</div>
+  </div>
+</section>
+
+<section aria-labelledby="quiz-title">
+  <h2 class="title fade" id="quiz-title">Reflective Wellness Check</h2>
+
+  <form class="quiz fade" id="quizForm">
+    <fieldset>
+      <legend>Notice how often these feel true for you</legend>
+
+      <div class="question"><label><input type="checkbox" class="q"> I often feel unusually warm.</label></div>
+      <div class="question"><label><input type="checkbox" class="q"> Heavy meals leave me feeling sluggish.</label></div>
+      <div class="question"><label><input type="checkbox" class="q"> I frequently feel thirsty.</label></div>
+      <div class="question"><label><input type="checkbox" class="q"> I feel calmer after spending time in nature.</label></div>
+    </fieldset>
+
+    <button class="btn" type="submit">View Reflection</button>
+
+    <div class="result" id="result" role="status" aria-live="polite"></div>
+  </form>
+</section>
+
+</main>
+
+<footer>
+  <h2>Rustic Garden Wellness Library</h2>
+  <p>
+    This page is intended for educational purposes and explores traditional wellness systems including Ayurveda and Traditional Chinese Medicine.
+    These practices are not substitutes for professional medical diagnosis or treatment.
+    Persistent or severe symptoms should be evaluated by a qualified healthcare professional.
+  </p>
+  <p style="margin-top:25px;">
+    <a href="index.html">← Return to Rustic Garden</a>
+  </p>
+</footer>
+
+<!-- Modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <img id="modalImg" alt="" loading="lazy">
+    <div class="modal-content">
+      <button class="close" id="modalClose" aria-label="Close dialog">&times;</button>
+      <h2 id="modalTitle"></h2>
+      <p id="modalText"></p>
+      <p class="modal-note">
+        Traditionally, gentle circular pressure is explored for around 30–60 seconds on each side. Stop if discomfort increases.
+      </p>
+    </div>
+  </div>
 </div>
 
 <script>
-  const ICONS = {
-    hand: `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 26V10a3 3 0 1 1 6 0v11M20 21V7a3 3 0 1 1 6 0v14M26 21V9a3 3 0 1 1 6 0v13M32 22v-6a3 3 0 1 1 6 0v14c0 7-5 13-13 13h-2c-6 0-9-3-12-8l-4-7c-1-2 0-4 2-5s4 0 5 2l3 5" stroke="var(--ember)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="21" cy="17" r="2" fill="var(--moss)"/></svg>`,
-    forearm: `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 40 20 12c1-3 5-4 7-1l9 13 2 4-4 2-8-3" stroke="var(--ember)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 40c6-2 10-6 12-12" stroke="var(--ember)" stroke-width="2.4" stroke-linecap="round"/><circle cx="21" cy="24" r="2.4" fill="var(--moss)"/></svg>`,
-    leg: `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6h8l1 14 5 20c1 3-1 5-4 5s-4-1-4-4l-2-16h-2l-3 16c-1 3-2 4-5 4s-5-2-4-5l4-20 1-14Z" stroke="var(--ember)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="28" cy="26" r="2.4" fill="var(--moss)"/></svg>`,
-    ear: `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M28 8c8 0 13 7 13 14 0 8-5 11-8 15-2 3-2 6-6 6-3 0-5-2-5-5 0-2 1-3 3-4 4-2 6-5 6-9 0-3-2-5-5-5s-5 2-5 5" stroke="var(--ember)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="19" r="2.2" fill="var(--moss)"/></svg>`
-  };
+(function(){
+  "use strict";
 
-  const zones = [
-    {
-      icon: "hand",
-      title: "The Hand Comfort Spot",
-      subtitle: "Best for general aches, head stiffness & tiredness",
-      where: "Located in the soft, muscular webbing on the back of your hand, right between the base of your thumb and index finger.",
-      howToHold: "Use the thumb and index finger of your opposite hand to gently pinch this soft area. If your fingers are stiff, press the area gently against a soft cushion or your thigh using the flat pad of your knuckle instead.",
-      whyItHelps: "This spot is a well-known natural 'reset button' for stiffness and aches through the upper body, and many people find it encourages a sense of ease.",
-      comfortTip: "Hold with steady, warm pressure for 1 to 2 minutes while breathing slowly."
-    },
-    {
-      icon: "forearm",
-      title: "The Forearm Calm Spot",
-      subtitle: "Best for tightness, chest tension & settling before sleep",
-      where: "On the inside of your forearm, about three finger-widths up from your wrist crease, between the two central tendons you can feel there.",
-      howToHold: "Press gently into this spot with the flat pad of your thumb. No need to press hard — just enough to feel a soft, dull warmth.",
-      whyItHelps: "This area sits close to a nerve pathway linked with slowing a racing heart and settling a busy stomach, which is why many find it calming before rest.",
-      comfortTip: "Lovely to hold in bed before sleeping, to settle an overactive mind or mild evening restlessness."
-    },
-    {
-      icon: "leg",
-      title: "The Lower Leg Grounding Spot",
-      subtitle: "Best for knee stiffness, digestion & swelling",
-      where: "On the outside of your lower leg, about four finger-widths below your kneecap, in the soft muscular dip just beside your shin bone.",
-      howToHold: "Sit comfortably in a supportive chair. Use the heel of your palm or your thumb to make slow, small, warm circles over this area.",
-      whyItHelps: "Long used in traditional practice to help restore steadiness and stamina, and often chosen to support comfortable digestion.",
-      comfortTip: "Ideal in the morning while sitting with a warm drink, to ease gently into the day."
-    },
-    {
-      icon: "ear",
-      title: "The Ear Peace Spot",
-      subtitle: "Best for sudden stress & a quick sense of calm",
-      where: "In the upper third of your ear, nestled in the small, shallow hollow near the top curve of your outer ear.",
-      howToHold: "Gently pinch the upper part of your ear between your thumb and index finger, using light, cushiony pressure.",
-      whyItHelps: "The outer ear carries many nerve endings, and a gentle touch here is often used as a quick, discreet way to invite calm.",
-      comfortTip: "Use whenever you feel sudden overwhelm, loud noise, or an unexpected ache."
-    }
-  ];
+  /* Progress bar */
+  var progress = document.getElementById("progress");
+  function updateProgress(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop || document.body.scrollTop;
+    var height = h.scrollHeight - h.clientHeight;
+    progress.style.width = (height > 0 ? (scrolled / height) * 100 : 0) + "%";
+  }
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  updateProgress();
 
-  let currentZone = 0, timerInterval = null, timeLeft = 120, isRunning = false;
+  /* Mobile nav toggle */
+  var navToggle = document.getElementById("navToggle");
+  var navMenu = document.getElementById("navMenu");
+  navToggle.addEventListener("click", function(){
+    var open = navMenu.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(open));
+  });
+  navMenu.querySelectorAll("a").forEach(function(link){
+    link.addEventListener("click", function(){
+      navMenu.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+    });
+  });
 
-  function buildZoneGrid() {
-    const grid = document.getElementById('zone-grid');
-    grid.innerHTML = zones.map((z, i) => `
-      <button class="zone-btn ${i === 0 ? 'active' : ''}" data-index="${i}" onclick="selectZone(${i})">
-        <span class="zone-icon">${ICONS[z.icon]}</span>
-        <span class="zone-text">
-          <span class="btn-title">${i + 1}. ${z.title}</span>
-          <span class="btn-sub">${z.subtitle}</span>
-        </span>
-      </button>
-    `).join('');
+  /* Fade-in on scroll */
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".fade").forEach(function(el){ observer.observe(el); });
+  } else {
+    document.querySelectorAll(".fade").forEach(function(el){ el.classList.add("show"); });
   }
 
-  function renderZone(index) {
-    const item = zones[index];
-    const container = document.getElementById('zone-details');
-    container.innerHTML = `
-      <div class="detail-head">
-        <h3>${item.title}</h3>
-        <button class="listen-btn" onclick="speakZone(${index})" aria-label="Listen to instructions for ${item.title}">🔊 Listen</button>
-      </div>
-      <div class="detail-section"><h4>Where to Find It</h4><p>${item.where}</p></div>
-      <div class="detail-section"><h4>How to Comfortably Hold It</h4><p>${item.howToHold}</p></div>
-      <div class="detail-section"><h4>How It May Help</h4><p>${item.whyItHelps}</p></div>
-      <div class="detail-section"><h4>Best Time for Relief</h4><p>${item.comfortTip}</p></div>
-    `;
+  /* Acupressure modal */
+  var modal = document.getElementById("modal");
+  var modalImg = document.getElementById("modalImg");
+  var modalTitle = document.getElementById("modalTitle");
+  var modalText = document.getElementById("modalText");
+  var modalClose = document.getElementById("modalClose");
+  var lastFocused = null;
+
+  function openModal(btn){
+    lastFocused = btn;
+    modalTitle.textContent = btn.dataset.title;
+    modalText.textContent = btn.dataset.text;
+    modalImg.src = btn.dataset.img;
+    modalImg.alt = btn.dataset.title + " acupressure point illustration";
+    modal.classList.add("open");
+    modalClose.focus();
+    document.addEventListener("keydown", onModalKeydown);
   }
 
-  function selectZone(index) {
-    currentZone = index;
-    document.querySelectorAll('.zone-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
-    renderZone(index);
-    resetTimer();
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
+  function closeModal(){
+    modal.classList.remove("open");
+    document.removeEventListener("keydown", onModalKeydown);
+    if (lastFocused) lastFocused.focus();
   }
 
-  function speakZone(index) {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const z = zones[index];
-    const text = `${z.title}. Where to find it: ${z.where} How to hold it: ${z.howToHold} How it may help: ${z.whyItHelps} Best time for relief: ${z.comfortTip}`;
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.rate = 0.85;
-    utter.pitch = 1;
-    window.speechSynthesis.speak(utter);
-  }
-
-  function updateTimerDisplay() {
-    const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-    const secs = (timeLeft % 60).toString().padStart(2, '0');
-    document.getElementById('timer-display').innerText = `${mins}:${secs}`;
-  }
-
-  function updateBreathingPrompt() {
-    const guide = document.getElementById('breath-guide');
-    const glow = document.getElementById('hearth-glow');
-    if (!isRunning) {
-      guide.innerText = "Ready when you are...";
-      glow.classList.add('paused');
+  function onModalKeydown(e){
+    if (e.key === "Escape") {
+      closeModal();
       return;
     }
-    glow.classList.remove('paused');
-    const cycle = timeLeft % 12;
-    if (cycle >= 8) {
-      guide.innerText = "Gently breathe in... (4 seconds)";
-    } else {
-      guide.innerText = "Slowly breathe out... (8 seconds)";
+    if (e.key === "Tab") {
+      var focusable = modal.querySelectorAll('button, [href], img');
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     }
   }
 
-  function toggleTimer() {
-    const startBtn = document.getElementById('start-btn');
-    if (isRunning) {
-      clearInterval(timerInterval);
-      isRunning = false;
-      startBtn.innerText = "Resume Session";
-      updateBreathingPrompt();
+  document.querySelectorAll(".point").forEach(function(btn){
+    btn.addEventListener("click", function(){ openModal(btn); });
+  });
+
+  modalClose.addEventListener("click", closeModal);
+  modal.addEventListener("click", function(e){
+    if (e.target === modal) closeModal();
+  });
+
+  /* Reflection quiz */
+  var quizForm = document.getElementById("quizForm");
+  var result = document.getElementById("result");
+
+  quizForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    var score = quizForm.querySelectorAll(".q:checked").length;
+    result.classList.add("show");
+
+    if (score >= 3) {
+      result.innerHTML = "<strong>Reflection:</strong> Your responses suggest you may enjoy exploring cooling routines such as hydration, calming breathwork, and gentle acupressure — while consulting a qualified practitioner if symptoms persist.";
     } else {
-      isRunning = true;
-      startBtn.innerText = "Pause Session";
-      updateBreathingPrompt();
-      timerInterval = setInterval(() => {
-        if (timeLeft > 0) {
-          timeLeft--;
-          updateTimerDisplay();
-          updateBreathingPrompt();
-        } else {
-          clearInterval(timerInterval);
-          isRunning = false;
-          startBtn.innerText = "Session Complete";
-          document.getElementById('breath-guide').innerText = "Rest comfortably. Session complete!";
-          document.getElementById('hearth-glow').classList.add('paused');
-        }
-      }, 1000);
+      result.innerHTML = "<strong>Reflection:</strong> Your responses suggest maintaining balanced routines, fresh foods, movement, and time in nature may support overall wellbeing.";
     }
-  }
+    result.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+  });
 
-  function resetTimer() {
-    clearInterval(timerInterval);
-    isRunning = false;
-    timeLeft = 120;
-    updateTimerDisplay();
-    updateBreathingPrompt();
-    document.getElementById('start-btn').innerText = "Start Session";
-  }
-
-  function setTextSize(pct, btn) {
-    document.documentElement.style.fontSize = pct + '%';
-    document.querySelectorAll('[data-size]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-
-  function setTheme(theme) {
-    document.body.setAttribute('data-theme', theme);
-    document.getElementById('theme-day').classList.toggle('active', theme === 'day');
-    document.getElementById('theme-evening').classList.toggle('active', theme === 'evening');
-  }
-
-  // Initialize
-  document.documentElement.style.fontSize = '120%';
-  buildZoneGrid();
-  renderZone(0);
-  updateTimerDisplay();
+})();
 </script>
 
 </body>
