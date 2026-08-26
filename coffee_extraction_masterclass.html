@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee Extraction Masterclass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --espresso:   #1a0f07;
+  --roast:      #2e1a0e;
+  --crema:      #c8956c;
+  --crema-lt:   #e8c9a8;
+  --parchment:  #f5ede2;
+  --steam:      #7a9e8e;
+  --steam-lt:   #a8c4b8;
+  --chalk:      #f0ebe3;
+  --muted:      #8a7b6e;
+  --rule:       rgba(200,149,108,0.25);
+  --font-disp:  'Playfair Display', Georgia, serif;
+  --font-body:  'Inter', system-ui, sans-serif;
+  --font-mono:  'IBM Plex Mono', 'Courier New', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--espresso);
+  color: var(--chalk);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--roast);
+  border-bottom: 1px solid var(--rule);
+  padding: 3.5rem 2rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,149,108,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--crema);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: var(--font-disp);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--crema-lt);
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+  position: relative;
+}
+.hero-sub {
+  font-family: var(--font-disp);
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--crema);
+  margin-bottom: 1.4rem;
+}
+
+/* ── INCIDENT CARD ── */
+.incident {
+  max-width: 680px;
+  margin: 0 auto 0;
+  background: rgba(200,149,108,0.08);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1.2rem 1.6rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  text-align: left;
+}
+.incident-icon {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.incident p {
+  font-size: 14px;
+  color: var(--crema-lt);
+  line-height: 1.6;
+}
+.incident .quote {
+  font-family: var(--font-disp);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--crema);
+  margin-bottom: 0.3rem;
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+section { padding: 3rem 0; border-bottom: 1px solid var(--rule); }
+section:last-of-type { border-bottom: none; }
+
+h2 {
+  font-family: var(--font-disp);
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  color: var(--crema-lt);
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--crema);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+h3 {
+  font-family: var(--font-disp);
+  font-size: 1.15rem;
+  color: var(--crema);
+  margin: 1.6rem 0 0.5rem;
+}
+p { color: var(--chalk); margin-bottom: 0.9rem; }
+p:last-child { margin-bottom: 0; }
+
+/* ── EQUATION BOX ── */
+.eq-box {
+  background: var(--roast);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--crema);
+  border-radius: 0 8px 8px 0;
+  padding: 1.2rem 1.5rem;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  color: var(--crema-lt);
+  letter-spacing: 0.04em;
+  overflow-x: auto;
+}
+.eq-box .eq-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* ── FACTOR CARDS ── */
+.factors {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 1.5rem 0;
+}
+.factor-card {
+  background: var(--roast);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1.1rem 1.2rem;
+  position: relative;
+  transition: border-color 0.2s;
+}
+.factor-card:hover { border-color: var(--crema); }
+.factor-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--crema);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
+}
+.factor-card h4 {
+  font-family: var(--font-disp);
+  font-size: 1rem;
+  color: var(--crema-lt);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.factor-card p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 0;
+  line-height: 1.55;
+}
+.factor-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: rgba(200,149,108,0.15);
+  color: var(--crema);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 2px 7px;
+  margin-bottom: 0.5rem;
+}
+
+/* ── COMPOUND TABLE ── */
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  font-size: 13px;
+}
+.cmp-table th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--crema);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.5rem 0.8rem;
+  text-align: left;
+}
+.cmp-table td {
+  padding: 0.65rem 0.8rem;
+  color: var(--chalk);
+  border-bottom: 1px solid rgba(200,149,108,0.1);
+  vertical-align: middle;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 7px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.moka-bar, .pour-bar {
+  height: 8px;
+  border-radius: 4px;
+  display: inline-block;
+  min-width: 4px;
+}
+.moka-bar { background: var(--crema); }
+.pour-bar { background: var(--steam); }
+.bar-wrap { display: flex; align-items: center; gap: 6px; }
+
+/* ── METHOD COMPARE ── */
+.method-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 1.4rem 0;
+}
+@media (max-width: 600px) { .method-split { grid-template-columns: 1fr; } }
+.method-card {
+  background: var(--roast);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1.2rem 1.3rem;
+}
+.method-card.moka { border-top: 3px solid var(--crema); }
+.method-card.pour { border-top: 3px solid var(--steam); }
+.method-card h4 {
+  font-family: var(--font-disp);
+  font-size: 1.05rem;
+  color: var(--crema-lt);
+  margin-bottom: 0.8rem;
+}
+.method-card .spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(200,149,108,0.1);
+  font-size: 13px;
+}
+.method-card .spec-row:last-child { border-bottom: none; }
+.spec-label { color: var(--muted); }
+.spec-val { color: var(--chalk); font-family: var(--font-mono); font-size: 12px; }
+
+/* ── INTERACTIVE SIMULATOR ── */
+.simulator {
+  background: var(--roast);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+.sim-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 1.4rem;
+}
+.ctrl-group { display: flex; flex-direction: column; gap: 5px; }
+.ctrl-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--crema);
+}
+.ctrl-row { display: flex; align-items: center; gap: 10px; }
+.ctrl-row input[type=range] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 3px;
+  background: rgba(200,149,108,0.25);
+  border-radius: 2px;
+  outline: none;
+}
+.ctrl-row input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--crema);
+  cursor: pointer;
+}
+.ctrl-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--crema-lt);
+  min-width: 68px;
+  text-align: right;
+}
+
+.seg-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+.seg-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.seg-btn.active {
+  background: var(--crema);
+  color: var(--espresso);
+  border-color: var(--crema);
+  font-weight: 600;
+}
+.seg-btn:hover:not(.active) { border-color: var(--crema); color: var(--crema); }
+
+.chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  margin-bottom: 1rem;
+}
+.sim-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+.sim-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.leg-sq { width: 10px; height: 10px; border-radius: 2px; }
+
+.yield-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-top: 1rem;
+}
+.yield-card {
+  background: rgba(200,149,108,0.06);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+}
+.yield-card .ylabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.yield-card .yval {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--crema-lt);
+  font-weight: 500;
+}
+.sim-warn {
+  font-size: 12px;
+  color: #d4a843;
+  margin-top: 0.6rem;
+  min-height: 1.2em;
+  font-family: var(--font-mono);
+}
+
+/* ── INSIGHT CALLOUTS ── */
+.insights { display: flex; flex-direction: column; gap: 14px; margin-top: 1.2rem; }
+.insight {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--roast);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1.1rem 1.3rem;
+}
+.insight-mark {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--crema);
+  background: rgba(200,149,108,0.12);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 3px 8px;
+  white-space: nowrap;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.insight-body { font-size: 14px; color: var(--chalk); line-height: 1.6; }
+.insight-body strong { color: var(--crema-lt); font-weight: 500; }
+
+/* ── ROAST AXIS ── */
+.roast-axis {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin: 1.2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.roast-cell {
+  padding: 0.7rem 0.5rem;
+  text-align: center;
+  font-size: 12px;
+}
+.roast-cell .rname {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* ── FOOTER ── */
+.page-footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--rule);
+}
+
+/* ── HIGHLIGHT ── */
+.hl { color: var(--crema); }
+.hl-steam { color: var(--steam-lt); }
+code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: rgba(200,149,108,0.12);
+  color: var(--crema-lt);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Coffee Science · Extraction Masterclass · Module 3</div>
+  <h1>Pour-over is not tea.<br>Let me show you why.</h1>
+  <div class="hero-sub">First-order extraction kinetics, grind geometry, and the chemistry of the cup</div>
+
+  <div class="incident" style="position:relative; z-index:1">
+    <div class="incident-icon">☕</div>
+    <div>
+      <div class="quote">"But sir… isn't pour-over just like making tea?"</div>
+      <p>— A student, moments ago. Bless. Let's fix this together. Tea steeps ground plant leaves in idle hot water. Pour-over drives heated water through a structured bed of precisely ground, carefully roasted coffee particles under the influence of gravity, pressure differentials, surface tension, and five simultaneously competing chemical extraction kinetics. They are not the same thing.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: THE CORE EQUATION -->
+<div class="container">
+<section>
+  <div class="section-num">Section 01 · The model</div>
+  <h2>First-order extraction kinetics</h2>
+  <p>Every compound in a coffee particle dissolves into water according to its own rate equation. We model each one independently using a first-order differential equation — the same mathematics that governs radioactive decay, drug clearance from the bloodstream, and the cooling of a hot object:</p>
+
+  <div class="eq-box">
+    <div class="eq-label">Core extraction equation</div>
+    dC/dt = k<sub style="font-size:0.75em">eff</sub> · (C<sub style="font-size:0.75em">max</sub> − C(t))
+  </div>
+
+  <p>Reading this aloud: the <em>rate of change of dissolved concentration</em> <code>dC/dt</code> is proportional to how much of the compound is still left to extract <code>(C_max − C(t))</code>. When you first pour water on fresh grounds, extraction is fast because the gradient is steep. As the cup fills with dissolved compounds, extraction slows — the driving force diminishes.</p>
+
+  <p><code>k_eff</code> is where all the interesting physics lives. It is not a single constant — it is a product of four physical factors, each of which you control when you choose your method, grind, roast, and temperature.</p>
+
+  <div class="factors">
+    <div class="factor-card">
+      <div class="factor-num">Factor 01</div>
+      <div class="factor-badge">Surface area</div>
+      <h4>Sauter mean diameter</h4>
+      <p>Finer grinds expose exponentially more surface area. A 400 µm moka grind exposes <strong style="color:var(--crema-lt)">~3.4×</strong> the area of a 900 µm pour-over grind. This is the dominant variable for caffeine and CGA extraction speed.</p>
+    </div>
+    <div class="factor-card">
+      <div class="factor-num">Factor 02</div>
+      <div class="factor-badge">Arrhenius term</div>
+      <h4>Temperature sensitivity</h4>
+      <p>Each compound has its own activation energy E<sub>a</sub>. Diterpenes need <strong style="color:var(--crema-lt)">E<sub>a</sub> ≈ 55 kJ/mol</strong> — they barely extract below 85°C. Caffeine extracts across the full range (E<sub>a</sub> ≈ 30 kJ/mol).</p>
+    </div>
+    <div class="factor-card">
+      <div class="factor-num">Factor 03</div>
+      <div class="factor-badge">Pressure boost</div>
+      <h4>Moka pressure term</h4>
+      <p>Modeled as <code>1 + P · 0.22</code>. At 1.5 bar, moka gets a <strong style="color:var(--crema-lt)">~33% boost</strong> to k<sub>eff</sub>. Pressure reduces boundary layer thickness and alters CO₂ partitioning in the extraction cell.</p>
+    </div>
+    <div class="factor-card">
+      <div class="factor-num">Factor 04</div>
+      <div class="factor-badge">Roast degradation</div>
+      <h4>C_max reduction</h4>
+      <p>Roasting destroys compounds <em>before</em> brewing begins — this multiplier applies to <code>C_max</code>, not <code>k_eff</code>. CGAs lose <strong style="color:var(--crema-lt)">18–22% per roast unit</strong>. Melanoidins do the opposite — they <em>form</em> during roasting.</p>
+    </div>
+  </div>
+
+  <p>One factor sits outside the kinetics entirely. <strong style="color:var(--crema-lt)">Diterpene filter gating</strong> is a physical barrier effect, not a rate constant problem: paper filters arrest cafestol and kahweol in their oil-droplet carriers regardless of kinetics. Pour-over through paper delivers ~5% of the diterpenes present in the grounds. Moka delivers close to 100%.</p>
+</section>
+
+<!-- SECTION 2: THE COMPOUNDS -->
+<section>
+  <div class="section-num">Section 02 · The compounds</div>
+  <h2>Five compound classes, five different fates</h2>
+  <p>Coffee is not one thing. It is a mixture of at least 1,000 identified volatile and non-volatile compounds. Five compound classes dominate the pharmacological and sensory story:</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Compound</th>
+        <th>Moka yield</th>
+        <th>Pour-over yield</th>
+        <th>Roast sensitivity</th>
+        <th>Brain target</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="cmp-dot" style="background:#2a78d6"></span>Caffeine</td>
+        <td><div class="bar-wrap"><span class="moka-bar" style="width:85px"></span><span style="font-size:11px;color:var(--muted)">High</span></div></td>
+        <td><div class="bar-wrap"><span class="pour-bar" style="width:62px"></span><span style="font-size:11px;color:var(--muted)">Moderate</span></div></td>
+        <td style="color:var(--steam-lt);font-size:12px;">Minimal (–2%/unit)</td>
+        <td style="font-size:12px;color:var(--muted)">All striatal regions (A2A/A1)</td>
+      </tr>
+      <tr>
+        <td><span class="cmp-dot" style="background:#1baf7a"></span>Chlorogenic acids</td>
+        <td><div class="bar-wrap"><span class="moka-bar" style="width:52px"></span><span style="font-size:11px;color:var(--muted)">Moderate</span></div></td>
+        <td><div class="bar-wrap"><span class="pour-bar" style="width:78px"></span><span style="font-size:11px;color:var(--muted)">Best</span></div></td>
+        <td style="color:#d4a843;font-size:12px;">High (–18%/unit)</td>
+        <td style="font-size:12px;color:var(--muted)">Ventral striatum (neuroprotection)</td>
+      </tr>
+      <tr>
+        <td><span class="cmp-dot" style="background:#4a3aa7"></span>Trigonelline</td>
+        <td><div class="bar-wrap"><span class="moka-bar" style="width:70px"></span><span style="font-size:11px;color:var(--muted)">High</span></div></td>
+        <td><div class="bar-wrap"><span class="pour-bar" style="width:70px"></span><span style="font-size:11px;color:var(--muted)">Good</span></div></td>
+        <td style="color:#d4a843;font-size:12px;">Very high (–22%/unit)</td>
+        <td style="font-size:12px;color:var(--muted)">Dorsomedial striatum (nAChR)</td>
+      </tr>
+      <tr>
+        <td><span class="cmp-dot" style="background:#eb6834"></span>Diterpenes</td>
+        <td><div class="bar-wrap"><span class="moka-bar" style="width:90px"></span><span style="font-size:11px;color:var(--muted)">Very high</span></div></td>
+        <td><div class="bar-wrap"><span class="pour-bar" style="width:5px"></span><span style="font-size:11px;color:var(--muted)">Near zero*</span></div></td>
+        <td style="color:var(--steam-lt);font-size:12px;">Low (lipid-stable)</td>
+        <td style="font-size:12px;color:var(--muted)">Dorsolateral striatum (PPAR-γ)</td>
+      </tr>
+      <tr>
+        <td><span class="cmp-dot" style="background:#898781"></span>Melanoidins</td>
+        <td><div class="bar-wrap"><span class="moka-bar" style="width:55px"></span><span style="font-size:11px;color:var(--muted)">Moderate</span></div></td>
+        <td><div class="bar-wrap"><span class="pour-bar" style="width:65px"></span><span style="font-size:11px;color:var(--muted)">Good</span></div></td>
+        <td style="color:var(--crema);font-size:12px;">Inverted (forms on roasting)</td>
+        <td style="font-size:12px;color:var(--muted)">Gut–brain axis (prebiotic)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:var(--muted)">* Paper filter blocks ~95% of diterpenes. Metal mesh filters restore yield.</p>
+</section>
+
+<!-- SECTION 3: METHODS -->
+<section>
+  <div class="section-num">Section 03 · The methods</div>
+  <h2>Moka pot vs pour-over: a physics comparison</h2>
+
+  <div class="method-split">
+    <div class="method-card moka">
+      <h4 class="hl">Moka pot</h4>
+      <div class="spec-row"><span class="spec-label">Temperature</span><span class="spec-val">90–93°C</span></div>
+      <div class="spec-row"><span class="spec-label">Pressure</span><span class="spec-val">1–2 bar</span></div>
+      <div class="spec-row"><span class="spec-label">Brew time</span><span class="spec-val">4–5 min</span></div>
+      <div class="spec-row"><span class="spec-label">Grind target</span><span class="spec-val">300–450 µm (fine)</span></div>
+      <div class="spec-row"><span class="spec-label">Filter</span><span class="spec-val">Metal plate (no paper)</span></div>
+      <div class="spec-row"><span class="spec-label">Diterpene yield</span><span class="spec-val">~90–100%</span></div>
+      <div class="spec-row"><span class="spec-label">Caffeine density</span><span class="spec-val">High per ml</span></div>
+      <div class="spec-row"><span class="spec-label">CGA yield</span><span class="spec-val">Moderate (pressure hydrolysis)</span></div>
+    </div>
+    <div class="method-card pour">
+      <h4 class="hl-steam">Pour-over</h4>
+      <div class="spec-row"><span class="spec-label">Temperature</span><span class="spec-val">92–96°C</span></div>
+      <div class="spec-row"><span class="spec-label">Pressure</span><span class="spec-val">~0 bar (gravity)</span></div>
+      <div class="spec-row"><span class="spec-label">Brew time</span><span class="spec-val">3–4 min</span></div>
+      <div class="spec-row"><span class="spec-label">Grind target</span><span class="spec-val">700–950 µm (medium)</span></div>
+      <div class="spec-row"><span class="spec-label">Filter</span><span class="spec-val">Paper (standard)</span></div>
+      <div class="spec-row"><span class="spec-label">Diterpene yield</span><span class="spec-val">~5% (paper arrested)</span></div>
+      <div class="spec-row"><span class="spec-label">Caffeine density</span><span class="spec-val">Lower per ml</span></div>
+      <div class="spec-row"><span class="spec-label">CGA yield</span><span class="spec-val">Highest (no pressure hydrolysis)</span></div>
+    </div>
+  </div>
+
+  <!-- ROAST AXIS -->
+  <h3>The roast axis and what it destroys</h3>
+  <p>Roasting is a series of overlapping pyrolytic and Maillard reactions from roughly 150°C to 240°C. What matters for extraction chemistry is which compounds are present in the bean when the water arrives.</p>
+
+  <div class="roast-axis">
+    <div class="roast-cell" style="background:rgba(180,130,80,0.15)">
+      <span class="rname" style="color:#c8a060">Light</span>
+      <span style="font-size:11px;color:var(--muted)">CGAs intact<br>Trigonelline high<br>Lighter body<br>High acidity</span>
+    </div>
+    <div class="roast-cell" style="background:rgba(160,110,60,0.18)">
+      <span class="rname" style="color:#c89050">Lt–Med</span>
+      <span style="font-size:11px;color:var(--muted)">CGAs 80%<br>Trig. 78%<br>Balance<br>Moderate acidity</span>
+    </div>
+    <div class="roast-cell" style="background:rgba(130,80,40,0.22)">
+      <span class="rname" style="color:#c87840">Medium</span>
+      <span style="font-size:11px;color:var(--muted)">CGAs 64%<br>Trig. 56%<br>Caramel notes<br>Lower acidity</span>
+    </div>
+    <div class="roast-cell" style="background:rgba(90,50,20,0.28)">
+      <span class="rname" style="color:#c86030">Med–Dark</span>
+      <span style="font-size:11px;color:var(--muted)">CGAs 46%<br>Trig. 34%<br>Bitter notes<br>Melanoidins rise</span>
+    </div>
+    <div class="roast-cell" style="background:rgba(50,20,5,0.35)">
+      <span class="rname" style="color:#c84820">Dark</span>
+      <span style="font-size:11px;color:var(--muted)">CGAs 20%<br>Trig. 12%<br>Smoky<br>Melanoidins peak</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: INTERACTIVE SIMULATOR -->
+<section>
+  <div class="section-num">Section 04 · Live model</div>
+  <h2>Interactive extraction simulator</h2>
+  <p>Adjust the parameters below to see how each physical variable shifts the extraction curves and final compound yields. Use "Compare both" to see moka and pour-over side by side — then try pushing roast to dark and watch what happens to the diterpene lines.</p>
+
+  <div class="simulator">
+    <div class="seg-row">
+      <button class="seg-btn active" id="btn-moka" onclick="setMethod('moka')">Moka pot</button>
+      <button class="seg-btn" id="btn-pour" onclick="setMethod('pour')">Pour-over</button>
+      <button class="seg-btn" id="btn-both" onclick="setMethod('both')">Compare both</button>
+    </div>
+
+    <div class="sim-controls">
+      <div class="ctrl-group">
+        <div class="ctrl-label">Grind size</div>
+        <div class="ctrl-row">
+          <input type="range" id="s-grind" min="200" max="1100" step="50" value="400" oninput="simUpdate()">
+          <span class="ctrl-val" id="sv-grind">400 µm</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Roast level (1=light · 5=dark)</div>
+        <div class="ctrl-row">
+          <input type="range" id="s-roast" min="1" max="5" step="0.1" value="2" oninput="simUpdate()">
+          <span class="ctrl-val" id="sv-roast">Light-med</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Water temperature</div>
+        <div class="ctrl-row">
+          <input type="range" id="s-temp" min="80" max="100" step="0.5" value="92" oninput="simUpdate()">
+          <span class="ctrl-val" id="sv-temp">92°C</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Pressure (bar)</div>
+        <div class="ctrl-row">
+          <input type="range" id="s-pressure" min="0" max="3" step="0.1" value="1.5" oninput="simUpdate()">
+          <span class="ctrl-val" id="sv-pressure">1.5 bar</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Coffee dose</div>
+        <div class="ctrl-row">
+          <input type="range" id="s-dose" min="7" max="25" step="0.5" value="18" oninput="simUpdate()">
+          <span class="ctrl-val" id="sv-dose">18 g</span>
+        </div>
+      </div>
+      <div class="ctrl-group">
+        <div class="ctrl-label">Water volume</div>
+        <div class="ctrl-row">
+          <input type="range" id="s-water" min="30" max="350" step="5" value="200" oninput="simUpdate()">
+          <span class="ctrl-val" id="sv-water">200 ml</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="simChart" role="img" aria-label="Phytochemical extraction curves over brew time">Extraction curves for five compound classes over time.</canvas>
+    </div>
+
+    <div class="sim-legend" id="sim-legend">
+      <span><span class="leg-sq" style="background:#2a78d6"></span>Caffeine</span>
+      <span><span class="leg-sq" style="background:#1baf7a"></span>Chlorogenic acids</span>
+      <span><span class="leg-sq" style="background:#4a3aa7"></span>Trigonelline</span>
+      <span><span class="leg-sq" style="background:#eb6834"></span>Diterpenes</span>
+      <span><span class="leg-sq" style="background:#898781"></span>Melanoidins</span>
+      <span id="legend-note" style="color:var(--muted);font-style:italic"></span>
+    </div>
+
+    <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:0.7rem">
+      Brew ratio: <span id="sv-ratio" style="color:var(--crema-lt)">1:11.1</span> &nbsp;|&nbsp;
+      TDS estimate: <span id="sv-tds" style="color:var(--crema-lt)">—</span>
+    </div>
+
+    <div class="yield-grid">
+      <div class="yield-card"><div class="ylabel">Caffeine</div><div class="yval" id="y-caff">—</div></div>
+      <div class="yield-card"><div class="ylabel">CGAs</div><div class="yval" id="y-cga">—</div></div>
+      <div class="yield-card"><div class="ylabel">Trigonelline</div><div class="yval" id="y-trig">—</div></div>
+      <div class="yield-card"><div class="ylabel">Diterpenes</div><div class="yval" id="y-dit">—</div></div>
+      <div class="yield-card"><div class="ylabel">Melanoidins</div><div class="yval" id="y-mel">—</div></div>
+      <div class="yield-card"><div class="ylabel">TDS</div><div class="yval" id="y-tds2">—</div></div>
+    </div>
+    <div class="sim-warn" id="sim-warn"></div>
+  </div>
+</section>
+
+<!-- SECTION 5: KEY INSIGHTS -->
+<section>
+  <div class="section-num">Section 05 · What the model teaches us</div>
+  <h2>Non-obvious insights from the kinetics</h2>
+  <p>Adjust the simulator as you read each insight — these are things that only become obvious when you watch the curves behave.</p>
+
+  <div class="insights">
+    <div class="insight">
+      <div class="insight-mark">Insight 01</div>
+      <div class="insight-body">
+        <strong>The extraction curves cross.</strong> In the first 60–90 seconds, caffeine and trigonelline extract faster than CGAs because of smaller molecular size and higher aqueous diffusivity. But CGAs reach a higher <code>C_max</code> in light roast. Stop a pour-over at 2 minutes and you get a caffeine-dominant cup with relatively few polyphenols — sharper, brighter, and less rounded. This is the under-extracted pour-over problem. It tastes bright not because pour-over is gentle, but because you interrupted the kinetics.
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-mark">Insight 02</div>
+      <div class="insight-body">
+        <strong>Pressure buys speed, not more CGA.</strong> The moka's pressure term raises <code>k_eff</code> — the extraction rate — but it also drives acid hydrolysis of chlorogenic acids at the extraction interface. Moka reaches saturation faster, but <code>C_max</code> for CGAs is slightly lower than pour-over through the same beans at the same roast. You are trading polyphenol fidelity for speed and concentration.
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-mark">Insight 03</div>
+      <div class="insight-body">
+        <strong>Paper filter is a pharmacological choice, not just a texture choice.</strong> Push roast to dark in "Compare both" mode. The diterpene lines diverge sharply — pour-over through paper stays near zero regardless of roast level, while moka climbs. Cafestol and kahweol (the diterpenes) have demonstrated PPAR-γ activation in striatal tissue and nigro-striatal neuroprotective effects in animal models. If that pharmacology matters to you, the filter material is not a minor detail.
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-mark">Insight 04</div>
+      <div class="insight-body">
+        <strong>Trigonelline is the most roast-casualty compound.</strong> At dark roast, roughly 88% of trigonelline has converted to nicotinic acid (niacin) and pyridine aromatics. Intact trigonelline has partial agonist activity at nicotinic acetylcholine receptors — a pharmacology that relates to goal-directed learning through the dorsomedial striatum. A dark-roast moka drinker and a light-roast pour-over drinker may be having substantially different neurochemical experiences, even from the same beans.
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-mark">Insight 05</div>
+      <div class="insight-body">
+        <strong>Grind size is the lever with the largest mechanical multiplier.</strong> Halving the grind diameter roughly triples the surface area and raises <code>k_eff</code> for all compounds. But it also narrows the flow path in pour-over, lengthening contact time — which can cause over-extraction of bitter Maillard byproducts once most of the desirable compounds have already extracted. Grind size is not just about speed; it is about sequencing which compounds dominate at the end of the extraction window.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY -->
+<section>
+  <div class="section-num">Section 06 · Summary</div>
+  <h2>So. Is pour-over tea?</h2>
+  <p>Tea steeps plant material in hot water. The sole variables are temperature and time. There is no grind geometry, no pressure differential, no Arrhenius activation energy landscape across five competing compound classes, no filter-mediated phase separation of lipophilic diterpenes, no roast degradation curve to account for before water touches the grounds.</p>
+  <p>Pour-over coffee is a precision extraction instrument operating five simultaneous first-order kinetic processes in a stratified particle bed, through a controlled gravity pressure head, at a temperature you chose for its Arrhenius consequences on specific molecular species, using a paper medium whose porosity gates which compound classes pass through.</p>
+  <p style="font-family:var(--font-disp);font-style:italic;font-size:1.15rem;color:var(--crema);margin-top:1.2rem">It is not tea. Now go grind something.</p>
+</section>
+</div>
+
+<div class="page-footer">
+  Coffee Extraction Masterclass · First-order kinetics model · Yields are estimates ±20–30% by bean origin and processing method
+</div>
+
+<script>
+let simMethod = 'moka';
+let simChart = null;
+
+const KEYS   = ['caff','cga','trig','dit','mel'];
+const COLORS  = { caff:'#2a78d6', cga:'#1baf7a', trig:'#4a3aa7', dit:'#eb6834', mel:'#898781' };
+const NAMES   = { caff:'Caffeine', cga:'Chlorogenic acids', trig:'Trigonelline', dit:'Diterpenes', mel:'Melanoidins' };
+
+function rLabel(r) {
+  if (r < 1.8) return 'Light';
+  if (r < 2.6) return 'Lt–Med';
+  if (r < 3.4) return 'Medium';
+  if (r < 4.2) return 'Med–Dark';
+  return 'Dark';
+}
+
+function surfaceArea(g) { return Math.pow(500/g, 1.8); }
+
+function arrhenius(T, Ea) {
+  const R=8.314, Tref=368.15;
+  return Math.exp((Ea/R)*(1/Tref - 1/(T+273.15)));
+}
+
+const EA = { caff:30000, cga:38000, trig:34000, dit:55000, mel:42000 };
+const K0 = { caff:0.38, cga:0.28, trig:0.32, dit:0.08, mel:0.18 };
+const BASE_CMAX = { caff:12, cga:80, trig:10, dit:4, mel:60 };
+
+function roastFactor(r, k) {
+  if (k==='caff') return 1 - 0.02*(r-1);
+  if (k==='cga')  return 1 - 0.18*(r-1);
+  if (k==='trig') return 1 - 0.22*(r-1);
+  if (k==='dit')  return 1 - 0.03*(r-1);
+  if (k==='mel')  return 0.5 + 0.125*(r-1);
+  return 1;
+}
+
+function cmax(k, dose, roast) {
+  return BASE_CMAX[k] * (dose/18) * roastFactor(roast, k);
+}
+
+function keff(k, grind, temp, pressure, isMoka) {
+  const sa  = surfaceArea(grind);
+  const arr = arrhenius(temp, EA[k]);
+  const pb  = 1 + (isMoka ? pressure*0.22 : 0);
+  return K0[k] * sa * arr * pb;
+}
+
+function filterFactor(k, isMoka) {
+  return (k==='dit' && !isMoka) ? 0.05 : 1;
+}
+
+function curve(k, params, isMoka, steps, dt) {
+  const ke = keff(k, params.grind, params.temp, params.pressure, isMoka);
+  const cm = cmax(k, params.dose, params.roast);
+  const ff = filterFactor(k, isMoka);
+  let C=0, vals=[];
+  for (let i=0;i<steps;i++) {
+    C += ke*(cm-C)*dt;
+    if (C>cm) C=cm;
+    vals.push(+(C*ff*(params.water/1000)).toFixed(3));
+  }
+  return vals;
+}
+
+function getP() {
+  return {
+    grind:    +document.getElementById('s-grind').value,
+    roast:    +document.getElementById('s-roast').value,
+    temp:     +document.getElementById('s-temp').value,
+    pressure: +document.getElementById('s-pressure').value,
+    dose:     +document.getElementById('s-dose').value,
+    water:    +document.getElementById('s-water').value
+  };
+}
+
+function setMethod(m) {
+  simMethod = m;
+  ['moka','pour','both'].forEach(n => {
+    document.getElementById('btn-'+n).classList.toggle('active', n===m);
+  });
+  const pEl = document.getElementById('s-pressure');
+  if (m==='pour') { pEl.value=0; pEl.disabled=true; }
+  else { pEl.disabled=false; if (m==='moka') pEl.value=1.5; }
+  simUpdate();
+}
+
+function simUpdate() {
+  const p = getP();
+  document.getElementById('sv-grind').textContent    = p.grind + ' µm';
+  document.getElementById('sv-roast').textContent    = rLabel(p.roast);
+  document.getElementById('sv-temp').textContent     = p.temp.toFixed(1) + '°C';
+  document.getElementById('sv-pressure').textContent = p.pressure.toFixed(1) + ' bar';
+  document.getElementById('sv-dose').textContent     = p.dose.toFixed(1) + ' g';
+  document.getElementById('sv-water').textContent    = p.water + ' ml';
+  document.getElementById('sv-ratio').textContent    = '1:' + (p.water/p.dose).toFixed(1);
+
+  const isMoka = simMethod !== 'pour';
+  const isPour = simMethod !== 'moka';
+  const maxT   = Math.max(isMoka?5:0, isPour?4:0);
+  const steps  = 80;
+  const dt     = maxT/steps;
+  const times  = Array.from({length:steps}, (_,i) => ((i+1)*dt).toFixed(2));
+
+  const datasets = [];
+  const endYields = {};
+
+  if (simMethod === 'both') {
+    document.getElementById('legend-note').textContent = 'Solid = moka · Dashed = pour-over';
+    KEYS.forEach(k => {
+      const mc = curve(k, p, true,  steps, dt);
+      const pc = curve(k, p, false, steps, dt);
+      datasets.push({ label:NAMES[k]+' (moka)', data:mc, borderColor:COLORS[k], borderDash:[], borderWidth:2, pointRadius:0, tension:0.4 });
+      datasets.push({ label:NAMES[k]+' (pour)', data:pc, borderColor:COLORS[k], borderDash:[5,3], borderWidth:1.5, pointRadius:0, tension:0.4 });
+      endYields[k] = { moka:mc[mc.length-1], pour:pc[pc.length-1] };
+    });
+  } else {
+    document.getElementById('legend-note').textContent = '';
+    const isMok = simMethod === 'moka';
+    KEYS.forEach(k => {
+      const c = curve(k, p, isMok, steps, dt);
+      datasets.push({ label:NAMES[k], data:c, borderColor:COLORS[k], borderDash:[], borderWidth:2, pointRadius:0, tension:0.4 });
+      endYields[k] = c[c.length-1];
+    });
+  }
+
+  const totalSolids = simMethod==='both'
+    ? KEYS.reduce((s,k)=>s+endYields[k].moka, 0)
+    : KEYS.reduce((s,k)=>s+endYields[k], 0);
+  const tds = (totalSolids/p.water)*100;
+  document.getElementById('sv-tds').textContent  = tds.toFixed(2)+'%';
+
+  KEYS.forEach(k => {
+    const el = document.getElementById('y-'+k);
+    if (!el) return;
+    if (simMethod==='both') {
+      el.textContent = endYields[k].moka.toFixed(1)+' / '+endYields[k].pour.toFixed(1)+' mg';
+    } else {
+      el.textContent = endYields[k].toFixed(1)+' mg';
+    }
+  });
+  document.getElementById('y-tds2').textContent = tds.toFixed(2)+'%';
+
+  const warns=[];
+  if (p.grind<280 && simMethod!=='pour') warns.push('Very fine grind — channeling risk and over-extraction bitterness.');
+  if (p.grind>800 && simMethod==='moka') warns.push('Coarse grind on moka — pressure seal may fail.');
+  if (p.roast>4 && p.temp>96) warns.push('Dark roast + high temp amplifies acrylamide and furan byproduct extraction.');
+  if (p.water/p.dose>20) warns.push('Ratio >1:20 — likely under-extracted.');
+  document.getElementById('sim-warn').textContent = warns.join(' ');
+
+  if (simChart) simChart.destroy();
+  simChart = new Chart(document.getElementById('simChart'), {
+    type: 'line',
+    data: { labels: times, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          mode: 'index', intersect: false,
+          callbacks: { label: ctx => ctx.dataset.label+': '+ctx.parsed.y.toFixed(2)+' mg' },
+          backgroundColor: '#2e1a0e',
+          borderColor: 'rgba(200,149,108,0.3)',
+          borderWidth: 1,
+          titleColor: '#e8c9a8',
+          bodyColor: '#c8956c'
+        }
+      },
+      scales: {
+        x: {
+          title: { display:true, text:'Time (min)', color:'#8a7b6e', font:{size:11} },
+          ticks: { color:'#8a7b6e', font:{size:10}, maxTicksLimit:10 },
+          grid: { color:'rgba(200,149,108,0.1)' }
+        },
+        y: {
+          title: { display:true, text:'Yield (mg in cup)', color:'#8a7b6e', font:{size:11} },
+          ticks: { color:'#8a7b6e', font:{size:10} },
+          grid: { color:'rgba(200,149,108,0.1)' },
+          min: 0
+        }
+      }
+    }
+  });
+}
+
+simUpdate();
+</script>
+</body>
+</html>
