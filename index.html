@@ -18,41 +18,270 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+
+<!-- Styles are inline so this page works on its own. Move them to a .css file later if you prefer. -->
+<style>
+:root{
+  --forest:#14221a; --forest-2:#1e3328; --moss:#3f6b4f; --sage:#a9c3ae;
+  --cream:#f6f0e4; --paper:#fbf8f1; --clay:#b5653a; --ink:#1b1f1c; --muted:#5d665f;
+  --radius:16px; --shadow:0 14px 40px rgba(20,34,26,.14);
+  --serif:"Playfair Display",Georgia,serif; --sans:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.15;margin:0 0 .5em}
+h1{font-size:clamp(2.6rem,6vw,4.8rem)}
+h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+h3{font-size:1.3rem}
+em{font-style:italic}
+p{margin:0 0 1em}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:8px 14px;border-radius:8px;z-index:200}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--clay);outline-offset:2px}
+
+.eyebrow{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--sage);margin-bottom:14px}
+.eyebrow.clay{color:var(--clay)}
+.muted{color:var(--muted)}
+.section{padding:clamp(60px,9vw,110px) 0}
+.section-head{max-width:700px;margin-bottom:44px}
+.section-head p{color:var(--muted);font-size:1.05rem}
+
+.btn{display:inline-flex;align-items:center;gap:6px;padding:12px 22px;border-radius:999px;background:var(--clay);color:#fff;text-decoration:none;font-weight:500;font-size:.92rem;border:1.5px solid var(--clay);cursor:pointer;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px);background:#9d5430}
+.btn-ghost{background:transparent;color:inherit;border-color:currentColor}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+.btn-dark{background:var(--forest);border-color:var(--forest)}
+.btn-dark:hover{background:var(--forest-2)}
+.btn-sm{padding:9px 16px;font-size:.84rem}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+
+/* top line + nav */
+.topline{background:var(--forest);color:var(--sage);font-size:.76rem;padding:8px 0}
+.topline .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.nav{position:sticky;top:0;z-index:100;background:rgba(251,248,241,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(20,34,26,.1)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0}
+.brand{text-decoration:none;font-family:var(--serif);font-size:1.35rem;line-height:1.1}
+.brand small{display:block;font-family:var(--sans);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.nav-links{display:flex;align-items:center;gap:22px;font-size:.92rem}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:var(--clay)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.menu-btn{display:none;background:none;border:1.5px solid var(--forest);border-radius:999px;padding:9px 16px;font:inherit;cursor:pointer}
+
+.nav-more{position:relative}
+.nav-more summary{cursor:pointer;list-style:none}
+.nav-more summary::-webkit-details-marker{display:none}
+.nav-more summary::after{content:" ▾";font-size:.8em}
+.nav-more[open] summary::after{content:" ▴"}
+.nav-menu{position:absolute;top:calc(100% + 14px);left:-12px;min-width:290px;background:var(--forest);color:#fff;border-radius:12px;padding:10px;box-shadow:var(--shadow);display:grid;gap:2px;z-index:60}
+.nav-menu a{padding:9px 12px;border-radius:8px}
+.nav-menu a:hover,.nav-menu a:focus-visible{background:rgba(255,255,255,.12);color:#fff}
+.nav-menu hr{border:0;border-top:1px solid rgba(255,255,255,.2);margin:6px 0}
+.nav-menu .nav-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);padding:6px 12px 2px}
+
+/* hero */
+.hero{position:relative;color:#fff;background:var(--forest);overflow:hidden}
+.hero-image{position:absolute;inset:0}
+.hero-image img{width:100%;height:100%;object-fit:cover;opacity:.55}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,34,26,.9) 10%,rgba(20,34,26,.25))}
+.hero-content{position:relative;z-index:2;padding:clamp(80px,13vw,170px) 0 clamp(60px,9vw,110px);max-width:1180px}
+.hero-content h1 em{color:var(--sage)}
+.hero-lead{max-width:560px;font-size:1.12rem;color:#e6ece6}
+.hero-foot{display:flex;flex-wrap:wrap;gap:22px;margin-top:38px;font-size:.84rem;color:var(--sage)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--clay);margin-right:7px}
+
+.strip{background:var(--cream);border-bottom:1px solid rgba(20,34,26,.08)}
+.strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:26px 0}
+.strip-item strong{display:block;font-family:var(--serif);font-size:1.05rem}
+.strip-item span{font-size:.85rem;color:var(--muted)}
+
+/* plants */
+.plant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.plant-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 24px rgba(20,34,26,.08);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.plant-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.ph{background:var(--cream);aspect-ratio:10/11;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.plant-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.plant-body h3{margin-bottom:2px}
+.latin{font-style:italic;color:var(--muted);font-size:.88rem;margin-bottom:12px}
+.tag-price{align-self:flex-start;background:var(--forest);color:#fff;font-size:.78rem;padding:4px 12px;border-radius:999px;margin-bottom:14px}
+.tag-price.soft{background:var(--cream);color:var(--forest);border:1px solid rgba(20,34,26,.2)}
+.plant-body p{color:var(--muted);font-size:.95rem;flex:1}
+.fineprint{margin-top:26px;font-size:.82rem;color:var(--muted)}
+
+/* finder */
+.finder{background:var(--forest);color:#fff}
+.finder-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.finder p{color:#d5ded6}
+.choices{display:grid;gap:12px;margin-top:26px}
+.choice{text-align:left;font:inherit;font-weight:500;color:#fff;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.25);border-radius:12px;padding:15px 18px;cursor:pointer;transition:background .2s,border-color .2s}
+.choice small{display:block;font-weight:400;color:var(--sage)}
+.choice:hover{background:rgba(255,255,255,.12)}
+.choice[aria-pressed="true"]{background:var(--clay);border-color:var(--clay)}
+.choice[aria-pressed="true"] small{color:#fff}
+.result{display:grid;grid-template-columns:.9fr 1.1fr;background:#fff;color:var(--ink);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.result .ph{aspect-ratio:auto;height:100%;min-height:280px}
+.result-body{padding:28px}
+.result-body p{color:var(--muted)}
+.result-body .eyebrow{color:var(--clay)}
+
+/* care */
+.care{background:var(--cream)}
+.care-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.care-card{background:#fff;border-radius:var(--radius);padding:30px;border-top:4px solid var(--moss)}
+.care-card .num{font-family:var(--serif);font-size:2.2rem;color:var(--clay);line-height:1;margin-bottom:12px}
+.care-card p{color:var(--muted);margin:0}
+
+/* gallery */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tile{margin:0;position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1}
+.tile.wide{grid-column:span 2;grid-row:span 2}
+.tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.tile:hover img{transform:scale(1.05)}
+.tile figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;color:#fff;font-size:.84rem;background:linear-gradient(transparent,rgba(20,34,26,.8))}
+
+/* faq */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+details{border-bottom:1px solid rgba(20,34,26,.15);padding:4px 0}
+details summary{cursor:pointer;font-weight:500;padding:16px 28px 16px 0;list-style:none;position:relative}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";position:absolute;right:4px;top:12px;font-size:1.4rem;color:var(--clay)}
+details[open]>summary::after{content:"−"}
+details p{color:var(--muted);padding-bottom:12px}
+
+/* explore */
+.explore{background:var(--cream)}
+.explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.explore-card{display:block;text-decoration:none;background:#fff;border-radius:var(--radius);padding:26px;border:1px solid rgba(20,34,26,.08);transition:transform .25s,box-shadow .25s,border-color .25s}
+.explore-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--clay)}
+.explore-card .eyebrow{color:var(--clay);margin-bottom:8px}
+.explore-card p{color:var(--muted);font-size:.93rem;margin:0}
+.explore-card h3{display:flex;justify-content:space-between;gap:10px}
+.learn-list{margin-top:34px;display:flex;flex-wrap:wrap;gap:10px}
+.learn-list a{text-decoration:none;font-size:.88rem;padding:9px 16px;border-radius:999px;background:#fff;border:1px solid rgba(20,34,26,.18)}
+.learn-list a:hover{border-color:var(--clay);color:var(--clay)}
+
+/* world / coffee / experiences / event */
+.world-head{padding:clamp(60px,8vw,100px) 0 40px;background:var(--forest);color:#fff}
+.world-head .section-head{margin:0}
+.world-head p{color:#d5ded6}
+.dark{background:var(--forest);color:#fff}
+.coffee-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.photo-frame{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.coffee-copy p{color:#d5ded6}
+.coffee-copy h2 em{color:var(--sage)}
+.price-line{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0 12px}
+.price{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:14px 20px}
+.price strong{display:block;font-family:var(--serif);font-size:1.3rem}
+.price small{color:var(--sage)}
+.note{font-size:.82rem;color:var(--sage)!important}
+
+.experience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.experience img{border-radius:var(--radius);margin-bottom:16px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.experience p{color:var(--muted)}
+.extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+.extra{background:var(--cream);border-radius:var(--radius);padding:26px}
+.extra p{margin:0;color:var(--muted)}
+
+.event{background:var(--cream)}
+.event-banner{border-radius:var(--radius);overflow:hidden;margin-bottom:40px;max-height:360px}
+.event-banner img{width:100%;height:100%;object-fit:cover}
+.event-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px}
+.event-grid h2 em{color:var(--clay)}
+.event-grid p{color:var(--muted)}
+.event-panel{background:var(--forest);color:#fff;border-radius:var(--radius);padding:30px;align-self:start}
+.event-panel p,.event-panel li{color:#d5ded6;font-size:.93rem}
+.event-label{display:inline-block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;background:var(--clay);padding:5px 12px;border-radius:999px;margin-bottom:16px}
+.event-panel ul{padding-left:18px}
+
+/* contact */
+.visit{background:var(--forest);color:#fff}
+.visit-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px}
+.visit p{color:#d5ded6}
+.contact-list{margin-top:28px;display:grid;gap:16px}
+.contact-item span{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
+.contact-item a{font-family:var(--serif);font-size:1.25rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+.contact-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);padding:30px;align-self:start}
+.contact-box .btn{margin:6px 8px 6px 0}
+
+.footer{background:#0d1812;color:var(--sage);padding:44px 0;font-size:.88rem}
+.footer .wrap{display:grid;grid-template-columns:1.3fr 1.5fr auto;gap:30px;align-items:start}
+.footer-brand{font-family:var(--serif);font-size:1.5rem;color:#fff}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px 18px}
+.footer-links a{text-decoration:none}
+.footer-links a:hover{color:#fff}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* responsive */
+@media (max-width:1000px){
+  .plant-grid,.care-grid,.experience-grid,.explore-grid{grid-template-columns:1fr 1fr}
+  .finder-grid,.faq-grid,.coffee-grid,.event-grid,.visit-grid{grid-template-columns:1fr;gap:36px}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .strip-grid{grid-template-columns:1fr 1fr}
+  .footer .wrap{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .menu-btn{display:inline-block}
+  .nav-actions .btn{display:none}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:var(--paper);padding:10px 20px 20px;border-bottom:1px solid rgba(20,34,26,.12);max-height:75vh;overflow:auto}
+  .nav-links.open{display:flex}
+  .nav-links>a,.nav-more summary{padding:12px 0;width:100%}
+  .nav-more{width:100%}
+  .nav-menu{position:static;box-shadow:none;min-width:0;margin-top:4px}
+}
+@media (max-width:640px){
+  .plant-grid,.care-grid,.experience-grid,.explore-grid,.extra-grid{grid-template-columns:1fr}
+  .result{grid-template-columns:1fr}
+  .result .ph{min-height:220px}
+  .topline .wrap span:last-child{display:none}
+}
+</style>
 <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="topline"><div class="wrap"><span>A Rustic Garden plant room · Rooted in Kenya</span><span>Slow living, thoughtful growing, lasting value</span></div></div>
 
-<nav class="nav-links" id="navLinks" aria-label="Main navigation">
-  <a href="#collection">Plants</a>
-  <a href="#finder">Find your plant</a>
-  <a href="#care">Care</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#faq">Questions</a>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#home" aria-label="Mandevu at Kwa Nyuki, home">Mandevu <em>at Kwa Nyuki</em><small>by Rustic Garden</small></a>
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="#collection">Plants</a>
+      <a href="#finder">Find your plant</a>
+      <a href="#care">Care</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#faq">Questions</a>
 
-  <details class="nav-more">
-    <summary>Rustic Garden</summary>
-    <div class="nav-menu">
-      <a href="#rustic-garden">About Rustic Garden</a>
-      <a href="coffee.html">Coffee</a>
-      <a href="product.html">Products</a>
-      <a href="consulting.html">Consulting</a>
-      <a href="internet.html">Internet &amp; UA Day</a>
-      <a href="wellbeing.html">Wellbeing</a>
-      <a href="payment.html">Payment</a>
-      <hr>
-      <a href="coffee_extraction_masterclass.html">Coffee extraction masterclass</a>
-      <a href="soil_classification_lecture.html">Soil classification lecture</a>
-      <a href="kavutiri_farm_calendar_kids.html">Farm calendar for kids</a>
-      <a href="phyllanthus_niruri_research.html">Phyllanthus niruri research</a>
-      <a href="coffee_research_compendium.md.pdf" target="_blank" rel="noopener">Coffee research (PDF) ↗</a>
-    </div>
-  </details>
+      <details class="nav-more">
+        <summary>Rustic Garden</summary>
+        <div class="nav-menu">
+          <a href="#rustic-garden">About Rustic Garden</a>
+          <a href="coffee.html">Coffee</a>
+          <a href="product.html">Products</a>
+          <a href="consulting.html">Consulting</a>
+          <a href="internet.html">Internet &amp; UA Day</a>
+          <a href="wellbeing.html">Wellbeing</a>
+          <a href="payment.html">Payment</a>
+          <hr>
+          <div class="nav-label">Learn</div>
+          <a href="coffee_extraction_masterclass.html">Coffee extraction masterclass</a>
+          <a href="soil_classification_lecture.html">Soil classification lecture</a>
+          <a href="kavutiri_farm_calendar_kids.html">Farm calendar for kids</a>
+          <a href="phyllanthus_niruri_research.html">Phyllanthus niruri research</a>
+          <a href="coffee_research_compendium.md.pdf" target="_blank" rel="noopener">Coffee research (PDF) ↗</a>
+        </div>
+      </details>
 
-  <a href="#visit">Contact</a>
-</nav>
+      <a href="#visit">Contact</a>
+    </nav>
     <div class="nav-actions">
       <a class="btn" href="#visit">Ask about plants ↗</a>
       <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu ☰</button>
@@ -62,18 +291,18 @@
 
 <main id="main">
 
-<!-- ============ LANDING: MANDEVU AT KWA NYUKI ============ -->
+<!-- ============ HERO ============ -->
 <section class="hero" id="home">
   <div class="hero-image"><img src="assets/img/hero-mandevu.svg" width="1600" height="900" alt="Potted snake plants, spider plants and foliage plants arranged on shelves in warm light" fetchpriority="high"></div>
   <div class="wrap hero-content">
     <div class="eyebrow">Mandevu at Kwa Nyuki · The plant room</div>
     <h1>Bring home<br>something <em>living.</em></h1>
     <p class="hero-lead">A dedicated place for plants, simple growing advice and small green rituals. Choose a plant for the room you have, the light you receive and the care you can comfortably give.</p>
-    <div class="actions hero-actions">
+    <div class="actions">
       <a class="btn" href="#collection">See the plants ↘</a>
       <a class="btn btn-ghost" href="#finder">Help me choose</a>
     </div>
-    <div class="hero-foot"><span><i class="dot"></i> Snake &amp; spider plants</span><span><i class="dot"></i> Honest, simple care advice</span><span><i class="dot"></i> Part of Rustic Garden, Kenya</span></div>
+    <div class="hero-foot"><span><i class="dot"></i>Snake &amp; spider plants</span><span><i class="dot"></i>Honest, simple care advice</span><span><i class="dot"></i>Part of Rustic Garden, Kenya</span></div>
   </div>
 </section>
 
@@ -86,6 +315,7 @@
   </div>
 </section>
 
+<!-- ============ PLANTS ============ -->
 <section class="section plants" id="collection"><div class="wrap">
   <div class="section-head reveal">
     <div class="eyebrow clay">01 / The collection</div>
@@ -124,6 +354,7 @@
   <p class="fineprint reveal">Prices are listed prices and may change. Stock and pot sizes vary, so please confirm availability and the final price before collecting or ordering.</p>
 </div></section>
 
+<!-- ============ FINDER ============ -->
 <section class="section finder" id="finder"><div class="wrap finder-grid">
   <div class="reveal">
     <div class="eyebrow">02 / A small helper</div>
@@ -146,6 +377,7 @@
   </div>
 </div></section>
 
+<!-- ============ CARE ============ -->
 <section class="section care" id="care"><div class="wrap">
   <div class="section-head reveal">
     <div class="eyebrow clay">03 / Green rituals</div>
@@ -159,6 +391,7 @@
   </div>
 </div></section>
 
+<!-- ============ GALLERY ============ -->
 <section class="section gallery" id="gallery"><div class="wrap">
   <div class="section-head reveal">
     <div class="eyebrow clay">04 / Inside the plant room</div>
@@ -174,10 +407,11 @@
   </div>
 </div></section>
 
+<!-- ============ FAQ ============ -->
 <section class="section faq" id="faq"><div class="wrap faq-grid">
   <div class="reveal">
     <div class="eyebrow clay">05 / Before you visit</div>
-    <h2 class="h2">Good to know.</h2>
+    <h2>Good to know.</h2>
     <p class="muted">A few honest answers. Anything not covered here, send us a note.</p>
     <div class="actions"><a class="btn btn-dark" href="#visit">Ask us directly ↗</a></div>
   </div>
@@ -186,7 +420,31 @@
     <details><summary>Are the listed prices fixed?</summary><p>Listed prices are a guide and may change with plant size, pot choice and season. We will confirm the final price when you enquire.</p></details>
     <details><summary>Which plant is best for a beginner?</summary><p>Snake plants are a gentle start: they prefer well-draining soil and drying out between waterings. Spider plants suit brighter rooms and slightly more regular watering.</p></details>
     <details><summary>Can plants be delivered or only collected?</summary><p>Ask us. Arrangements depend on the plant, its size and where it is going, and we would rather confirm than promise.</p></details>
-    <details><summary>Can I order coffee here too?</summary><p>Yes, Charlie's Coffee is part of Rustic Garden. See the coffee section below and use the coffee enquiry address.</p></details>
+    <details><summary>Can I order coffee here too?</summary><p>Yes, Charlie's Coffee is part of Rustic Garden. See the coffee section below, or visit the <a href="coffee.html">coffee page</a>, and use the coffee enquiry address.</p></details>
+  </div>
+</div></section>
+
+<!-- ============ EXPLORE THE SITE ============ -->
+<section class="section explore" id="explore"><div class="wrap">
+  <div class="section-head reveal">
+    <div class="eyebrow clay">06 / Explore Rustic Garden</div>
+    <h2>More to discover beyond the plant room.</h2>
+    <p>Coffee, farm knowledge, consulting and community projects all grow from the same ground. Pick a path.</p>
+  </div>
+  <div class="explore-grid">
+    <a class="explore-card reveal" href="coffee.html"><div class="eyebrow">Coffee</div><h3>Charlie's Coffee <span aria-hidden="true">↗</span></h3><p>Honey-processed Arabica from the Mount Kenya foothills, green or roasted.</p></a>
+    <a class="explore-card reveal" href="product.html"><div class="eyebrow">Shop</div><h3>Products <span aria-hidden="true">↗</span></h3><p>Browse what is currently available from Rustic Garden.</p></a>
+    <a class="explore-card reveal" href="consulting.html"><div class="eyebrow">Advice</div><h3>Consulting <span aria-hidden="true">↗</span></h3><p>Practical guidance on growing, farming and building with intention.</p></a>
+    <a class="explore-card reveal" href="internet.html"><div class="eyebrow">Digital inclusion</div><h3>Internet &amp; UA Day <span aria-hidden="true">↗</span></h3><p>Making digital systems work for rural producers.</p></a>
+    <a class="explore-card reveal" href="wellbeing.html"><div class="eyebrow">Nature</div><h3>Wellbeing <span aria-hidden="true">↗</span></h3><p>Time among trees, water and stillness.</p></a>
+    <a class="explore-card reveal" href="payment.html"><div class="eyebrow">Ordering</div><h3>Payment options <span aria-hidden="true">↗</span></h3><p>How to pay once you have confirmed your order.</p></a>
+  </div>
+  <div class="learn-list reveal" aria-label="Learning resources">
+    <a href="coffee_extraction_masterclass.html">Coffee extraction masterclass</a>
+    <a href="soil_classification_lecture.html">Soil classification lecture</a>
+    <a href="kavutiri_farm_calendar_kids.html">Farm calendar for kids</a>
+    <a href="phyllanthus_niruri_research.html">Phyllanthus niruri research</a>
+    <a href="coffee_research_compendium.md.pdf" target="_blank" rel="noopener">Coffee research compendium (PDF) ↗</a>
   </div>
 </div></section>
 
@@ -211,7 +469,10 @@
       <div class="price"><strong>1,850 KES / kg</strong><small>Roasted · listed price</small></div>
     </div>
     <p class="note">Prices and availability may change. Please confirm the current harvest, roast options, shipping and final price before ordering.</p>
-    <div class="actions"><a class="btn" href="mailto:gibbscoffee@zohomail.eu?subject=Charlie's%20Coffee%20enquiry">Enquire about coffee ↗</a></div>
+    <div class="actions">
+      <a class="btn" href="mailto:gibbscoffee@zohomail.eu?subject=Charlie's%20Coffee%20enquiry">Enquire about coffee ↗</a>
+      <a class="btn btn-ghost" href="coffee.html">Full coffee page ↗</a>
+    </div>
   </div>
 </div></section>
 
@@ -222,9 +483,9 @@
     <p>Nature is not a performance. It is a place to pay attention—to texture, temperature, birdsong, water, flavour and the simple pleasure of being outdoors.</p>
   </div>
   <div class="experience-grid">
-    <article class="experience reveal"><img src="assets/img/sylvotherapy.svg" width="1200" height="900" alt="A peaceful forest path between tall trees" loading="lazy"><div class="eyebrow">Time among trees</div><h3>Sylvotherapy</h3><p>Self-paced or guided time in a natural setting, with gentle attention to breathing, senses and surroundings. Not a substitute for medical care.</p></article>
-    <article class="experience reveal"><img src="assets/img/pool.svg" width="1200" height="900" alt="Still, clear water surrounded by trees" loading="lazy"><div class="eyebrow">Water &amp; stillness</div><h3>Natural wellness pool</h3><p>A nature-led swimming concept focused on water, landscape and unhurried time. Ask us about current access and arrangements.</p></article>
-    <article class="experience reveal"><img src="assets/img/farm.svg" width="1200" height="900" alt="Farm rows and a fish pond under green trees" loading="lazy"><div class="eyebrow">Learning on the land</div><h3>Farm &amp; aquaculture</h3><p>Explore growing systems, tilapia and catfish production, water stewardship and the practical knowledge behind local food systems.</p></article>
+    <article class="experience reveal"><img src="assets/img/sylvotherapy.svg" width="1200" height="900" alt="A peaceful forest path between tall trees" loading="lazy"><div class="eyebrow clay">Time among trees</div><h3>Sylvotherapy</h3><p>Self-paced or guided time in a natural setting, with gentle attention to breathing, senses and surroundings. Not a substitute for medical care.</p></article>
+    <article class="experience reveal"><img src="assets/img/pool.svg" width="1200" height="900" alt="Still, clear water surrounded by trees" loading="lazy"><div class="eyebrow clay">Water &amp; stillness</div><h3>Natural wellness pool</h3><p>A nature-led swimming concept focused on water, landscape and unhurried time. Ask us about current access and arrangements.</p></article>
+    <article class="experience reveal"><img src="assets/img/farm.svg" width="1200" height="900" alt="Farm rows and a fish pond under green trees" loading="lazy"><div class="eyebrow clay">Learning on the land</div><h3>Farm &amp; aquaculture</h3><p>Explore growing systems, tilapia and catfish production, water stewardship and the practical knowledge behind local food systems.</p></article>
   </div>
   <div class="extra-grid reveal">
     <article class="extra"><h3>Growing systems</h3><p>Drip irrigation can deliver water closer to roots and reduce evaporation when designed and maintained well.</p></article>
@@ -241,6 +502,7 @@
       <p>Rustic Garden's proposed Universal Acceptance Day 2027 concept in Kavutiri, Embu County, explores a practical question: can digital systems make it easier for rural producers to reach the people and markets they choose?</p>
       <p>The proposed programme brings farmers, cooperatives, businesses, educators and technology practitioners together to test selected websites, forms and email workflows, document compatibility gaps, and identify practical next steps.</p>
       <p>Universal Acceptance helps digital systems correctly accept and process valid domain names and email addresses, including internationalized forms. It does not by itself provide connectivity, market demand or higher prices.</p>
+      <div class="actions"><a class="btn btn-dark" href="internet.html">Read more ↗</a></div>
     </div>
     <aside class="event-panel reveal">
       <span class="event-label">Proposed event · subject to confirmation</span>
@@ -278,10 +540,73 @@
 
 <footer class="footer"><div class="wrap">
   <div><div class="footer-brand">Rustic <em>Garden</em></div><div>Mandevu at Kwa Nyuki · Rooted in Kenya · Growing with intention</div></div>
-  <div class="footer-links"><a href="#collection">Plants</a><a href="#care">Care</a><a href="#coffee">Coffee</a><a href="#experiences">Experiences</a><a href="#ua-day">UA Day 2027</a><a href="https://github.com/groupdougie/rustic-garden" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+  <div class="footer-links">
+    <a href="#collection">Plants</a><a href="#care">Care</a><a href="#coffee">Coffee</a><a href="#experiences">Experiences</a><a href="#ua-day">UA Day 2027</a>
+    <a href="product.html">Products</a><a href="consulting.html">Consulting</a><a href="internet.html">Internet</a><a href="wellbeing.html">Wellbeing</a><a href="payment.html">Payment</a>
+    <a href="https://github.com/groupdougie/rustic-garden" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+  </div>
   <div>© <span id="year">2026</span> Rustic Garden</div>
 </div></footer>
 
-<script src="assets/js/main.js" defer></script>
+<script>
+(function () {
+  // Mobile menu
+  var menuBtn = document.getElementById('menuBtn');
+  var navLinks = document.getElementById('navLinks');
+  function closeMenu() { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+  menuBtn.addEventListener('click', function () {
+    var open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+  navLinks.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+
+  // "Rustic Garden" dropdown: close on outside click, Escape, or link click
+  var more = document.querySelector('.nav-more');
+  if (more) {
+    document.addEventListener('click', function (e) { if (!more.contains(e.target)) more.open = false; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { more.open = false; closeMenu(); } });
+    more.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { more.open = false; }); });
+  }
+
+  // Plant finder
+  var mailBase = 'mailto:groupnomad@outlook.com?subject=';
+  function mail(plant) { return mailBase + encodeURIComponent('Plant enquiry: ' + plant + ' (Mandevu at Kwa Nyuki)'); }
+  var picks = {
+    forgetful: { img: 'assets/img/plant-snake.svg', alt: 'Snake plant', tag: 'For a busy home', name: 'Snake plant',
+      text: 'Upright and low-fuss. It prefers well-draining soil and being left to dry out between waterings, which suits a busy routine.' },
+    bright: { img: 'assets/img/plant-spider.svg', alt: 'Spider plant', tag: 'For a bright room', name: 'Spider plant',
+      text: 'Arching, cheerful foliage that enjoys bright indirect light and lightly moist, not waterlogged, soil. Keep it out of harsh direct sun.' },
+    quiet: { img: 'assets/img/plant-snake.svg', alt: 'Snake plant', tag: 'For a quiet corner', name: 'Snake plant',
+      text: 'Snake plants are among the more forgiving choices for dimmer spots. Growth will be slower in low light, so water sparingly. Ask us what else suits your corner.' }
+  };
+  var buttons = document.querySelectorAll('#choices .choice');
+  function show(key) {
+    var p = picks[key]; if (!p) return;
+    document.getElementById('resultImg').src = p.img;
+    document.getElementById('resultImg').alt = p.alt;
+    document.getElementById('resultTag').textContent = p.tag;
+    document.getElementById('resultName').textContent = p.name;
+    document.getElementById('resultText').textContent = p.text;
+    document.getElementById('resultLink').href = mail(p.name);
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.pick === key)); });
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.pick); }); });
+
+  // Scroll reveal
+  var items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    items.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  // Footer year
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+})();
+</script>
 </body>
 </html>
