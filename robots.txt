@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://groupdougie.github.io/rustic-garden/sitemap.xml
