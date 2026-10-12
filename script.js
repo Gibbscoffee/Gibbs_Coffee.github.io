@@ -71,3 +71,17 @@ function checkout(name, price) {
 function requestService(serviceName) {
   window.location.href = `contact.html?interest=${encodeURIComponent(serviceName)}`;
 }
+
+
+// Mobile Dropdown Toggle Support
+const dropdownToggle = document.querySelector('.dropdown-toggle');
+if (dropdownToggle) {
+  dropdownToggle.addEventListener('click', (e) => {
+    if (window.innerWidth <= 760) {
+      e.preventDefault();
+      const parent = dropdownToggle.closest('.nav-dropdown');
+      const isOpen = parent.classList.toggle('open');
+      dropdownToggle.setAttribute('aria-expanded', String(isOpen));
+    }
+  });
+}
