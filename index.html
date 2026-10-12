@@ -3,609 +3,119 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#14221a">
-<title>Mandevu at Kwa Nyuki — Living plants, simple care | Rustic Garden</title>
-<meta name="description" content="Mandevu at Kwa Nyuki: house plants, simple growing advice and small green rituals from Rustic Garden, rooted in Kenya. Also Charlie's Coffee, nature experiences and community-led digital inclusion.">
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="canonical" href="https://groupdougie.github.io/rustic-garden/">
+<meta name="theme-color" content="#17271d">
+<title>Rustic Garden — A quieter kind of luxury</title>
+<meta name="description" content="Discover Charlie's Coffee, living plants at Mandevu at Kwa Nyuki, restorative nature experiences and community-led digital inclusion from Kenya.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Rustic Garden">
-<meta property="og:title" content="Mandevu at Kwa Nyuki — Bring home something living">
-<meta property="og:description" content="Plants, simple care advice and considered living, rooted in Kenya.">
-<meta property="og:url" content="https://groupdougie.github.io/rustic-garden/">
-<meta property="og:image" content="https://groupdougie.github.io/rustic-garden/assets/img/og-image.svg">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Rustic Garden — A quieter kind of luxury">
+<meta property="og:description" content="Coffee, plants and considered living, rooted in Kenya.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-
-<!-- Styles are inline so this page works on its own. Move them to a .css file later if you prefer. -->
 <style>
-:root{
-  --forest:#14221a; --forest-2:#1e3328; --moss:#3f6b4f; --sage:#a9c3ae;
-  --cream:#f6f0e4; --paper:#fbf8f1; --clay:#b5653a; --ink:#1b1f1c; --muted:#5d665f;
-  --radius:16px; --shadow:0 14px 40px rgba(20,34,26,.14);
-  --serif:"Playfair Display",Georgia,serif; --sans:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
-body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.65;-webkit-font-smoothing:antialiased}
-img{max-width:100%;height:auto;display:block}
-a{color:inherit}
-h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.15;margin:0 0 .5em}
-h1{font-size:clamp(2.6rem,6vw,4.8rem)}
-h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
-h3{font-size:1.3rem}
-em{font-style:italic}
-p{margin:0 0 1em}
-.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
-.skip{position:absolute;left:-999px;top:8px;background:#fff;padding:8px 14px;border-radius:8px;z-index:200}
-.skip:focus{left:8px}
-:focus-visible{outline:3px solid var(--clay);outline-offset:2px}
-
-.eyebrow{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--sage);margin-bottom:14px}
-.eyebrow.clay{color:var(--clay)}
-.muted{color:var(--muted)}
-.section{padding:clamp(60px,9vw,110px) 0}
-.section-head{max-width:700px;margin-bottom:44px}
-.section-head p{color:var(--muted);font-size:1.05rem}
-
-.btn{display:inline-flex;align-items:center;gap:6px;padding:12px 22px;border-radius:999px;background:var(--clay);color:#fff;text-decoration:none;font-weight:500;font-size:.92rem;border:1.5px solid var(--clay);cursor:pointer;transition:transform .2s,background .2s}
-.btn:hover{transform:translateY(-2px);background:#9d5430}
-.btn-ghost{background:transparent;color:inherit;border-color:currentColor}
-.btn-ghost:hover{background:rgba(255,255,255,.12)}
-.btn-dark{background:var(--forest);border-color:var(--forest)}
-.btn-dark:hover{background:var(--forest-2)}
-.btn-sm{padding:9px 16px;font-size:.84rem}
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-
-/* top line + nav */
-.topline{background:var(--forest);color:var(--sage);font-size:.76rem;padding:8px 0}
-.topline .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.nav{position:sticky;top:0;z-index:100;background:rgba(251,248,241,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(20,34,26,.1)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0}
-.brand{text-decoration:none;font-family:var(--serif);font-size:1.35rem;line-height:1.1}
-.brand small{display:block;font-family:var(--sans);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:3px}
-.nav-links{display:flex;align-items:center;gap:22px;font-size:.92rem}
-.nav-links a{text-decoration:none}
-.nav-links a:hover{color:var(--clay)}
-.nav-actions{display:flex;align-items:center;gap:10px}
-.menu-btn{display:none;background:none;border:1.5px solid var(--forest);border-radius:999px;padding:9px 16px;font:inherit;cursor:pointer}
-
-.nav-more{position:relative}
-.nav-more summary{cursor:pointer;list-style:none}
-.nav-more summary::-webkit-details-marker{display:none}
-.nav-more summary::after{content:" ▾";font-size:.8em}
-.nav-more[open] summary::after{content:" ▴"}
-.nav-menu{position:absolute;top:calc(100% + 14px);left:-12px;min-width:290px;background:var(--forest);color:#fff;border-radius:12px;padding:10px;box-shadow:var(--shadow);display:grid;gap:2px;z-index:60}
-.nav-menu a{padding:9px 12px;border-radius:8px}
-.nav-menu a:hover,.nav-menu a:focus-visible{background:rgba(255,255,255,.12);color:#fff}
-.nav-menu hr{border:0;border-top:1px solid rgba(255,255,255,.2);margin:6px 0}
-.nav-menu .nav-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);padding:6px 12px 2px}
-
-/* hero */
-.hero{position:relative;color:#fff;background:var(--forest);overflow:hidden}
-.hero-image{position:absolute;inset:0}
-.hero-image img{width:100%;height:100%;object-fit:cover;opacity:.55}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,34,26,.9) 10%,rgba(20,34,26,.25))}
-.hero-content{position:relative;z-index:2;padding:clamp(80px,13vw,170px) 0 clamp(60px,9vw,110px);max-width:1180px}
-.hero-content h1 em{color:var(--sage)}
-.hero-lead{max-width:560px;font-size:1.12rem;color:#e6ece6}
-.hero-foot{display:flex;flex-wrap:wrap;gap:22px;margin-top:38px;font-size:.84rem;color:var(--sage)}
-.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--clay);margin-right:7px}
-
-.strip{background:var(--cream);border-bottom:1px solid rgba(20,34,26,.08)}
-.strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:26px 0}
-.strip-item strong{display:block;font-family:var(--serif);font-size:1.05rem}
-.strip-item span{font-size:.85rem;color:var(--muted)}
-
-/* plants */
-.plant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-.plant-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 6px 24px rgba(20,34,26,.08);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
-.plant-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
-.ph{background:var(--cream);aspect-ratio:10/11;overflow:hidden}
-.ph img{width:100%;height:100%;object-fit:cover}
-.plant-body{padding:24px;display:flex;flex-direction:column;flex:1}
-.plant-body h3{margin-bottom:2px}
-.latin{font-style:italic;color:var(--muted);font-size:.88rem;margin-bottom:12px}
-.tag-price{align-self:flex-start;background:var(--forest);color:#fff;font-size:.78rem;padding:4px 12px;border-radius:999px;margin-bottom:14px}
-.tag-price.soft{background:var(--cream);color:var(--forest);border:1px solid rgba(20,34,26,.2)}
-.plant-body p{color:var(--muted);font-size:.95rem;flex:1}
-.fineprint{margin-top:26px;font-size:.82rem;color:var(--muted)}
-
-/* finder */
-.finder{background:var(--forest);color:#fff}
-.finder-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.finder p{color:#d5ded6}
-.choices{display:grid;gap:12px;margin-top:26px}
-.choice{text-align:left;font:inherit;font-weight:500;color:#fff;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.25);border-radius:12px;padding:15px 18px;cursor:pointer;transition:background .2s,border-color .2s}
-.choice small{display:block;font-weight:400;color:var(--sage)}
-.choice:hover{background:rgba(255,255,255,.12)}
-.choice[aria-pressed="true"]{background:var(--clay);border-color:var(--clay)}
-.choice[aria-pressed="true"] small{color:#fff}
-.result{display:grid;grid-template-columns:.9fr 1.1fr;background:#fff;color:var(--ink);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.result .ph{aspect-ratio:auto;height:100%;min-height:280px}
-.result-body{padding:28px}
-.result-body p{color:var(--muted)}
-.result-body .eyebrow{color:var(--clay)}
-
-/* care */
-.care{background:var(--cream)}
-.care-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.care-card{background:#fff;border-radius:var(--radius);padding:30px;border-top:4px solid var(--moss)}
-.care-card .num{font-family:var(--serif);font-size:2.2rem;color:var(--clay);line-height:1;margin-bottom:12px}
-.care-card p{color:var(--muted);margin:0}
-
-/* gallery */
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.tile{margin:0;position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1}
-.tile.wide{grid-column:span 2;grid-row:span 2}
-.tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.tile:hover img{transform:scale(1.05)}
-.tile figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;color:#fff;font-size:.84rem;background:linear-gradient(transparent,rgba(20,34,26,.8))}
-
-/* faq */
-.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
-details{border-bottom:1px solid rgba(20,34,26,.15);padding:4px 0}
-details summary{cursor:pointer;font-weight:500;padding:16px 28px 16px 0;list-style:none;position:relative}
-details summary::-webkit-details-marker{display:none}
-details summary::after{content:"+";position:absolute;right:4px;top:12px;font-size:1.4rem;color:var(--clay)}
-details[open]>summary::after{content:"−"}
-details p{color:var(--muted);padding-bottom:12px}
-
-/* explore */
-.explore{background:var(--cream)}
-.explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.explore-card{display:block;text-decoration:none;background:#fff;border-radius:var(--radius);padding:26px;border:1px solid rgba(20,34,26,.08);transition:transform .25s,box-shadow .25s,border-color .25s}
-.explore-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--clay)}
-.explore-card .eyebrow{color:var(--clay);margin-bottom:8px}
-.explore-card p{color:var(--muted);font-size:.93rem;margin:0}
-.explore-card h3{display:flex;justify-content:space-between;gap:10px}
-.learn-list{margin-top:34px;display:flex;flex-wrap:wrap;gap:10px}
-.learn-list a{text-decoration:none;font-size:.88rem;padding:9px 16px;border-radius:999px;background:#fff;border:1px solid rgba(20,34,26,.18)}
-.learn-list a:hover{border-color:var(--clay);color:var(--clay)}
-
-/* world / coffee / experiences / event */
-.world-head{padding:clamp(60px,8vw,100px) 0 40px;background:var(--forest);color:#fff}
-.world-head .section-head{margin:0}
-.world-head p{color:#d5ded6}
-.dark{background:var(--forest);color:#fff}
-.coffee-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.photo-frame{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.coffee-copy p{color:#d5ded6}
-.coffee-copy h2 em{color:var(--sage)}
-.price-line{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0 12px}
-.price{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:14px 20px}
-.price strong{display:block;font-family:var(--serif);font-size:1.3rem}
-.price small{color:var(--sage)}
-.note{font-size:.82rem;color:var(--sage)!important}
-
-.experience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-.experience img{border-radius:var(--radius);margin-bottom:16px;aspect-ratio:4/3;object-fit:cover;width:100%}
-.experience p{color:var(--muted)}
-.extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
-.extra{background:var(--cream);border-radius:var(--radius);padding:26px}
-.extra p{margin:0;color:var(--muted)}
-
-.event{background:var(--cream)}
-.event-banner{border-radius:var(--radius);overflow:hidden;margin-bottom:40px;max-height:360px}
-.event-banner img{width:100%;height:100%;object-fit:cover}
-.event-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px}
-.event-grid h2 em{color:var(--clay)}
-.event-grid p{color:var(--muted)}
-.event-panel{background:var(--forest);color:#fff;border-radius:var(--radius);padding:30px;align-self:start}
-.event-panel p,.event-panel li{color:#d5ded6;font-size:.93rem}
-.event-label{display:inline-block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;background:var(--clay);padding:5px 12px;border-radius:999px;margin-bottom:16px}
-.event-panel ul{padding-left:18px}
-
-/* contact */
-.visit{background:var(--forest);color:#fff}
-.visit-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px}
-.visit p{color:#d5ded6}
-.contact-list{margin-top:28px;display:grid;gap:16px}
-.contact-item span{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
-.contact-item a{font-family:var(--serif);font-size:1.25rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
-.contact-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);padding:30px;align-self:start}
-.contact-box .btn{margin:6px 8px 6px 0}
-
-.footer{background:#0d1812;color:var(--sage);padding:44px 0;font-size:.88rem}
-.footer .wrap{display:grid;grid-template-columns:1.3fr 1.5fr auto;gap:30px;align-items:start}
-.footer-brand{font-family:var(--serif);font-size:1.5rem;color:#fff}
-.footer-links{display:flex;flex-wrap:wrap;gap:8px 18px}
-.footer-links a{text-decoration:none}
-.footer-links a:hover{color:#fff}
-
-/* reveal */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
-.reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
-
-/* responsive */
-@media (max-width:1000px){
-  .plant-grid,.care-grid,.experience-grid,.explore-grid{grid-template-columns:1fr 1fr}
-  .finder-grid,.faq-grid,.coffee-grid,.event-grid,.visit-grid{grid-template-columns:1fr;gap:36px}
-  .gallery-grid{grid-template-columns:repeat(2,1fr)}
-  .strip-grid{grid-template-columns:1fr 1fr}
-  .footer .wrap{grid-template-columns:1fr}
-}
-@media (max-width:900px){
-  .menu-btn{display:inline-block}
-  .nav-actions .btn{display:none}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:var(--paper);padding:10px 20px 20px;border-bottom:1px solid rgba(20,34,26,.12);max-height:75vh;overflow:auto}
-  .nav-links.open{display:flex}
-  .nav-links>a,.nav-more summary{padding:12px 0;width:100%}
-  .nav-more{width:100%}
-  .nav-menu{position:static;box-shadow:none;min-width:0;margin-top:4px}
-}
-@media (max-width:640px){
-  .plant-grid,.care-grid,.experience-grid,.explore-grid,.extra-grid{grid-template-columns:1fr}
-  .result{grid-template-columns:1fr}
-  .result .ph{min-height:220px}
-  .topline .wrap span:last-child{display:none}
-}
+:root{--night:#14221a;--forest:#203629;--moss:#667b5b;--sage:#aebda2;--paper:#f3efe4;--cream:#fbf8f0;--gold:#c9a86b;--clay:#a86143;--ink:#20281f;--muted:#687064;--line:rgba(243,239,228,.16);--darkline:#dcd7c9;--serif:"Playfair Display",Georgia,serif;--sans:"DM Sans",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--paper);color:var(--ink);font:300 16px/1.7 var(--sans);-webkit-font-smoothing:antialiased}body.menu-open{overflow:hidden}a{color:inherit;text-decoration:none}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:4px}img{display:block;width:100%;height:100%;object-fit:cover}.wrap{width:min(1180px,calc(100% - 48px));margin:auto}.eyebrow{font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--gold);font-weight:600}.serif{font-family:var(--serif)}.muted{color:var(--muted)}.section{padding:105px 0}.section-head{max-width:720px;margin-bottom:42px}.section-head h2{font:400 clamp(2.25rem,5vw,4.2rem)/1.08 var(--serif);letter-spacing:-.035em;margin:12px 0 18px}.section-head p{max-width:620px;color:var(--muted);font-size:1.03rem}.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:49px;padding:12px 20px;border:1px solid var(--gold);background:var(--gold);color:var(--night);font-weight:600;font-size:.83rem;letter-spacing:.025em;transition:transform .25s,background .25s,border-color .25s}.btn:hover{transform:translateY(-2px);background:#d7bb83;border-color:#d7bb83}.btn-ghost{background:transparent;color:var(--paper);border-color:rgba(243,239,228,.5)}.btn-ghost:hover{color:var(--night)}.btn-dark{background:var(--forest);color:var(--paper);border-color:var(--forest)}.btn-dark:hover{background:var(--night);color:var(--paper);border-color:var(--night)}.topline{background:#0e1912;color:#c9d1c4;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:8px 0}.topline .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.nav{position:sticky;top:0;z-index:20;background:rgba(20,34,26,.96);color:var(--paper);border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px)}.nav-inner{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{font:500 1.35rem var(--serif);white-space:nowrap;letter-spacing:-.03em}.brand em{color:var(--gold);font-weight:400}.nav-links{display:flex;align-items:center;gap:clamp(12px,2.1vw,29px)}.nav-links a{font-size:.76rem;color:#d8dfd2;transition:color .2s;white-space:nowrap}.nav-links a:hover{color:var(--gold)}.nav-actions{display:flex;align-items:center;gap:14px}.nav-actions .btn{min-height:40px;padding:8px 13px;font-size:.74rem}.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--paper);padding:9px 12px}.hero{position:relative;min-height:670px;min-height:min(820px,calc(100svh - 100px));display:flex;align-items:flex-end;background:var(--night);color:var(--paper);overflow:hidden}.hero-image{position:absolute;inset:0}.hero-image img{filter:brightness(.48) saturate(.75);transform:scale(1.04);animation:slow-arrive 18s ease-out forwards}.hero-image:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,23,16,.8),rgba(12,23,16,.18) 76%),linear-gradient(0deg,rgba(12,23,16,.84),transparent 70%)}.hero-content{position:relative;z-index:1;padding:105px 0 92px;max-width:820px}.hero h1{font:400 clamp(3.2rem,8vw,7.3rem)/.99 var(--serif);letter-spacing:-.055em;margin:24px 0}.hero h1 em{color:#d9c18f;font-weight:400}.hero-lead{max-width:560px;color:#e2e5da;font-size:1.06rem}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.hero-foot{display:flex;gap:32px;flex-wrap:wrap;margin-top:60px;padding-top:21px;border-top:1px solid var(--line);font-size:.76rem;color:#d2d9cc}.hero-foot span{display:flex;gap:9px;align-items:center}.dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}.intro{background:var(--cream)}.intro-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:clamp(35px,8vw,115px);align-items:start}.intro-title{font:400 clamp(2rem,4vw,3.5rem)/1.12 var(--serif);margin:12px 0}.intro-copy p{color:var(--muted);margin:0 0 17px}.signature{font:italic 1.25rem var(--serif);color:var(--forest);margin-top:24px}.dark{background:var(--night);color:var(--paper)}.dark .section-head p{color:#c0c9ba}.dark .section-head h2{color:var(--paper)}.coffee-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}.photo-frame{position:relative;min-height:450px;overflow:hidden;background:#304233}.photo-frame:after{content:"";position:absolute;inset:14px;border:1px solid rgba(201,168,107,.55);pointer-events:none}.photo-frame img{position:absolute;inset:0;transition:transform .8s}.photo-frame:hover img{transform:scale(1.035)}.coffee-copy h2{font:400 clamp(2.5rem,5vw,4.3rem)/1.04 var(--serif);margin:14px 0 22px}.coffee-copy p{color:#c4cebf}.price-line{display:flex;gap:18px;flex-wrap:wrap;margin:27px 0}.price{border-left:1px solid var(--gold);padding-left:15px}.price strong{display:block;font:500 1.25rem var(--serif);color:var(--gold)}.price small{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#aeb9a9}.note{font-size:.8rem;color:#aeb9a9}.plant-section{background:#e7e6d9}.plant-hero{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:stretch}.plant-image{min-height:460px;position:relative;overflow:hidden;background:#b9c5ac}.plant-image img{position:absolute;inset:0}.plant-image .image-caption{position:absolute;bottom:20px;left:20px;background:rgba(20,34,26,.88);color:#fff;padding:10px 14px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}.plant-copy{padding:24px 0}.plant-copy h3{font:400 clamp(2rem,4vw,3.3rem)/1.1 var(--serif);margin:12px 0 18px}.plant-copy p{color:#596354}.plant-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px}.plant-card{background:var(--cream);padding:23px;border:1px solid #d5d9ca}.plant-card h4{font:500 1.4rem var(--serif);margin:0 0 5px}.plant-card .latin{font-size:.8rem;font-style:italic;color:var(--muted)}.plant-card .tag-price{display:inline-block;margin:13px 0;background:var(--forest);color:var(--paper);padding:4px 11px;font-size:.8rem}.plant-card p{font-size:.88rem;margin:0;color:var(--muted)}.care-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#d5d9ca;border:1px solid #d5d9ca;margin-top:35px}.care-card{background:var(--cream);padding:24px}.care-card .num{font:italic 1.4rem var(--serif);color:var(--clay)}.care-card h4{font:500 1.18rem var(--serif);margin:10px 0}.care-card p{font-size:.87rem;color:var(--muted);margin:0}.experiences{background:var(--cream)}.experience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.experience{min-height:330px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;color:white;position:relative;overflow:hidden;background:#25392b}.experience img{position:absolute;inset:0;transition:transform .7s;filter:brightness(.58) saturate(.8)}.experience:hover img{transform:scale(1.04)}.experience:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,23,16,.92),transparent 75%)}.experience>*:not(img){position:relative;z-index:1}.experience .eyebrow{color:#e2c990}.experience h3{font:400 1.75rem/1.1 var(--serif);margin:10px 0}.experience p{font-size:.88rem;color:#e2e6dc;margin:0}.extra-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px}.extra{background:var(--night);padding:25px}.extra h3{font:500 1.2rem var(--serif);color:var(--gold);margin:0 0 8px}.extra p{color:#c0c9ba;font-size:.9rem;margin:0}.event{background:#e9e4d5}.event-grid{display:grid;grid-template-columns:1fr .8fr;gap:50px;align-items:start}.event h2{font:400 clamp(2.3rem,4.5vw,4rem)/1.08 var(--serif);margin:12px 0 18px}.event p{color:#5e6659}.event-panel{background:var(--forest);color:var(--paper);padding:30px}.event-panel h3{font:400 1.6rem var(--serif);margin:0 0 12px}.event-panel p,.event-panel li{font-size:.9rem;color:#d1dacb}.event-panel ul{padding-left:20px}.event-panel li{margin:7px 0}.event-label{display:inline-block;border:1px solid rgba(201,168,107,.55);padding:6px 10px;color:var(--gold);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px}.visit{background:var(--forest);color:var(--paper)}.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:start}.visit h2{font:400 clamp(2.5rem,5vw,4.3rem)/1.05 var(--serif);margin:14px 0 18px}.visit p{color:#d0d8ca}.contact-list{display:grid;gap:0;margin-top:25px}.contact-item{display:flex;justify-content:space-between;gap:15px;padding:16px 0;border-top:1px solid var(--line);font-size:.9rem}.contact-item span:first-child{color:#aeb9a9}.contact-item a{color:var(--gold)}.contact-box{padding:28px;border:1px solid rgba(201,168,107,.4);background:rgba(255,255,255,.035)}.contact-box h3{font:400 1.65rem var(--serif);margin:0 0 12px}.contact-box p{font-size:.9rem}.contact-box .btn{margin-top:8px}.footer{background:#0d1811;color:#c4cebf;padding:28px 0;font-size:.78rem}.footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.footer-brand{font:500 1.25rem var(--serif);color:var(--paper)}.footer-brand em{color:var(--gold)}.footer-links{display:flex;gap:18px;flex-wrap:wrap}.footer-links a:hover{color:var(--gold)}.fineprint{font-size:.76rem;color:#a9b3a4;max-width:700px;margin-top:12px}.reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}.reveal.in{opacity:1;transform:none}@keyframes slow-arrive{to{transform:scale(1)}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}@media(max-width:980px){.nav-links{gap:12px}.nav-links a{font-size:.7rem}.nav-actions .btn{display:none}.coffee-grid{gap:38px}.event-grid,.visit-grid{gap:32px}}@media(max-width:760px){.wrap{width:min(100% - 34px,1180px)}.topline .wrap{justify-content:center;text-align:center}.nav-inner{min-height:68px}.menu-btn{display:block}.nav-links{display:none;position:absolute;top:68px;left:0;right:0;padding:20px 24px 26px;background:var(--night);border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:18px}.nav-links.open{display:flex}.nav-links a{font-size:.95rem}.hero{min-height:700px}.hero-content{padding:90px 0 55px}.hero h1{font-size:clamp(3.2rem,14vw,5.7rem)}.hero-foot{margin-top:40px;gap:14px 22px}.section{padding:72px 0}.intro-grid,.coffee-grid,.plant-hero,.event-grid,.visit-grid{grid-template-columns:1fr}.intro-grid{gap:24px}.photo-frame,.plant-image{min-height:350px}.coffee-grid{gap:32px}.plant-hero{gap:24px}.experience-grid{grid-template-columns:1fr}.experience{min-height:300px}.care-grid{grid-template-columns:1fr}.event-panel{padding:24px}.extra-grid{grid-template-columns:1fr}.plant-cards{gap:12px}.plant-card{padding:17px}}@media(max-width:430px){.plant-cards{grid-template-columns:1fr}.hero-actions .btn{width:100%}.contact-item{flex-direction:column;gap:4px}}
 </style>
-<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<div class="topline"><div class="wrap"><span>A Rustic Garden plant room · Rooted in Kenya</span><span>Slow living, thoughtful growing, lasting value</span></div></div>
-
+<div class="topline"><div class="wrap"><span>Rooted in Kenya · Made with intention</span><span>Slow living, thoughtful growing, lasting value</span></div></div>
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="#home" aria-label="Mandevu at Kwa Nyuki, home">Mandevu <em>at Kwa Nyuki</em><small>by Rustic Garden</small></a>
+    <a class="brand" href="#home" aria-label="Rustic Garden home">Rustic <em>Garden</em></a>
     <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-      <a href="#collection">Plants</a>
-      <a href="#finder">Find your plant</a>
-      <a href="#care">Care</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#faq">Questions</a>
-
-      <details class="nav-more">
-        <summary>Rustic Garden</summary>
-        <div class="nav-menu">
-          <a href="#rustic-garden">About Rustic Garden</a>
-          <a href="coffee.html">Coffee</a>
-          <a href="product.html">Products</a>
-          <a href="consulting.html">Consulting</a>
-          <a href="internet.html">Internet &amp; UA Day</a>
-          <a href="wellbeing.html">Wellbeing</a>
-          <a href="payment.html">Payment</a>
-          <hr>
-          <div class="nav-label">Learn</div>
-          <a href="coffee_extraction_masterclass.html">Coffee extraction masterclass</a>
-          <a href="soil_classification_lecture.html">Soil classification lecture</a>
-          <a href="kavutiri_farm_calendar_kids.html">Farm calendar for kids</a>
-          <a href="phyllanthus_niruri_research.html">Phyllanthus niruri research</a>
-          <a href="coffee_research_compendium.md.pdf" target="_blank" rel="noopener">Coffee research (PDF) ↗</a>
-        </div>
-      </details>
-
-      <a href="#visit">Contact</a>
+      <a href="#story">Our philosophy</a><a href="#coffee">Coffee</a><a href="#mandevu">Mandevu Plants</a><a href="#experiences">Experiences</a><a href="#ua-day">UA Day 2027</a><a href="#visit">Contact</a>
     </nav>
-    <div class="nav-actions">
-      <a class="btn" href="#visit">Ask about plants ↗</a>
-      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu ☰</button>
-    </div>
+    <div class="nav-actions"><a class="btn" href="#visit">Begin a conversation ↗</a><button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu ☰</button></div>
   </div>
 </header>
-
-<main id="main">
-
-<!-- ============ HERO ============ -->
-<section class="hero" id="home">
-  <div class="hero-image"><img src="assets/img/hero-mandevu.svg" width="1600" height="900" alt="Potted snake plants, spider plants and foliage plants arranged on shelves in warm light" fetchpriority="high"></div>
+<main id="home">
+<section class="hero">
+  <div class="hero-image" aria-hidden="true"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20role%3D%22img%22%20aria-label%3D%22Rustic%20Garden%20image%20placeholder%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23102f27%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23b6a16e%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22r%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.2%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%221250%22%20cy%3D%22170%22%20r%3D%22460%22%20fill%3D%22url%28%23r%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.24%22%20stroke-width%3D%223%22%3E%3Cpath%20d%3D%22M180%20900%20Q280%20520%20160%20130%20M280%20900%20Q460%20520%20370%20120%20M1380%20900%20Q1220%20510%201420%20160%22%2F%3E%3Cpath%20d%3D%22M180%20610%20Q30%20510%2085%20380%20Q220%20420%20180%20610Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M270%20480%20Q440%20380%20420%20250%20Q285%20300%20270%20480Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M1370%20570%20Q1510%20450%201480%20320%20Q1350%20400%201370%20570Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%2270%22%20y%3D%2270%22%20width%3D%221460%22%20height%3D%22760%22%20rx%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.28%22%2F%3E%3Ctext%20x%3D%22110%22%20y%3D%22700%22%20fill%3D%22%23fff8e8%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2268%22%20letter-spacing%3D%225%22%3ERUSTIC%20GARDEN%3C%2Ftext%3E%3Ctext%20x%3D%22114%22%20y%3D%22760%22%20fill%3D%22%23fff8e8%22%20fill-opacity%3D%22.82%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20letter-spacing%3D%223%22%3EREPLACE%20WITH%20A%20LANDSCAPE%20PHOTOGRAPH%3C%2Ftext%3E%3C%2Fsvg%3E" alt=""></div>
   <div class="wrap hero-content">
-    <div class="eyebrow">Mandevu at Kwa Nyuki · The plant room</div>
-    <h1>Bring home<br>something <em>living.</em></h1>
-    <p class="hero-lead">A dedicated place for plants, simple growing advice and small green rituals. Choose a plant for the room you have, the light you receive and the care you can comfortably give.</p>
-    <div class="actions">
-      <a class="btn" href="#collection">See the plants ↘</a>
-      <a class="btn btn-ghost" href="#finder">Help me choose</a>
-    </div>
-    <div class="hero-foot"><span><i class="dot"></i>Snake &amp; spider plants</span><span><i class="dot"></i>Honest, simple care advice</span><span><i class="dot"></i>Part of Rustic Garden, Kenya</span></div>
+    <div class="eyebrow">A considered life, closer to nature</div>
+    <h1>Find your way<br>back to <em>the living.</em></h1>
+    <p class="hero-lead">From the quiet character of Kenyan coffee to plants that bring a room to life, Rustic Garden is an invitation to choose with care, live with intention and notice a little more.</p>
+    <div class="hero-actions"><a class="btn" href="#coffee">Explore the collection ↘</a><a class="btn btn-ghost" href="#mandevu">Discover Mandevu at Kwa Nyuki</a></div>
+    <div class="hero-foot"><span><i class="dot"></i> Grown with attention</span><span><i class="dot"></i> Nature-led experiences</span><span><i class="dot"></i> Kenya, with a wider horizon</span></div>
   </div>
 </section>
-
-<section class="strip" aria-label="At a glance">
-  <div class="wrap strip-grid">
-    <div class="strip-item"><strong>Plants for sale</strong><span>Listed prices from KSh 250</span></div>
-    <div class="strip-item"><strong>Care, explained</strong><span>Light, water and pot basics</span></div>
-    <div class="strip-item"><strong>A greener gift</strong><span>Desks, corners and new homes</span></div>
-    <div class="strip-item"><strong>Ask first</strong><span>Confirm stock before you travel</span></div>
+<section class="section intro" id="story"><div class="wrap intro-grid">
+  <div><div class="eyebrow">The Rustic Garden point of view</div><h2 class="intro-title">Luxury is not more.<br><em>It is more meaning.</em></h2></div>
+  <div class="intro-copy"><p>We believe private value is found in the things that make life feel distinctly yours: a cup prepared slowly, a thriving plant in a favourite corner, a walk under trees, knowledge shared generously, and the freedom to choose what deserves your attention.</p><p>Our world connects products and experiences rooted in the living landscape of Kenya. Each offering has its own character, while sharing one idea: quality should be felt in the detail, the origin and the care behind it.</p><p>This is a calm, sensory space—not a promise of transformation. Explore at your own pace and take what feels useful to you.</p><div class="signature">Less noise. More nature. A life that feels like yours.</div></div>
+</div></section>
+<section class="section dark" id="coffee"><div class="wrap coffee-grid">
+  <div class="photo-frame reveal"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20role%3D%22img%22%20aria-label%3D%22Coffee%20%26%20origin%20image%20placeholder%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23402b20%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23c4a16a%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22r%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.2%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%221250%22%20cy%3D%22170%22%20r%3D%22460%22%20fill%3D%22url%28%23r%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.24%22%20stroke-width%3D%223%22%3E%3Cpath%20d%3D%22M180%20900%20Q280%20520%20160%20130%20M280%20900%20Q460%20520%20370%20120%20M1380%20900%20Q1220%20510%201420%20160%22%2F%3E%3Cpath%20d%3D%22M180%20610%20Q30%20510%2085%20380%20Q220%20420%20180%20610Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M270%20480%20Q440%20380%20420%20250%20Q285%20300%20270%20480Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M1370%20570%20Q1510%20450%201480%20320%20Q1350%20400%201370%20570Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%2270%22%20y%3D%2270%22%20width%3D%221460%22%20height%3D%22760%22%20rx%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.28%22%2F%3E%3Ctext%20x%3D%22110%22%20y%3D%22700%22%20fill%3D%22%23fff8e8%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2268%22%20letter-spacing%3D%225%22%3ECOFFEE%20%26%20ORIGIN%3C%2Ftext%3E%3Ctext%20x%3D%22114%22%20y%3D%22760%22%20fill%3D%22%23fff8e8%22%20fill-opacity%3D%22.82%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20letter-spacing%3D%223%22%3EREPLACE%20WITH%20COFFEE%20FARM%20OR%20CUP%20PHOTOGRAPHY%3C%2Ftext%3E%3C%2Fsvg%3E" alt="A carefully prepared cup of coffee" loading="lazy"></div>
+  <div class="coffee-copy reveal"><div class="eyebrow">01 / The coffee collection</div><h2>Charlie's Coffee.<br><em>Time, held in a cup.</em></h2><p>Honey-processed Arabica from the Mount Kenya foothills, associated with Kavutiri, Embu County. In honey processing, some fruit mucilage remains on the bean as it dries, bringing a rounded body and the potential for a naturally sweet, fruit-led cup.</p><p>Choose a lighter roast for brighter citrus and floral impressions, or a darker roast for deeper, chocolate-like notes. Your brew method and the beans themselves will shape the final cup.</p>
+    <div class="price-line"><div class="price"><strong>1,400 KES / kg</strong><small>Green beans · listed price</small></div><div class="price"><strong>1,850 KES / kg</strong><small>Roasted · listed price</small></div></div>
+    <p class="note">Prices and availability may change. Please confirm the current harvest, roast options, shipping and final price before ordering.</p><div class="hero-actions"><a class="btn" href="mailto:gibbscoffee@zohomail.eu?subject=Charlie's%20Coffee%20enquiry">Enquire about coffee ↗</a></div>
   </div>
-</section>
-
-<!-- ============ PLANTS ============ -->
-<section class="section plants" id="collection"><div class="wrap">
-  <div class="section-head reveal">
-    <div class="eyebrow clay">01 / The collection</div>
-    <h2>Choose your green companion.</h2>
-    <p>Whether you are styling a desk, softening a quiet corner or starting a home collection, begin with a plant that suits your space. Ask about current stock, plant size, pot options and care before you visit or order.</p>
-  </div>
-  <div class="plant-grid">
-    <article class="plant-card reveal">
-      <div class="ph"><img src="assets/img/plant-snake.svg" width="1000" height="1100" alt="A snake plant with upright, striped leaves in a terracotta pot" loading="lazy"></div>
-      <div class="plant-body">
-        <h3>Snake plant</h3><div class="latin">Dracaena trifasciata</div>
-        <span class="tag-price">KSh 250 · listed price</span>
-        <p>Upright, architectural leaves. Prefers well-draining soil and letting the soil dry between waterings.</p>
-        <a class="btn btn-dark btn-sm" href="mailto:groupnomad@outlook.com?subject=Plant%20enquiry%3A%20Snake%20plant%20%28Mandevu%20at%20Kwa%20Nyuki%29">Ask about this plant ↗</a>
+</div></section>
+<section class="section plant-section" id="mandevu"><div class="wrap">
+  <div class="section-head reveal"><div class="eyebrow">02 / The plant room</div><h2>Mandevu at Kwa Nyuki.<br><em>Bring home something living.</em></h2><p>A dedicated place for plants, simple growing advice and small green rituals. Choose a plant for the room you have, the light you receive and the care you can comfortably give.</p></div>
+  <div class="plant-hero">
+    <div class="plant-image reveal"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20role%3D%22img%22%20aria-label%3D%22Mandevu%20at%20Kwa%20Nyuki%20image%20placeholder%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23234c37%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23c7d0a1%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22r%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.2%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%221250%22%20cy%3D%22170%22%20r%3D%22460%22%20fill%3D%22url%28%23r%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.24%22%20stroke-width%3D%223%22%3E%3Cpath%20d%3D%22M180%20900%20Q280%20520%20160%20130%20M280%20900%20Q460%20520%20370%20120%20M1380%20900%20Q1220%20510%201420%20160%22%2F%3E%3Cpath%20d%3D%22M180%20610%20Q30%20510%2085%20380%20Q220%20420%20180%20610Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M270%20480%20Q440%20380%20420%20250%20Q285%20300%20270%20480Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M1370%20570%20Q1510%20450%201480%20320%20Q1350%20400%201370%20570Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%2270%22%20y%3D%2270%22%20width%3D%221460%22%20height%3D%22760%22%20rx%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.28%22%2F%3E%3Ctext%20x%3D%22110%22%20y%3D%22700%22%20fill%3D%22%23fff8e8%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2268%22%20letter-spacing%3D%225%22%3EMANDEVU%20AT%20KWA%20NYUKI%3C%2Ftext%3E%3Ctext%20x%3D%22114%22%20y%3D%22760%22%20fill%3D%22%23fff8e8%22%20fill-opacity%3D%22.82%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20letter-spacing%3D%223%22%3EREPLACE%20WITH%20PLANT%20PRODUCT%20PHOTOGRAPHY%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Sunlight falling across a collection of green potted plants" loading="lazy"><div class="image-caption">Mandevu at Kwa Nyuki · Plants for sale</div></div>
+    <div class="plant-copy reveal"><div class="eyebrow" style="color:var(--clay)">A greener kind of gift</div><h3>Choose your green companion.</h3><p>Whether you are styling a desk, softening a quiet corner or starting a home collection, begin with a plant that suits your space. Ask about current stock, plant size, pot options and care before you visit or order.</p>
+      <div class="plant-cards">
+        <article class="plant-card"><h4>Snake plant</h4><div class="latin">Dracaena trifasciata</div><span class="tag-price">KSh 250 · listed price</span><p>Upright architectural leaves; prefers well-draining soil and letting the soil dry between waterings.</p></article>
+        <article class="plant-card"><h4>Spider plant</h4><div class="latin">Chlorophytum comosum</div><span class="tag-price">KSh 500 · listed price</span><p>Arching foliage with a fresh, informal feel; likes bright indirect light and lightly moist, not waterlogged, soil.</p></article>
       </div>
-    </article>
-    <article class="plant-card reveal">
-      <div class="ph"><img src="assets/img/plant-spider.svg" width="1000" height="1100" alt="A spider plant with arching green and cream leaves in a clay pot" loading="lazy"></div>
-      <div class="plant-body">
-        <h3>Spider plant</h3><div class="latin">Chlorophytum comosum</div>
-        <span class="tag-price">KSh 500 · listed price</span>
-        <p>Arching foliage with a fresh, informal feel. Likes bright indirect light and lightly moist, not waterlogged, soil.</p>
-        <a class="btn btn-dark btn-sm" href="mailto:groupnomad@outlook.com?subject=Plant%20enquiry%3A%20Spider%20plant%20%28Mandevu%20at%20Kwa%20Nyuki%29">Ask about this plant ↗</a>
-      </div>
-    </article>
-    <article class="plant-card reveal">
-      <div class="ph"><img src="assets/img/plant-foliage.svg" width="1000" height="1100" alt="Large glossy foliage plant in a brown pot" loading="lazy"></div>
-      <div class="plant-body">
-        <h3>More green companions</h3><div class="latin">Seasonal &amp; limited stock</div>
-        <span class="tag-price soft">Ask for availability</span>
-        <p>Looking for something specific, or a larger statement plant? Tell us the space and the light and we will tell you what is currently available.</p>
-        <a class="btn btn-dark btn-sm" href="mailto:groupnomad@outlook.com?subject=Plant%20enquiry%3A%20Current%20stock%20%28Mandevu%20at%20Kwa%20Nyuki%29">Ask what is in stock ↗</a>
-      </div>
-    </article>
-  </div>
-  <p class="fineprint reveal">Prices are listed prices and may change. Stock and pot sizes vary, so please confirm availability and the final price before collecting or ordering.</p>
-</div></section>
-
-<!-- ============ FINDER ============ -->
-<section class="section finder" id="finder"><div class="wrap finder-grid">
-  <div class="reveal">
-    <div class="eyebrow">02 / A small helper</div>
-    <h2>Not sure where to start?</h2>
-    <p>Tell us about your space and we will point you to a good first plant. It is a starting point, not a prescription; every room and every home is different.</p>
-    <div class="choices" id="choices" role="group" aria-label="Describe your space">
-      <button class="choice" type="button" data-pick="forgetful" aria-pressed="true">A busy home <small>I forget to water</small></button>
-      <button class="choice" type="button" data-pick="bright" aria-pressed="false">A bright room <small>Light, but no harsh sun</small></button>
-      <button class="choice" type="button" data-pick="quiet" aria-pressed="false">A quiet corner <small>Not much light</small></button>
+      <p class="fineprint" style="color:#596354">Prices are carried over from the supplied plant page and should be reconfirmed for Mandevu at Kwa Nyuki. Stock and pot sizes may vary.</p>
+      <div class="hero-actions"><a class="btn btn-dark" href="#visit">Ask about plants ↗</a></div>
     </div>
   </div>
-  <div class="result reveal" id="result" aria-live="polite">
-    <div class="ph"><img id="resultImg" src="assets/img/plant-snake.svg" width="1000" height="1100" alt="Snake plant"></div>
-    <div class="result-body">
-      <div class="eyebrow" id="resultTag">Our suggestion</div>
-      <h3 id="resultName">Snake plant</h3>
-      <p id="resultText">Upright and low-fuss. It prefers well-draining soil and being left to dry out between waterings, which suits a busy routine.</p>
-      <a class="btn btn-sm" id="resultLink" href="mailto:groupnomad@outlook.com?subject=Plant%20enquiry%3A%20Snake%20plant%20%28Mandevu%20at%20Kwa%20Nyuki%29">Ask about this plant ↗</a>
-    </div>
+  <div class="care-grid">
+    <article class="care-card"><div class="num">01</div><h4>Light before labels</h4><p>Notice whether your space receives direct sun, bright indirect light or shade. Match the plant to the room rather than forcing the room to suit the plant.</p></article>
+    <article class="care-card"><div class="num">02</div><h4>Water with attention</h4><p>Check the soil before watering. Pot size, drainage, heat and season all matter; fixed schedules are only starting points.</p></article>
+    <article class="care-card"><div class="num">03</div><h4>Let roots breathe</h4><p>Choose a pot with drainage and a free-draining mix. Empty standing water and watch for changes in leaves as useful signals.</p></article>
   </div>
 </div></section>
-
-<!-- ============ CARE ============ -->
-<section class="section care" id="care"><div class="wrap">
-  <div class="section-head reveal">
-    <div class="eyebrow clay">03 / Green rituals</div>
-    <h2>Three small habits that keep plants well.</h2>
-    <p>Simple growing advice you can keep. Fixed schedules are only starting points; your plant and your room will tell you the rest.</p>
-  </div>
-  <div class="care-grid reveal">
-    <article class="care-card"><div class="num">01</div><h3>Light before labels</h3><p>Notice whether your space receives direct sun, bright indirect light or shade. Match the plant to the room rather than forcing the room to suit the plant.</p></article>
-    <article class="care-card"><div class="num">02</div><h3>Water with attention</h3><p>Check the soil before watering. Pot size, drainage, heat and season all matter; fixed schedules are only starting points.</p></article>
-    <article class="care-card"><div class="num">03</div><h3>Let roots breathe</h3><p>Choose a pot with drainage and a free-draining mix. Empty standing water and watch for changes in leaves as useful signals.</p></article>
-  </div>
-</div></section>
-
-<!-- ============ GALLERY ============ -->
-<section class="section gallery" id="gallery"><div class="wrap">
-  <div class="section-head reveal">
-    <div class="eyebrow clay">04 / Inside the plant room</div>
-    <h2>Small green moments.</h2>
-    <p>Potting, styling, gifting and growing. A glimpse of the everyday life of Mandevu at Kwa Nyuki.</p>
-  </div>
-  <div class="gallery-grid">
-    <figure class="tile wide reveal"><img src="assets/img/plant-room.svg" width="1000" height="1000" alt="Rows of potted plants in the plant room" loading="lazy"><figcaption>The plant room</figcaption></figure>
-    <figure class="tile reveal"><img src="assets/img/gallery-1.svg" width="1000" height="1000" alt="A plant being potted with fresh soil" loading="lazy"><figcaption>Potting &amp; repotting</figcaption></figure>
-    <figure class="tile reveal"><img src="assets/img/gallery-2.svg" width="1000" height="1000" alt="Small plants lined up on a wooden desk shelf" loading="lazy"><figcaption>Desk &amp; shelf plants</figcaption></figure>
-    <figure class="tile reveal"><img src="assets/img/gallery-3.svg" width="1000" height="1000" alt="A plant wrapped as a gift" loading="lazy"><figcaption>Gifting</figcaption></figure>
-    <figure class="tile reveal"><img src="assets/img/gallery-4.svg" width="1000" height="1000" alt="Cuttings rooting in glass jars" loading="lazy"><figcaption>Propagation</figcaption></figure>
-  </div>
-</div></section>
-
-<!-- ============ FAQ ============ -->
-<section class="section faq" id="faq"><div class="wrap faq-grid">
-  <div class="reveal">
-    <div class="eyebrow clay">05 / Before you visit</div>
-    <h2>Good to know.</h2>
-    <p class="muted">A few honest answers. Anything not covered here, send us a note.</p>
-    <div class="actions"><a class="btn btn-dark" href="#visit">Ask us directly ↗</a></div>
-  </div>
-  <div class="reveal">
-    <details open><summary>Where can I find Mandevu at Kwa Nyuki?</summary><p>Please message us for the exact location and opening arrangements before you travel, so we can make sure someone is there to meet you.</p></details>
-    <details><summary>Are the listed prices fixed?</summary><p>Listed prices are a guide and may change with plant size, pot choice and season. We will confirm the final price when you enquire.</p></details>
-    <details><summary>Which plant is best for a beginner?</summary><p>Snake plants are a gentle start: they prefer well-draining soil and drying out between waterings. Spider plants suit brighter rooms and slightly more regular watering.</p></details>
-    <details><summary>Can plants be delivered or only collected?</summary><p>Ask us. Arrangements depend on the plant, its size and where it is going, and we would rather confirm than promise.</p></details>
-    <details><summary>Can I order coffee here too?</summary><p>Yes, Charlie's Coffee is part of Rustic Garden. See the coffee section below, or visit the <a href="coffee.html">coffee page</a>, and use the coffee enquiry address.</p></details>
-  </div>
-</div></section>
-
-<!-- ============ EXPLORE THE SITE ============ -->
-<section class="section explore" id="explore"><div class="wrap">
-  <div class="section-head reveal">
-    <div class="eyebrow clay">06 / Explore Rustic Garden</div>
-    <h2>More to discover beyond the plant room.</h2>
-    <p>Coffee, farm knowledge, consulting and community projects all grow from the same ground. Pick a path.</p>
-  </div>
-  <div class="explore-grid">
-    <a class="explore-card reveal" href="coffee.html"><div class="eyebrow">Coffee</div><h3>Charlie's Coffee <span aria-hidden="true">↗</span></h3><p>Honey-processed Arabica from the Mount Kenya foothills, green or roasted.</p></a>
-    <a class="explore-card reveal" href="product.html"><div class="eyebrow">Shop</div><h3>Products <span aria-hidden="true">↗</span></h3><p>Browse what is currently available from Rustic Garden.</p></a>
-    <a class="explore-card reveal" href="consulting.html"><div class="eyebrow">Advice</div><h3>Consulting <span aria-hidden="true">↗</span></h3><p>Practical guidance on growing, farming and building with intention.</p></a>
-    <a class="explore-card reveal" href="internet.html"><div class="eyebrow">Digital inclusion</div><h3>Internet &amp; UA Day <span aria-hidden="true">↗</span></h3><p>Making digital systems work for rural producers.</p></a>
-    <a class="explore-card reveal" href="wellbeing.html"><div class="eyebrow">Nature</div><h3>Wellbeing <span aria-hidden="true">↗</span></h3><p>Time among trees, water and stillness.</p></a>
-    <a class="explore-card reveal" href="payment.html"><div class="eyebrow">Ordering</div><h3>Payment options <span aria-hidden="true">↗</span></h3><p>How to pay once you have confirmed your order.</p></a>
-  </div>
-  <div class="learn-list reveal" aria-label="Learning resources">
-    <a href="coffee_extraction_masterclass.html">Coffee extraction masterclass</a>
-    <a href="soil_classification_lecture.html">Soil classification lecture</a>
-    <a href="kavutiri_farm_calendar_kids.html">Farm calendar for kids</a>
-    <a href="phyllanthus_niruri_research.html">Phyllanthus niruri research</a>
-    <a href="coffee_research_compendium.md.pdf" target="_blank" rel="noopener">Coffee research compendium (PDF) ↗</a>
-  </div>
-</div></section>
-
-<!-- ============ THE WIDER RUSTIC GARDEN ============ -->
-<div class="world-head" id="rustic-garden"><div class="wrap">
-  <div class="section-head reveal">
-    <div class="eyebrow">More from Rustic Garden</div>
-    <h2>A considered life, closer to nature.</h2>
-    <p>Mandevu at Kwa Nyuki is one part of a wider world rooted in the living landscape of Kenya. Quality should be felt in the detail, the origin and the care behind it.</p>
-  </div>
-</div></div>
-
-<section class="section dark" id="coffee" style="padding-top:20px"><div class="wrap coffee-grid">
-  <div class="photo-frame reveal"><img src="assets/img/coffee.svg" width="1200" height="900" alt="Coffee cherries on a branch beside a cup of coffee" loading="lazy"></div>
-  <div class="coffee-copy reveal">
-    <div class="eyebrow">The coffee collection</div>
-    <h2>Charlie's Coffee.<br><em>Time, held in a cup.</em></h2>
-    <p>Honey-processed Arabica from the Mount Kenya foothills, associated with Kavutiri, Embu County. In honey processing, some fruit mucilage remains on the bean as it dries, bringing a rounded body and the potential for a naturally sweet, fruit-led cup.</p>
-    <p>Choose a lighter roast for brighter citrus and floral impressions, or a darker roast for deeper, chocolate-like notes. Your brew method and the beans themselves will shape the final cup.</p>
-    <div class="price-line">
-      <div class="price"><strong>1,400 KES / kg</strong><small>Green beans · listed price</small></div>
-      <div class="price"><strong>1,850 KES / kg</strong><small>Roasted · listed price</small></div>
-    </div>
-    <p class="note">Prices and availability may change. Please confirm the current harvest, roast options, shipping and final price before ordering.</p>
-    <div class="actions">
-      <a class="btn" href="mailto:gibbscoffee@zohomail.eu?subject=Charlie's%20Coffee%20enquiry">Enquire about coffee ↗</a>
-      <a class="btn btn-ghost" href="coffee.html">Full coffee page ↗</a>
-    </div>
-  </div>
-</div></section>
-
 <section class="section experiences" id="experiences"><div class="wrap">
-  <div class="section-head reveal">
-    <div class="eyebrow clay">Beyond the object</div>
-    <h2>Experiences that return you to the present.</h2>
-    <p>Nature is not a performance. It is a place to pay attention—to texture, temperature, birdsong, water, flavour and the simple pleasure of being outdoors.</p>
-  </div>
+  <div class="section-head reveal"><div class="eyebrow">03 / Beyond the object</div><h2>Experiences that return you to the present.</h2><p>Nature is not a performance. It is a place to pay attention—to texture, temperature, birdsong, water, flavour and the simple pleasure of being outdoors.</p></div>
   <div class="experience-grid">
-    <article class="experience reveal"><img src="assets/img/sylvotherapy.svg" width="1200" height="900" alt="A peaceful forest path between tall trees" loading="lazy"><div class="eyebrow clay">Time among trees</div><h3>Sylvotherapy</h3><p>Self-paced or guided time in a natural setting, with gentle attention to breathing, senses and surroundings. Not a substitute for medical care.</p></article>
-    <article class="experience reveal"><img src="assets/img/pool.svg" width="1200" height="900" alt="Still, clear water surrounded by trees" loading="lazy"><div class="eyebrow clay">Water &amp; stillness</div><h3>Natural wellness pool</h3><p>A nature-led swimming concept focused on water, landscape and unhurried time. Ask us about current access and arrangements.</p></article>
-    <article class="experience reveal"><img src="assets/img/farm.svg" width="1200" height="900" alt="Farm rows and a fish pond under green trees" loading="lazy"><div class="eyebrow clay">Learning on the land</div><h3>Farm &amp; aquaculture</h3><p>Explore growing systems, tilapia and catfish production, water stewardship and the practical knowledge behind local food systems.</p></article>
+    <article class="experience reveal"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20role%3D%22img%22%20aria-label%3D%22Sylvotherapy%20image%20placeholder%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2315392e%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2392a77e%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22r%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.2%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%221250%22%20cy%3D%22170%22%20r%3D%22460%22%20fill%3D%22url%28%23r%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.24%22%20stroke-width%3D%223%22%3E%3Cpath%20d%3D%22M180%20900%20Q280%20520%20160%20130%20M280%20900%20Q460%20520%20370%20120%20M1380%20900%20Q1220%20510%201420%20160%22%2F%3E%3Cpath%20d%3D%22M180%20610%20Q30%20510%2085%20380%20Q220%20420%20180%20610Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M270%20480%20Q440%20380%20420%20250%20Q285%20300%20270%20480Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M1370%20570%20Q1510%20450%201480%20320%20Q1350%20400%201370%20570Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%2270%22%20y%3D%2270%22%20width%3D%221460%22%20height%3D%22760%22%20rx%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.28%22%2F%3E%3Ctext%20x%3D%22110%22%20y%3D%22700%22%20fill%3D%22%23fff8e8%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2268%22%20letter-spacing%3D%225%22%3ESYLVOTHERAPY%3C%2Ftext%3E%3Ctext%20x%3D%22114%22%20y%3D%22760%22%20fill%3D%22%23fff8e8%22%20fill-opacity%3D%22.82%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20letter-spacing%3D%223%22%3EREPLACE%20WITH%20WOODLAND%20PHOTOGRAPHY%3C%2Ftext%3E%3C%2Fsvg%3E" alt="A peaceful forest path" loading="lazy"><div class="eyebrow">Time among trees</div><h3>Sylvotherapy</h3><p>Self-paced or guided time in a natural setting, with gentle attention to breathing, senses and surroundings. Not a substitute for medical care.</p></article>
+    <article class="experience reveal"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20role%3D%22img%22%20aria-label%3D%22Water%20%26%20stillness%20image%20placeholder%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23214c50%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23a8c8bf%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22r%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.2%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%221250%22%20cy%3D%22170%22%20r%3D%22460%22%20fill%3D%22url%28%23r%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.24%22%20stroke-width%3D%223%22%3E%3Cpath%20d%3D%22M180%20900%20Q280%20520%20160%20130%20M280%20900%20Q460%20520%20370%20120%20M1380%20900%20Q1220%20510%201420%20160%22%2F%3E%3Cpath%20d%3D%22M180%20610%20Q30%20510%2085%20380%20Q220%20420%20180%20610Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M270%20480%20Q440%20380%20420%20250%20Q285%20300%20270%20480Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M1370%20570%20Q1510%20450%201480%20320%20Q1350%20400%201370%20570Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%2270%22%20y%3D%2270%22%20width%3D%221460%22%20height%3D%22760%22%20rx%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.28%22%2F%3E%3Ctext%20x%3D%22110%22%20y%3D%22700%22%20fill%3D%22%23fff8e8%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2268%22%20letter-spacing%3D%225%22%3EWATER%20%26%20STILLNESS%3C%2Ftext%3E%3Ctext%20x%3D%22114%22%20y%3D%22760%22%20fill%3D%22%23fff8e8%22%20fill-opacity%3D%22.82%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20letter-spacing%3D%223%22%3EREPLACE%20WITH%20POOL%20OR%20WATER%20PHOTOGRAPHY%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Clear water at a swimming pool" loading="lazy"><div class="eyebrow">Water & stillness</div><h3>Natural wellness pool</h3><p>A nature-led swimming concept focused on water, landscape and unhurried time. Ask us about current access and arrangements.</p></article>
+    <article class="experience reveal"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20role%3D%22img%22%20aria-label%3D%22Farm%20%26%20aquaculture%20image%20placeholder%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2325442f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23c5ad76%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22r%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.2%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23g%29%22%2F%3E%3Ccircle%20cx%3D%221250%22%20cy%3D%22170%22%20r%3D%22460%22%20fill%3D%22url%28%23r%29%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.24%22%20stroke-width%3D%223%22%3E%3Cpath%20d%3D%22M180%20900%20Q280%20520%20160%20130%20M280%20900%20Q460%20520%20370%20120%20M1380%20900%20Q1220%20510%201420%20160%22%2F%3E%3Cpath%20d%3D%22M180%20610%20Q30%20510%2085%20380%20Q220%20420%20180%20610Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M270%20480%20Q440%20380%20420%20250%20Q285%20300%20270%20480Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3Cpath%20d%3D%22M1370%20570%20Q1510%20450%201480%20320%20Q1350%20400%201370%20570Z%22%20fill%3D%22%23f7f0df%22%20fill-opacity%3D%22.12%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%2270%22%20y%3D%2270%22%20width%3D%221460%22%20height%3D%22760%22%20rx%3D%2210%22%20fill%3D%22none%22%20stroke%3D%22%23f7f0df%22%20stroke-opacity%3D%22.28%22%2F%3E%3Ctext%20x%3D%22110%22%20y%3D%22700%22%20fill%3D%22%23fff8e8%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2268%22%20letter-spacing%3D%225%22%3EFARM%20%26%20AQUACULTURE%3C%2Ftext%3E%3Ctext%20x%3D%22114%22%20y%3D%22760%22%20fill%3D%22%23fff8e8%22%20fill-opacity%3D%22.82%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20letter-spacing%3D%223%22%3EREPLACE%20WITH%20FARM%20PHOTOGRAPHY%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Green trees and filtered sunlight" loading="lazy"><div class="eyebrow">Learning on the land</div><h3>Farm & aquaculture</h3><p>Explore growing systems, tilapia and catfish production, water stewardship and the practical knowledge behind local food systems.</p></article>
   </div>
   <div class="extra-grid reveal">
     <article class="extra"><h3>Growing systems</h3><p>Drip irrigation can deliver water closer to roots and reduce evaporation when designed and maintained well.</p></article>
-    <article class="extra"><h3>Local crops &amp; value addition</h3><p>Arrowroot, macadamia and mango have been part of the farm's developing interests. Ask about current activities and availability.</p></article>
+    <article class="extra"><h3>Local crops & value addition</h3><p>Arrowroot, macadamia and mango have been part of the farm's developing interests. Ask about current activities and availability.</p></article>
   </div>
 </div></section>
-
-<section class="section event" id="ua-day"><div class="wrap">
-  <div class="event-banner reveal"><img src="assets/img/ua-day.svg" width="1600" height="900" alt="Connected points of light above rolling farmland" loading="lazy"></div>
-  <div class="event-grid">
-    <div class="reveal">
-      <div class="eyebrow clay">Community &amp; digital inclusion</div>
-      <h2>From the coffee farm to the <em>global internet.</em></h2>
-      <p>Rustic Garden's proposed Universal Acceptance Day 2027 concept in Kavutiri, Embu County, explores a practical question: can digital systems make it easier for rural producers to reach the people and markets they choose?</p>
-      <p>The proposed programme brings farmers, cooperatives, businesses, educators and technology practitioners together to test selected websites, forms and email workflows, document compatibility gaps, and identify practical next steps.</p>
-      <p>Universal Acceptance helps digital systems correctly accept and process valid domain names and email addresses, including internationalized forms. It does not by itself provide connectivity, market demand or higher prices.</p>
-      <div class="actions"><a class="btn btn-dark" href="internet.html">Read more ↗</a></div>
-    </div>
-    <aside class="event-panel reveal">
-      <span class="event-label">Proposed event · subject to confirmation</span>
-      <h3>One farmer. One real test. Evidence that matters.</h3>
-      <p><strong>Proposed date:</strong> 22 April 2027<br><strong>Proposed time:</strong> 10:00–17:00 EAT<br><strong>Location:</strong> Kavutiri, Embu County, Kenya</p>
-      <ul><li>Listen to the farmer's actual needs.</li><li>Test authorized digital journeys and record outcomes.</li><li>Retest fixes and document what remains unresolved.</li><li>Track commercial follow-through separately from technical results.</li></ul>
-      <p>Speakers, collaborators, venue and programme details remain to be confirmed.</p>
-    </aside>
-  </div>
+<section class="section event" id="ua-day"><div class="wrap event-grid">
+  <div class="reveal"><div class="eyebrow" style="color:var(--clay)">04 / Community & digital inclusion</div><h2>From the coffee farm to the <em>global internet.</em></h2><p>Rustic Garden's proposed Universal Acceptance Day 2027 concept in Kavutiri, Embu County, explores a practical question: can digital systems make it easier for rural producers to reach the people and markets they choose?</p><p>The proposed programme brings farmers, cooperatives, businesses, educators and technology practitioners together to test selected websites, forms and email workflows, document compatibility gaps, and identify practical next steps.</p><p>Universal Acceptance helps digital systems correctly accept and process valid domain names and email addresses, including internationalized forms. It does not by itself provide connectivity, market demand or higher prices.</p></div>
+  <aside class="event-panel reveal"><span class="event-label">Proposed event · subject to confirmation</span><h3>One farmer. One real test. Evidence that matters.</h3><p><strong>Proposed date:</strong> 22 April 2027<br><strong>Proposed time:</strong> 10:00–17:00 EAT<br><strong>Location:</strong> Kavutiri, Embu County, Kenya</p><ul><li>Listen to the farmer's actual needs.</li><li>Test authorized digital journeys and record outcomes.</li><li>Retest fixes and document what remains unresolved.</li><li>Track commercial follow-through separately from technical results.</li></ul><p>Speakers, collaborators, venue and programme details remain to be confirmed.</p></aside>
 </div></section>
-
-<!-- ============ CONTACT ============ -->
 <section class="section visit" id="visit"><div class="wrap visit-grid">
-  <div class="reveal">
-    <div class="eyebrow">A personal conversation</div>
-    <h2>Tell us what you are looking for.</h2>
-    <p>Ask about plants at Mandevu at Kwa Nyuki, coffee, farm experiences or the digital inclusion project. For plants, please confirm the exact location, opening arrangements, current stock and prices before travelling.</p>
-    <div class="contact-list">
-      <div class="contact-item"><span>Plants &amp; general enquiries</span><a href="mailto:groupnomad@outlook.com">groupnomad@outlook.com ↗</a></div>
-      <div class="contact-item"><span>Coffee enquiries</span><a href="mailto:gibbscoffee@zohomail.eu">gibbscoffee@zohomail.eu ↗</a></div>
-      <div class="contact-item"><span>Telephone</span><a href="tel:+254722704997">+254 722 704 997 ↗</a></div>
-    </div>
+  <div class="reveal"><div class="eyebrow">A personal conversation</div><h2>Tell us what you are looking for.</h2><p>Ask about coffee, plants at Mandevu at Kwa Nyuki, farm experiences or the digital inclusion project. For plants, please confirm the exact location, opening arrangements, current stock and prices before travelling.</p>
+    <div class="contact-list"><div class="contact-item"><span>Coffee enquiries</span><a href="mailto:gibbscoffee@zohomail.eu">gibbscoffee@zohomail.eu ↗</a></div><div class="contact-item"><span>General / project enquiries</span><a href="mailto:groupnomad@outlook.com">groupnomad@outlook.com ↗</a></div><div class="contact-item"><span>Telephone listed in supplied farm page</span><a href="tel:+254722704997">+254 722 704 997 ↗</a></div></div>
+    <p class="fineprint">The supplied house-plant page also lists +254 722 204 997 and +254 727 149 757 for its Ngina Road business. Those details have not been assumed to belong to Mandevu at Kwa Nyuki; please confirm the correct plant-sales contact before publishing it here.</p>
   </div>
-  <aside class="contact-box reveal">
-    <div class="eyebrow">Make it yours</div>
-    <h3>A note, not a mailing list.</h3>
-    <p>This site does not collect or store your details. Use your email app to send an enquiry, with the subject pre-filled for the topic you choose.</p>
-    <a class="btn" href="mailto:groupnomad@outlook.com?subject=Plant%20enquiry%20%28Mandevu%20at%20Kwa%20Nyuki%29">Ask about plants ↗</a>
-    <a class="btn btn-ghost" href="mailto:groupnomad@outlook.com?subject=Rustic%20Garden%20enquiry">Something else ↗</a>
-    <p style="margin-top:20px;font-size:.78rem">For plants, ask about current availability, size and collection details. For coffee orders, include the quantity, green or roasted preference, roast style and delivery destination.</p>
-  </aside>
+  <aside class="contact-box reveal"><div class="eyebrow">Make it yours</div><h3>A note, not a mailing list.</h3><p>This site does not collect or store your details. Use your email app to send an enquiry, with the subject pre-filled for the topic you choose.</p><a class="btn" href="mailto:groupnomad@outlook.com?subject=Rustic%20Garden%20enquiry">Write an enquiry ↗</a><p style="margin-top:20px;font-size:.78rem">For coffee orders, include the quantity, green or roasted preference, roast style and delivery destination. For plants, ask about current availability and collection details.</p></aside>
 </div></section>
-
 </main>
-
-<footer class="footer"><div class="wrap">
-  <div><div class="footer-brand">Rustic <em>Garden</em></div><div>Mandevu at Kwa Nyuki · Rooted in Kenya · Growing with intention</div></div>
-  <div class="footer-links">
-    <a href="#collection">Plants</a><a href="#care">Care</a><a href="#coffee">Coffee</a><a href="#experiences">Experiences</a><a href="#ua-day">UA Day 2027</a>
-    <a href="product.html">Products</a><a href="consulting.html">Consulting</a><a href="internet.html">Internet</a><a href="wellbeing.html">Wellbeing</a><a href="payment.html">Payment</a>
-    <a href="https://github.com/groupdougie/rustic-garden" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-  </div>
-  <div>© <span id="year">2026</span> Rustic Garden</div>
-</div></footer>
-
+<footer class="footer"><div class="wrap"><div><div class="footer-brand">Rustic <em>Garden</em></div><div>Rooted in Kenya · Growing with intention</div></div><div class="footer-links"><a href="#story">Philosophy</a><a href="#coffee">Coffee</a><a href="#mandevu">Mandevu Plants</a><a href="#ua-day">UA Day 2027</a><a href="https://github.com/groupdougie/rustic-garden" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><div>© <span id="year">2026</span> Rustic Garden</div></div></footer>
 <script>
-(function () {
-  // Mobile menu
-  var menuBtn = document.getElementById('menuBtn');
-  var navLinks = document.getElementById('navLinks');
-  function closeMenu() { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
-  menuBtn.addEventListener('click', function () {
-    var open = navLinks.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', String(open));
-  });
-  navLinks.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeMenu); });
-
-  // "Rustic Garden" dropdown: close on outside click, Escape, or link click
-  var more = document.querySelector('.nav-more');
-  if (more) {
-    document.addEventListener('click', function (e) { if (!more.contains(e.target)) more.open = false; });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { more.open = false; closeMenu(); } });
-    more.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { more.open = false; }); });
+(function(){
+  const menuBtn=document.getElementById('menuBtn');
+  const navLinks=document.getElementById('navLinks');
+  if(menuBtn&&navLinks){
+    menuBtn.addEventListener('click',()=>{
+      const open=navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded',String(open));
+      menuBtn.textContent=open?'Close ×':'Menu ☰';
+    });
+    navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+      navLinks.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.textContent='Menu ☰';
+    }));
   }
-
-  // Plant finder
-  var mailBase = 'mailto:groupnomad@outlook.com?subject=';
-  function mail(plant) { return mailBase + encodeURIComponent('Plant enquiry: ' + plant + ' (Mandevu at Kwa Nyuki)'); }
-  var picks = {
-    forgetful: { img: 'assets/img/plant-snake.svg', alt: 'Snake plant', tag: 'For a busy home', name: 'Snake plant',
-      text: 'Upright and low-fuss. It prefers well-draining soil and being left to dry out between waterings, which suits a busy routine.' },
-    bright: { img: 'assets/img/plant-spider.svg', alt: 'Spider plant', tag: 'For a bright room', name: 'Spider plant',
-      text: 'Arching, cheerful foliage that enjoys bright indirect light and lightly moist, not waterlogged, soil. Keep it out of harsh direct sun.' },
-    quiet: { img: 'assets/img/plant-snake.svg', alt: 'Snake plant', tag: 'For a quiet corner', name: 'Snake plant',
-      text: 'Snake plants are among the more forgiving choices for dimmer spots. Growth will be slower in low light, so water sparingly. Ask us what else suits your corner.' }
-  };
-  var buttons = document.querySelectorAll('#choices .choice');
-  function show(key) {
-    var p = picks[key]; if (!p) return;
-    document.getElementById('resultImg').src = p.img;
-    document.getElementById('resultImg').alt = p.alt;
-    document.getElementById('resultTag').textContent = p.tag;
-    document.getElementById('resultName').textContent = p.name;
-    document.getElementById('resultText').textContent = p.text;
-    document.getElementById('resultLink').href = mail(p.name);
-    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.pick === key)); });
-  }
-  buttons.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.pick); }); });
-
-  // Scroll reveal
-  var items = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    items.forEach(function (el) { io.observe(el); });
-  } else {
-    items.forEach(function (el) { el.classList.add('in'); });
-  }
-
-  // Footer year
-  var y = document.getElementById('year');
-  if (y) y.textContent = new Date().getFullYear();
+  document.getElementById('year').textContent=new Date().getFullYear();
+  const items=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('in');observer.unobserve(entry.target)}});
+    },{threshold:.12});
+    items.forEach(item=>observer.observe(item));
+  }else{items.forEach(item=>item.classList.add('in'))}
 })();
 </script>
 </body>
