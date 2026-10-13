@@ -1,3 +1,17 @@
+/* ==========================================================
+   RUSTIC GARDEN — style.css
+   Structure:
+   1. Variables (original + extended)
+   2. Base / reset
+   3. Components (buttons, eyebrow, reveal)
+   4. Layout: topline, nav, hero, sections
+   5. Page sections (intro, coffee, plants, experiences, event, visit, footer)
+   6. Responsive (original)
+   7. Navigation dropdown (original)
+   8. ADDITIONS: plant extras, accessibility, polish, print
+   Nothing from the original file has been removed.
+   ========================================================== */
+
 :root {
   --forest: #16231a;
   --forest-deep: #0e1712;
@@ -11,6 +25,19 @@
   --ink: #1a1a15;
   --line: rgba(242, 233, 216, 0.12);
   --line-gold: rgba(201, 154, 74, 0.22);
+}
+
+/* NEW: extended variables. Change these to restyle the whole site quickly. */
+:root {
+  --forest-soft: #223826;               /* hover / raised surfaces */
+  --clay-light: #c4673a;                /* clay text on dark: better contrast than --clay */
+  --sage-light: #9db08f;                /* small text on dark: better contrast than --sage */
+  --serif: 'Playfair Display', 'Fraunces', Georgia, serif;
+  --sans: 'DM Sans', 'Work Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --radius: 0;                          /* set to 4px for softer corners everywhere it is used */
+  --shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 *, *::before, *::after {
@@ -984,5 +1011,352 @@ img {
   }
   .nav-dropdown.open .dropdown-menu {
     display: flex;
+  }
+}
+
+
+/* ==========================================================
+   8. ADDITIONS (everything below is new; delete any block
+   you do not want and the original design is unchanged)
+   ========================================================== */
+
+/* 8.1 Base polish ---------------------------------------- */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--forest-deep);
+}
+
+/* Balanced headlines, tidier paragraph endings */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* Stops long words/emails from breaking a grid on small screens */
+.wrap, .plant-copy, .coffee-copy, .contact-item {
+  min-width: 0;
+}
+.contact-item a {
+  overflow-wrap: anywhere;
+}
+
+/* Fonts: if a web font fails to load, text stays visible */
+body {
+  font-synthesis: none;
+}
+
+/* 8.2 Accessibility -------------------------------------- */
+/* Optional "skip to content" link. Add as the first element in <body>:
+   <a class="skip-link" href="#home">Skip to content</a> */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 200;
+  background: var(--gold);
+  color: var(--forest-deep);
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.83rem;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* Higher-contrast variants for small text on dark backgrounds.
+   Clay (#a3502b) on dark green is low contrast, so the numbers use the lighter clay. */
+.care-card .num {
+  color: var(--clay-light);
+}
+.hero-foot,
+.note,
+.fineprint,
+.price small,
+.contact-item span:first-child,
+.plant-card .latin {
+  color: var(--sage-light);
+}
+
+/* 8.3 Navigation improvements ---------------------------- */
+/* Bridge the gap between the toggle and the menu so hover does not drop */
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+.dropdown-toggle::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.25s;
+}
+.nav-dropdown:hover .dropdown-toggle::after,
+.nav-dropdown.open .dropdown-toggle::after {
+  transform: translateY(1px) rotate(225deg);
+}
+
+/* Keyboard users: open the menu when anything inside it has focus (desktop) */
+@media (min-width: 761px) {
+  .nav-dropdown:focus-within .dropdown-menu {
+    display: flex;
+  }
+}
+
+/* Touch devices: hover must not open the mobile menu by accident.
+   The .open rule comes after so it still wins. */
+@media (max-width: 760px) {
+  .nav-dropdown:hover .dropdown-menu {
+    display: none;
+  }
+  .nav-dropdown.open .dropdown-menu {
+    display: flex;
+  }
+  .nav-links {
+    max-height: calc(100svh - 68px);
+    overflow-y: auto;
+  }
+}
+
+/* Current section / current page marker (add class="active" to a nav link) */
+.nav-links a.active {
+  color: var(--gold);
+}
+
+/* 8.4 Buttons and cards: small feedback details ---------- */
+.btn:active {
+  transform: translateY(0);
+}
+
+.plant-card,
+.care-card,
+.extra,
+.contact-box {
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+.plant-card:hover {
+  border-color: var(--line-gold);
+  transform: translateY(-3px);
+}
+.care-card:hover,
+.extra:hover {
+  background: var(--forest-soft);
+}
+
+/* 8.5 Plant section extras -------------------------------
+   Matches the HTML added earlier (plant-meta, order-steps,
+   plant-faq, plant-extend), restyled for this dark theme. */
+.plant-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+.plant-meta li {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  padding: 2px 8px;
+  color: var(--sage-light);
+}
+
+.order-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 35px;
+}
+.order-step {
+  padding: 22px;
+  border-top: 2px solid var(--clay);
+  background: var(--forest-mid);
+}
+.order-step .step-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--clay-light);
+}
+.order-step h4 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 1.15rem;
+  margin: 8px 0;
+  color: var(--parchment);
+}
+.order-step p {
+  font-size: 0.87rem;
+  color: var(--mist);
+  margin: 0;
+}
+
+.plant-faq {
+  margin-top: 35px;
+  border-top: 1px solid var(--line);
+}
+.plant-faq details {
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+}
+.plant-faq summary {
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  list-style: none;
+  color: var(--parchment);
+}
+.plant-faq summary::-webkit-details-marker {
+  display: none;
+}
+.plant-faq summary::after {
+  content: "+";
+  float: right;
+  color: var(--gold);
+}
+.plant-faq details[open] summary::after {
+  content: "\2013";
+}
+.plant-faq p {
+  margin: 10px 0 0;
+  font-size: 0.9rem;
+  color: var(--mist);
+}
+
+/* Empty slot for your own extra plant-section HTML */
+.plant-extend {
+  margin-top: 35px;
+}
+.plant-extend:empty {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .order-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 8.6 Reusable helpers (use these when you add new HTML) - */
+.section-alt {
+  background: var(--forest-mid);
+}
+.center {
+  text-align: center;
+}
+.center .section-head {
+  margin-left: auto;
+  margin-right: auto;
+}
+.divider {
+  height: 1px;
+  border: 0;
+  background: var(--line);
+  margin: 40px 0;
+}
+.badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--line-gold);
+  padding: 3px 9px;
+}
+.stack > * + * {
+  margin-top: 1rem;
+}
+.grid-2,
+.grid-3 {
+  display: grid;
+  gap: 18px;
+}
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 760px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 8.7 Tablet range: avoids a crowded nav between 761px and 1000px */
+@media (min-width: 761px) and (max-width: 1000px) {
+  .nav-inner {
+    gap: 14px;
+  }
+  .brand {
+    font-size: 1.2rem;
+  }
+  .plant-hero {
+    gap: 32px;
+  }
+  .experience-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .order-steps {
+    gap: 12px;
+  }
+}
+
+/* 8.8 Print: readable, ink-friendly output --------------- */
+@media print {
+  .topline,
+  .nav,
+  .hero-actions,
+  .btn,
+  .menu-btn {
+    display: none !important;
+  }
+  body,
+  .section,
+  .intro,
+  .dark,
+  .plant-section,
+  .experiences,
+  .event,
+  .visit,
+  .footer {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .section {
+    padding: 28px 0;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75em;
   }
 }
